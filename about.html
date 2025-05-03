@@ -1,0 +1,1405 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>О нас - Rus.mastery</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Стили, адаптированные из index.TXT */
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&display=swap');
+
+        :root {
+            --primary: #4361ee;
+            --primary-light: #4895ef;
+            --primary-dark: #3f37c9;
+            --secondary: #ff8c00;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --gray: #6c757d;
+            --gray-light: #e9ecef;
+            --success: #4caf50;
+            --warning: #ff9800;
+            --danger: #f44336;
+            --border-radius: 12px;
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+            --shadow-md: 0 5px 15px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.15);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1100px; /* Slightly wider container for content */
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header styles */
+        header {
+            background-color: #ffffff;
+            padding: 15px 0;
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        header.scrolled {
+            box-shadow: var(--shadow-md);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px; /* Match container width */
+             margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-image {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            color: white;
+            font-weight: 800;
+        }
+
+         .logo span {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+        }
+
+        .logo span.accent {
+            color: var(--secondary);
+            -webkit-text-fill-color: var(--secondary);
+        }
+
+        .search-bar { /* Optional: Keep search bar if needed */
+            display: flex;
+            width: 45%;
+            position: relative;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 30px;
+            outline: none;
+            font-size: 14px;
+            background-color: var(--gray-light);
+            transition: var(--transition);
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .search-bar input:focus {
+            background-color: white;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .search-bar button {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            padding: 7px 15px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            transition: var(--transition);
+            box-shadow: 0 3px 8px rgba(67, 97, 238, 0.3);
+        }
+
+        .search-bar button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 12px rgba(67, 97, 238, 0.4);
+        }
+
+        .user-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .login-btn, .register-btn {
+            padding: 10px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        .login-btn {
+            background-color: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .login-btn:hover {
+            background-color: rgba(67, 97, 238, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .register-btn {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            border: none;
+            box-shadow: 0 4px 10px rgba(67, 97, 238, 0.3);
+        }
+
+        .register-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(67, 97, 238, 0.4);
+        }
+
+        /* Navigation */
+        nav {
+            background-color: white;
+            padding: 5px 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            position: relative;
+        }
+
+        .nav-container {
+            position: relative;
+            max-width: 1200px; /* Match container width */
+             margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .nav-scroll-indicator {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 50px;
+            background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            overflow-x: auto;
+            white-space: nowrap;
+            scrollbar-width: none;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 5px;
+        }
+
+        .nav-links::-webkit-scrollbar {
+            display: none;
+        }
+
+        .nav-links li {
+            margin-right: 5px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            padding: 12px 18px;
+            display: block;
+            font-size: 14px;
+            position: relative;
+            transition: var(--transition);
+            border-radius: 30px;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+            background-color: rgba(67, 97, 238, 0.05);
+        }
+
+        .nav-links a.active {
+            color: var(--primary);
+            background-color: rgba(67, 97, 238, 0.1);
+            font-weight: 700; /* Make active link bolder */
+        }
+
+        /* Hero Section */
+        .hero-section {
+            position: relative;
+            background: linear-gradient(135deg, rgba(67, 97, 238, 0.9), rgba(72, 149, 239, 0.9)), 
+                        url('/api/placeholder/1200/400') center/cover no-repeat;
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+            margin-bottom: 60px;
+            border-radius: 0 0 50% 50% / 8%;
+            overflow: hidden;
+        }
+
+        .hero-particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero-subtitle {
+            font-size: 18px;
+            font-weight: 500;
+            margin-bottom: 20px;
+            opacity: 0.9;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 48px;
+            font-weight: 900;
+            margin-bottom: 25px;
+            letter-spacing: -0.5px;
+            line-height: 1.2;
+        }
+
+        .hero-description {
+            font-size: 18px;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            line-height: 1.8;
+        }
+
+        /* Main content */
+        main {
+            padding: 0 0 60px;
+        }
+
+        .page-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px; /* Larger title */
+            margin-bottom: 40px;
+            font-weight: 900; /* Bolder title */
+            color: var(--primary-dark);
+            text-align: center;
+            position: relative;
+        }
+        
+        .page-title::after { /* Centered underline */
+            content: '';
+            display: block;
+            width: 100px; /* Wider underline */
+            height: 4px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            border-radius: 2px;
+            position: absolute;
+            bottom: -15px; /* Position below text */
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .mission-vision-section {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 60px;
+            flex-wrap: wrap;
+        }
+
+        .mission-card, .vision-card {
+            flex: 1;
+            min-width: 300px;
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-md);
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .mission-card:hover, .vision-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .mission-card::before, .vision-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+        }
+
+        .mission-card::before {
+            background: linear-gradient(to right, var(--primary), var(--primary-light));
+        }
+
+        .vision-card::before {
+            background: linear-gradient(to right, var(--secondary), var(--primary-light));
+        }
+
+        .mission-card h2, .vision-card h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            color: var(--primary-dark);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .icon-circle {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            color: white;
+        }
+
+        .mission-card .icon-circle {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+        }
+
+        .vision-card .icon-circle {
+            background: linear-gradient(135deg, var(--secondary), var(--primary-light));
+        }
+
+        .about-section {
+            background-color: #ffffff;
+            padding: 50px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-md);
+            margin-bottom: 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-section.with-pattern {
+            position: relative;
+        }
+
+        .about-section.with-pattern::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 250px;
+            height: 250px;
+            background: radial-gradient(circle, rgba(67, 97, 238, 0.1) 20%, transparent 70%);
+            border-radius: 50%;
+            z-index: 0;
+        }
+
+        .about-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            color: var(--primary);
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--primary-light);
+            display: inline-block; /* Keep underline tight */
+            position: relative;
+            z-index: 1;
+        }
+
+        .about-section p {
+            font-size: 16px;
+            color: var(--dark);
+            line-height: 1.8; /* Increased line height for readability */
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .about-section ul {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 25px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .about-section li {
+            margin-bottom: 15px;
+            padding-left: 30px;
+            position: relative;
+            font-size: 16px;
+        }
+        
+        .about-section li::before {
+            content: '\f00c'; /* Font Awesome check icon */
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            color: var(--success);
+            position: absolute;
+            left: 0;
+            top: 2px;
+            font-size: 18px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .feature-card {
+            background-color: white;
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 25px;
+            background: linear-gradient(135deg, rgba(67, 97, 238, 0.1), rgba(72, 149, 239, 0.1));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            color: var(--primary);
+        }
+
+        .feature-card h3 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--primary-dark);
+        }
+
+        .feature-card p {
+            font-size: 14px;
+            color: var(--gray);
+            line-height: 1.7;
+        }
+
+        /* Team Section */
+        .team-section {
+            padding-bottom: 40px;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .founder-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .founder-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .founder-photo {
+            position: relative;
+            height: 300px;
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--primary-light), var(--primary));
+        }
+
+        .founder-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.9;
+            transition: var(--transition);
+        }
+
+        .founder-card:hover .founder-photo img {
+            transform: scale(1.05);
+            opacity: 1;
+        }
+
+        .founder-info {
+            padding: 30px;
+            position: relative;
+        }
+
+        .founder-info::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 5px;
+            background: linear-gradient(to right, var(--primary), var(--primary-light));
+            border-radius: 5px;
+        }
+
+        .founder-info h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 5px;
+            text-align: center;
+        }
+
+        .founder-info .role {
+            font-size: 16px;
+            color: var(--secondary);
+            font-weight: 600;
+            margin-bottom: 20px;
+            text-align: center;
+            display: block;
+        }
+
+        .founder-info .description {
+            font-size: 15px;
+            color: var(--dark);
+            line-height: 1.7;
+            margin-bottom: 25px;
+        }
+
+        .founder-social {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .founder-social a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(67, 97, 238, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .founder-social a:hover {
+            background-color: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .founder-achievements {
+            background-color: var(--light);
+            padding: 25px;
+            border-radius: var(--border-radius);
+            margin-top: 25px;
+        }
+
+        .founder-achievements h4 {
+            font-size: 18px;
+            color: var(--primary);
+            margin-bottom: 15px;
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .founder-achievements h4::before {
+            content: '\f091'; /* Trophy icon */
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: var(--secondary);
+        }
+
+        .founder-achievements p {
+            font-size: 15px;
+            margin-bottom: 20px;
+        }
+
+        .certificates-gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: flex-start;
+            margin-top: 15px;
+        }
+
+        .certificates-gallery img {
+            width: 120px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 8px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--gray-light);
+            transition: transform 0.3s ease;
+        }
+        
+        .certificates-gallery img:hover {
+            transform: scale(1.1);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* Call to Action Section */
+        .cta-section {
+            margin-top: 60px;
+            text-align: center;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            padding: 60px 30px;
+            border-radius: var(--border-radius);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 200px;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+
+        .cta-section::after {
+            content: '';
+            position: absolute;
+            bottom: -70px;
+            left: -70px;
+            width: 250px;
+            height: 250px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .cta-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px;
+            font-weight: 900;
+            margin-bottom: 20px;
+        }
+
+        .cta-section p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0.9;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            padding: 15px 35px;
+            background-color: var(--secondary);
+            color: white;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 16px;
+            border-radius: 50px;
+            transition: var(--transition);
+            box-shadow: 0 5px 15px rgba(255, 140, 0, 0.4);
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(255, 140, 0, 0.6);
+        }
+
+        /* Stats Section */
+        .stats-section {
+            padding: 40px 0;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .stat-card {
+            background-color: white;
+            padding: 30px 20px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .stat-number {
+            font-size: 42px;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 10px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .stat-number::after {
+            content: '+';
+            font-size: 24px;
+            position: absolute;
+            top: 5px;
+            right: -15px;
+        }
+
+        .stat-label {
+            font-size: 16px;
+            color: var(--gray);
+            font-weight: 600;
+        }
+
+        /* Footer Styles (Copied from index.TXT) */
+        footer {
+            background-color: #2d3748;
+            color: white;
+            padding: 80px 0 30px;
+            position: relative;
+            overflow: hidden;
+            margin-top: 60px; /* Add margin above footer */
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, var(--primary), var(--primary-light), var(--secondary));
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            max-width: 1200px; /* Match container width */
+             margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .footer-logo-img {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 800;
+        }
+
+        .footer-logo-text {
+            font-size: 20px;
+            font-weight: 800;
+            color: white;
+        }
+
+        .footer-about {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 20px;
+            line-height: 1.7;
+            font-size: 14px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .social-links a:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .footer-column h3 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: white;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 30px;
+            height: 3px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            border-radius: 2px;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0; /* Remove default padding */
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 14px;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-links a:hover {
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .footer-links i {
+            font-size: 12px;
+            color: var(--primary-light);
+        }
+
+        .contact-info {
+            list-style: none;
+             padding: 0; /* Remove default padding */
+        }
+
+        .contact-info li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+        }
+
+        .contact-info i {
+            margin-top: 5px;
+            color: var(--primary-light);
+        }
+
+        .copyright {
+            margin-top: 60px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 14px;
+            flex-wrap: wrap;
+            gap: 20px;
+             max-width: 1200px; /* Match container width */
+             margin-left: auto;
+             margin-right: auto;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+         .copyright a {
+             color: rgba(255, 255, 255, 0.6);
+             text-decoration: none;
+             transition: color 0.3s ease;
+             margin: 0 5px; /* Add spacing for links */
+         }
+         .copyright a:hover {
+             color: white;
+         }
+
+        /* Animated Background for Hero */
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            opacity: 0;
+            animation: float 8s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+            25% {
+                opacity: 0.6;
+            }
+            50% {
+                transform: translateY(-20px) rotate(180deg);
+                opacity: 0.2;
+            }
+            75% {
+                opacity: 0.6;
+            }
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 36px;
+            }
+            
+            .hero-description {
+                font-size: 16px;
+            }
+            
+            .mission-vision-section {
+                flex-direction: column;
+            }
+            
+            .feature-card, .stat-card {
+                padding: 20px;
+            }
+            
+            .page-title {
+                font-size: 30px;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .search-bar {
+                display: none;
+            }
+            
+            .founder-photo {
+                height: 250px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 28px;
+            }
+            
+            .cta-section h2 {
+                font-size: 28px;
+            }
+            
+            .user-actions {
+                gap: 10px;
+            }
+            
+            .login-btn, .register-btn {
+                padding: 8px 15px;
+                font-size: 13px;
+            }
+            
+            .nav-links a {
+                padding: 10px 14px;
+                font-size: 13px;
+            }
+            
+            .about-section {
+                padding: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <a href="index.html" class="logo">
+                <div class="logo-image">R</div>
+                <span>Rus.<span class="accent">mastery</span></span>
+            </a>
+            <div class="search-bar">
+                <input type="text" placeholder="Поиск по курсам и материалам...">
+                <button type="submit">Поиск</button>
+            </div>
+            <div class="user-actions">
+                <a href="login.html" class="login-btn">Вход</a>
+                <a href="register.html" class="register-btn">Регистрация</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <ul class="nav-links">
+                <li><a href="index.html">Главная</a></li>
+                <li><a href="courses.html">Курсы</a></li>
+                <li><a href="resources.html">Ресурсы</a></li>
+                <li><a href="blog.html">Блог</a></li>
+                <li><a href="about.html" class="active">О нас</a></li>
+                <li><a href="contact.html">Контакты</a></li>
+                <li><a href="community.html">Сообщество</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+            </ul>
+            <div class="nav-scroll-indicator"></div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-particles">
+            <!-- Particles will be added dynamically with JS -->
+        </div>
+        <div class="hero-content">
+            <p class="hero-subtitle">НАША ИСТОРИЯ</p>
+            <h1 class="hero-title">Команда энтузиастов русского языка</h1>
+            <p class="hero-description">Познакомьтесь с нашей командой и узнайте, что вдохновляет нас делиться любовью к русскому языку и культуре с учениками со всего мира.</p>
+        </div>
+    </section>
+
+    <main class="container">
+        <h1 class="page-title">О нашей платформе</h1>
+
+        <section class="mission-vision-section">
+            <div class="mission-card">
+                <h2>
+                    <div class="icon-circle">
+                        <i class="fas fa-bullseye"></i>
+                    </div>
+                    Наша миссия
+                </h2>
+                <p>Наша миссия — сделать изучение русского языка доступным, эффективным и увлекательным для людей со всего мира. Мы стремимся разрушить языковые барьеры и помочь нашим студентам не только освоить язык, но и глубже понять богатую русскую культуру.</p>
+                <p>Мы придерживаемся принципа, что каждый заслуживает высококачественного образования независимо от местоположения и финансовых возможностей.</p>
+            </div>
+            <div class="vision-card">
+                <h2>
+                    <div class="icon-circle">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    Наше видение
+                </h2>
+                <p>Мы видим мир, где русский язык становится мостом между культурами, открывая возможности для международного сотрудничества, культурного обмена и личностного роста. Наша цель — стать ведущей образовательной платформой, которая объединяет лучшие методики преподавания с передовыми технологиями.</p>
+                <p>Мы создаем пространство, где учителя и ученики могут взаимодействовать и развиваться вместе.</p>
+            </div>
+        </section>
+
+        <section class="about-section with-pattern">
+            <h2>История создания Rus.mastery</h2>
+            <p>История Rus.mastery началась в 2018 году, когда группа преподавателей русского языка как иностранного объединилась с профессионалами в области веб-разработки и онлайн-образования. Нас объединяла общая цель: сделать изучение русского языка доступным для каждого заинтересованного человека в мире.</p>
+            <p>За первые три года нашими курсами воспользовались более 15 000 студентов из 45 стран мира. Мы постоянно развиваемся, совершенствуя наши методики и технологические решения, чтобы предоставить наилучший опыт обучения для наших пользователей.</p>
+            <p>Сегодня Rus.mastery — это не просто образовательная платформа, а целое сообщество людей, увлеченных русским языком и культурой.</p>
+            
+            <h2>Наша философия обучения</h2>
+            <p>Мы верим, что изучение языка должно быть:</p>
+            <ul>
+                <li>Эффективным и адаптированным под индивидуальные потребности каждого студента</li>
+                <li>Практическим и связанным с реальными жизненными ситуациями</li>
+                <li>Увлекательным и мотивирующим, а не монотонным и скучным</li>
+                <li>Доступным для людей с разным уровнем владения языком</li>
+                <li>Культурно обогащающим, открывающим дверь в мир русской литературы, искусства и традиций</li>
+            </ul>
+        </section>
+
+        <h2 class="page-title">Почему выбирают нас</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <h3>Профессиональные преподаватели</h3>
+                <p>Все наши учителя имеют высшее филологическое образование и опыт преподавания русского языка как иностранного.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-book"></i>
+                </div>
+                <h3>Авторские методики</h3>
+                <p>Мы используем современные и проверенные методики, разработанные с учетом особенностей изучения русского языка.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h3>Активное сообщество</h3>
+                <p>Присоединяйтесь к нашему сообществу, где вы сможете практиковать язык и находить друзей по интересам.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-tools"></i>
+                </div>
+                <h3>Современные технологии</h3>
+                <p>Мы применяем передовые технологии для создания интерактивных уроков и отслеживания прогресса обучения.</p>
+            </div>
+        </div>
+
+        <section class="stats-section">
+            <h2 class="page-title">Факты о нас</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">25000</div>
+                    <div class="stat-label">Активных студентов</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">45</div>
+                    <div class="stat-label">Стран мира</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">30</div>
+                    <div class="stat-label">Профессиональных преподавателей</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">95</div>
+                    <div class="stat-label">Процент удовлетворенности</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="team-section">
+            <h2 class="page-title">Наша команда</h2>
+            <div class="team-grid">
+                <div class="founder-card">
+                    <div class="founder-photo">
+                        <img src="image/Камила-Photoroom.png" alt="Азимова Камила Муйдинжоновна">
+                    </div>
+                    <div class="founder-info">
+                        <h3>Азимова Камила Муйдинжоновна</h3>
+                        <span class="role">Основатель и директор</span>
+                        <p class="description">Доктор филологических наук с более чем 15-летним опытом преподавания русского языка как иностранного. Автор многочисленных методических пособий и научных статей по лингвистике и методике преподавания.</p>
+                        <div class="founder-social">
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="founder-card">
+                    <div class="founder-photo">
+                        <img src="image/Татьяна-Photoroom.png" alt="Алютина Татьяна Максимовна">
+                    </div>
+                    <div class="founder-info">
+                        <h3>Алютина Татьяна Максимовна</h3>
+                        <span class="role">Технический директор</span>
+                        <p class="description">Эксперт в области веб-разработки и образовательных технологий. Более 10 лет опыта в создании интерактивных обучающих платформ. Магистр компьютерных наук и ведущий специалист по UX/UI дизайну.</p>
+                        <div class="founder-social">
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#"><i class="fab fa-github"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>  
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-section">
+            <div class="cta-content">
+                <h2>Готовы начать свое путешествие в мир русского языка?</h2>
+                <p>Присоединяйтесь к нашему сообществу сегодня и откройте для себя новые возможности вместе с Rus.mastery!</p>
+                <a href="register.html" class="cta-btn">Начать бесплатно</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <div class="footer-logo">
+                    <div class="footer-logo-img">R</div>
+                    <div class="footer-logo-text">Rus.mastery</div>
+                </div>
+                <p class="footer-about">Rus.mastery — ваш надежный проводник в мир русского языка и культуры. Мы стремимся сделать изучение русского языка доступным, эффективным и увлекательным для всех.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-telegram"></i></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Быстрые ссылки</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html"><i class="fas fa-chevron-right"></i> Главная</a></li>
+                    <li><a href="courses.html"><i class="fas fa-chevron-right"></i> Курсы</a></li>
+                    <li><a href="teachers.html"><i class="fas fa-chevron-right"></i> Преподаватели</a></li>
+                    <li><a href="resources.html"><i class="fas fa-chevron-right"></i> Ресурсы</a></li>
+                    <li><a href="blog.html"><i class="fas fa-chevron-right"></i> Блог</a></li>
+                    <li><a href="contact.html"><i class="fas fa-chevron-right"></i> Контакты</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Помощь и поддержка</h3>
+                <ul class="footer-links">
+                    <li><a href="faq.html"><i class="fas fa-chevron-right"></i> Часто задаваемые вопросы</a></li>
+                    <li><a href="terms.html"><i class="fas fa-chevron-right"></i> Условия использования</a></li>
+                    <li><a href="privacy.html"><i class="fas fa-chevron-right"></i> Политика конфиденциальности</a></li>
+                    <li><a href="support.html"><i class="fas fa-chevron-right"></i> Служба поддержки</a></li>
+                    <li><a href="feedback.html"><i class="fas fa-chevron-right"></i> Обратная связь</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Контактная информация</h3>
+                <ul class="contact-info">
+                    <li>
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>г. Москва, ул. Академика Королева, 12, офис 504</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-phone"></i>
+                        <span>+7 (495) 123-45-67</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-envelope"></i>
+                        <span>info@rusmastery.ru</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-clock"></i>
+                        <span>Пн-Пт: 9:00 - 18:00 (МСК)</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <div>© 2025 Rus.mastery. Все права защищены.</div>
+            <div>
+                <a href="terms.html">Условия</a> |
+                <a href="privacy.html">Конфиденциальность</a> |
+                <a href="cookies.html">Cookies</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript for Particle Animation in Hero Section -->
+    <script>
+        // Создаем частицы для фона героя
+        document.addEventListener('DOMContentLoaded', function() {
+            const heroParticles = document.querySelector('.hero-particles');
+            
+            // Создаем 30 частиц
+            for (let i = 0; i < 30; i++) {
+                createParticle(heroParticles);
+            }
+            
+            // Функция для прокрутки навигации
+            const navLinks = document.querySelector('.nav-links');
+            if (navLinks) {
+                navLinks.addEventListener('wheel', function(e) {
+                    e.preventDefault();
+                    navLinks.scrollLeft += e.deltaY;
+                });
+            }
+            
+            // Изменение хедера при прокрутке
+            window.addEventListener('scroll', function() {
+                const header = document.querySelector('header');
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            });
+        });
+        
+        // Функция для создания частицы
+        function createParticle(container) {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            
+            // Рандомные размеры и позиции
+            const size = Math.random() * 15 + 5;
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            
+            particle.style.left = `${Math.random() * 100}%`;
+            particle.style.top = `${Math.random() * 100}%`;
+            
+            // Рандомная продолжительность и задержка анимации
+            particle.style.animationDuration = `${Math.random() * 10 + 5}s`;
+            particle.style.animationDelay = `${Math.random() * 5}s`;
+            
+            container.appendChild(particle);
+        }
+    </script>
+</body>
+</html>

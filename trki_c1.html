@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тесты ТРКИ-С1 - Rus.mastery</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Стили, адаптированные из index.TXT / all_tests.html */
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap');
+        /* Убедимся, что Playfair Display импортирован */
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&display=swap');
+
+        :root {
+            --primary: #4361ee;
+            --primary-light: #4895ef;
+            --primary-dark: #3f37c9;
+            --secondary: #ff8c00;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --gray: #6c757d;
+            --gray-light: #e9ecef;
+            --success: #4caf50;
+            --warning: #ff9800;
+            --danger: #f44336;
+            --border-radius: 12px;
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+            --shadow-md: 0 5px 15px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.15);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif; /* Основной шрифт */
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header styles */
+        header {
+            background-color: #ffffff;
+            padding: 15px 0;
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        header.scrolled {
+            box-shadow: var(--shadow-md);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+             margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-image {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            color: white;
+            font-weight: 800;
+        }
+
+         .logo span {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+        }
+
+        .logo span.accent {
+            color: var(--secondary);
+            -webkit-text-fill-color: var(--secondary);
+        }
+
+        .search-bar {
+            display: flex;
+            width: 45%;
+            position: relative;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 30px;
+            outline: none;
+            font-size: 14px;
+            background-color: var(--gray-light);
+            transition: var(--transition);
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .search-bar input:focus {
+            background-color: white;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .search-bar button {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            padding: 7px 15px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            transition: var(--transition);
+            box-shadow: 0 3px 8px rgba(67, 97, 238, 0.3);
+        }
+
+        .search-bar button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 12px rgba(67, 97, 238, 0.4);
+        }
+
+        .user-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .login-btn, .register-btn {
+            padding: 10px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        .login-btn {
+            background-color: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .login-btn:hover {
+            background-color: rgba(67, 97, 238, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .register-btn {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            border: none;
+            box-shadow: 0 4px 10px rgba(67, 97, 238, 0.3);
+        }
+
+        .register-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(67, 97, 238, 0.4);
+        }
+
+        /* Navigation */
+        nav {
+            background-color: white;
+            padding: 5px 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            position: relative;
+        }
+
+        .nav-container {
+            position: relative;
+            max-width: 1200px;
+             margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .nav-scroll-indicator {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 50px;
+            background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            overflow-x: auto;
+            white-space: nowrap;
+            scrollbar-width: none;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 5px;
+        }
+
+        .nav-links::-webkit-scrollbar {
+            display: none;
+        }
+
+        .nav-links li {
+            margin-right: 5px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            padding: 12px 18px;
+            display: block;
+            font-size: 14px;
+            position: relative;
+            transition: var(--transition);
+            border-radius: 30px;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+            background-color: rgba(67, 97, 238, 0.05);
+        }
+
+        .nav-links a.active {
+            color: var(--primary);
+            background-color: rgba(67, 97, 238, 0.1);
+            font-weight: 700;
+        }
+
+        /* Main content */
+        main {
+            padding: 60px 0;
+        }
+
+        .page-title {
+            font-family: 'Playfair Display', serif; /* <<< Применяем шрифт */
+            font-size: 36px;
+            margin-bottom: 50px;
+            font-weight: 900;
+            color: var(--primary-dark);
+            text-align: center;
+            position: relative;
+        }
+         .page-title::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            border-radius: 2px;
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* Test Sections Grid */
+        .test-sections-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .test-section-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            border: 1px solid var(--gray-light);
+        }
+
+        .test-section-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .test-section-header {
+            padding: 25px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .test-section-header i {
+            font-size: 28px;
+            width: 50px;
+            text-align: center;
+        }
+
+        .test-section-header h3 {
+            font-size: 20px;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .test-section-content {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .test-section-content p {
+            color: var(--dark);
+            font-size: 15px;
+            margin-bottom: 25px;
+            line-height: 1.7;
+            flex-grow: 1;
+        }
+
+        .test-section-content .section-details {
+            font-size: 14px;
+            color: var(--gray);
+            margin-bottom: 25px;
+        }
+         .test-section-content .section-details span {
+             display: inline-block;
+             margin-right: 15px;
+         }
+          .test-section-content .section-details i {
+              margin-right: 5px;
+              color: var(--primary);
+          }
+
+        .test-section-content .start-section-btn {
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 15px;
+            text-decoration: none;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background-color: var(--secondary);
+            color: white;
+            box-shadow: 0 4px 10px rgba(255, 140, 0, 0.3);
+            border: none;
+            cursor: pointer;
+            margin-top: auto;
+            align-self: center;
+        }
+
+        .start-section-btn:hover {
+            background-color: #e67e00;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(255, 140, 0, 0.4);
+        }
+         .start-section-btn.disabled {
+             background: var(--gray-light);
+             color: var(--gray);
+             cursor: not-allowed;
+             box-shadow: none;
+         }
+         .start-section-btn.disabled:hover {
+             transform: none;
+             box-shadow: none;
+         }
+
+
+        /* Footer Styles */
+        footer {
+            background-color: #2d3748;
+            color: white;
+            padding: 80px 0 30px;
+            position: relative;
+            overflow: hidden;
+            margin-top: 60px;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, var(--primary), var(--primary-light), var(--secondary));
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+             margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .footer-logo-img {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 800;
+        }
+
+        .footer-logo-text {
+            font-size: 20px;
+            font-weight: 800;
+            color: white;
+        }
+
+        .footer-about {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 20px;
+            line-height: 1.7;
+            font-size: 14px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .social-links a:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .footer-column h3 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: white;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 30px;
+            height: 3px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            border-radius: 2px;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 14px;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-links a:hover {
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .footer-links i {
+            font-size: 12px;
+            color: var(--primary-light);
+        }
+
+        .contact-info {
+            list-style: none;
+             padding: 0;
+        }
+
+        .contact-info li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+        }
+
+        .contact-info i {
+            margin-top: 5px;
+            color: var(--primary-light);
+        }
+
+        .copyright {
+            margin-top: 60px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 14px;
+            flex-wrap: wrap;
+            gap: 20px;
+             max-width: 1200px;
+             margin-left: auto;
+             margin-right: auto;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+         .copyright a {
+             color: rgba(255, 255, 255, 0.6);
+             text-decoration: none;
+             transition: color 0.3s ease;
+             margin: 0 5px;
+         }
+         .copyright a:hover {
+             color: white;
+         }
+
+        /* Responsive styles */
+        @media (max-width: 992px) {
+             .test-sections-grid {
+                 grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+             }
+        }
+
+        @media (max-width: 768px) {
+            .header-content { flex-direction: column; padding: 10px; }
+            .search-bar { width: 100%; margin: 15px 0; display: none; }
+            .user-actions { width: 100%; justify-content: center; gap: 10px; }
+            .login-btn, .register-btn { width: 45%; text-align: center; }
+            .nav-links li a { padding: 8px 12px; font-size: 13px; }
+            .page-title { font-size: 28px; }
+            .test-sections-grid { grid-template-columns: 1fr; gap: 20px; }
+            .test-section-header h3 { font-size: 18px; }
+            .test-section-content p { font-size: 14px; }
+            .start-section-btn { font-size: 14px; padding: 10px 20px; }
+            .footer-content { grid-template-columns: 1fr; gap: 30px; padding: 0 15px; }
+            .copyright { flex-direction: column; text-align: center; gap: 10px; }
+        }
+
+        @media (max-width: 576px) {
+            .logo span { display: none; }
+            .user-actions { margin-top: 10px; }
+            .copyright { justify-content: center; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <a href="index.html" class="logo">
+                <div class="logo-image">R</div>
+                <span>Rus.<span class="accent">mastery</span></span>
+            </a>
+            <div class="search-bar">
+                <input type="text" placeholder="Поиск тестов...">
+                <button type="submit">Найти</button>
+            </div>
+            <div class="user-actions">
+                <a href="#" class="login-btn">Войти</a>
+                <a href="#" class="register-btn">Регистрация</a>
+            </div>
+        </div>
+    </header>
+
+    <nav>
+        <div class="container nav-container">
+            <ul class="nav-links">
+                <li><a href="index.html">Главная</a></li>
+                <li><a href="all_tests.html">Все тесты</a></li>
+                <li><a href="dtm.html">DTM</a></li>
+                <li><a href="trki_c1.html" class="active">ТРКИ-С1</a></li> <li><a href="milliy.html">Миллий</a></li>
+                <li><a href="#">Грамматика</a></li>
+                <li><a href="literature.html">Литература</a></li>
+                <li><a href="#">Разговорный</a></li>
+                <li><a href="#">Контакты</a></li>
+                <li><a href="about.html">О нас</a></li>
+            </ul>
+            <div class="nav-scroll-indicator"></div>
+        </div>
+    </nav>
+
+    <main>
+        <div class="container">
+            <h1 class="page-title">Тесты ТРКИ-С1 (TORFL C1)</h1>
+            <p style="text-align: center; max-width: 700px; margin: -30px auto 50px; color: var(--gray);">
+                Подготовьтесь к успешной сдаче международного экзамена по русскому языку как иностранному (уровень C1), проработав каждый субтест.
+            </p>
+
+            <div class="test-sections-grid">
+                <div class="test-section-card">
+                    <div class="test-section-header">
+                        <i class="fas fa-spell-check"></i>
+                        <h3>Лексика. Грамматика</h3>
+                    </div>
+                    <div class="test-section-content">
+                        <p>Проверка словарного запаса и умения правильно использовать грамматические конструкции русского языка на уровне C1.</p>
+                        <div class="section-details">
+                            <span><i class="fas fa-stopwatch"></i> ~90 мин</span>
+                            <span><i class="fas fa-question-circle"></i> ~100 заданий</span>
+                        </div>
+                        <a href="#" class="start-section-btn disabled">
+                            <i class="fas fa-hourglass-half"></i> Скоро
+                        </a>
+                    </div>
+                </div>
+
+                <div class="test-section-card">
+                    <div class="test-section-header">
+                        <i class="fas fa-book-open"></i>
+                        <h3>Чтение</h3>
+                    </div>
+                    <div class="test-section-content">
+                        <p>Оценка умения понимать тексты различных стилей (публицистические, художественные, научные), извлекать основную и детальную информацию.</p>
+                         <div class="section-details">
+                            <span><i class="fas fa-stopwatch"></i> ~60 мин</span>
+                            <span><i class="fas fa-file-alt"></i> ~3-4 текста</span>
+                        </div>
+                        <a href="#" class="start-section-btn disabled">
+                            <i class="fas fa-hourglass-half"></i> Скоро
+                        </a>
+                    </div>
+                </div>
+
+                <div class="test-section-card">
+                    <div class="test-section-header">
+                        <i class="fas fa-headphones-alt"></i>
+                        <h3>Аудирование</h3>
+                    </div>
+                    <div class="test-section-content">
+                        <p>Проверка навыков понимания на слух русской речи в различных ситуациях: диалоги, монологи, объявления, новости.</p>
+                         <div class="section-details">
+                            <span><i class="fas fa-stopwatch"></i> ~40 мин</span>
+                            <span><i class="fas fa-volume-up"></i> ~5-7 аудио</span>
+                        </div>
+                        <a href="#" class="start-section-btn disabled">
+                            <i class="fas fa-hourglass-half"></i> Скоро
+                        </a>
+                    </div>
+                </div>
+
+                <div class="test-section-card">
+                    <div class="test-section-header">
+                        <i class="fas fa-pencil-alt"></i>
+                        <h3>Письмо</h3>
+                    </div>
+                    <div class="test-section-content">
+                        <p>Оценка умения создавать письменные тексты различных жанров (личное письмо, официальное письмо, эссе) в соответствии с заданием.</p>
+                         <div class="section-details">
+                            <span><i class="fas fa-stopwatch"></i> ~80 мин</span>
+                            <span><i class="fas fa-edit"></i> ~2 задания</span>
+                        </div>
+                        <a href="#" class="start-section-btn disabled">
+                            <i class="fas fa-hourglass-half"></i> Скоро
+                        </a>
+                    </div>
+                </div>
+
+                <div class="test-section-card">
+                    <div class="test-section-header">
+                        <i class="fas fa-comments"></i>
+                        <h3>Говорение</h3>
+                    </div>
+                    <div class="test-section-content">
+                        <p>Проверка способности вести диалог, строить монологическое высказывание, участвовать в дискуссии на предложенные темы.</p>
+                         <div class="section-details">
+                            <span><i class="fas fa-stopwatch"></i> ~25-30 мин</span>
+                            <span><i class="fas fa-microphone"></i> ~4 задания</span>
+                        </div>
+                        <a href="#" class="start-section-btn disabled">
+                            <i class="fas fa-hourglass-half"></i> Скоро
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <div class="footer-logo">
+                        <div class="footer-logo-img">R</div>
+                        <div class="footer-logo-text">Rus.mastery</div>
+                    </div>
+                    <p class="footer-about">Современная платформа для подготовки к тестам по русскому языку и литературе.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-telegram"></i></a>
+                        <a href="#"><i class="fab fa-vk"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Навигация</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html"><i class="fas fa-chevron-right"></i> Главная</a></li>
+                        <li><a href="all_tests.html"><i class="fas fa-chevron-right"></i> Все тесты</a></li>
+                        <li><a href="dtm.html"><i class="fas fa-chevron-right"></i> DTM</a></li>
+                        <li><a href="milliy.html"><i class="fas fa-chevron-right"></i> Миллий</a></li>
+                        <li><a href="about.html"><i class="fas fa-chevron-right"></i> О нас</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Контакты</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Тесты</h3>
+                    <ul class="footer-links">
+                        <li><a href="dtm.html"><i class="fas fa-chevron-right"></i> ДТМ</a></li>
+                        <li><a href="milliy.html"><i class="fas fa-chevron-right"></i> Миллий Сертификат</a></li>
+                        <li><a href="trki_c1.html"><i class="fas fa-chevron-right"></i> ТРКИ-С1</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Грамматика</a></li>
+                        <li><a href="literature.html"><i class="fas fa-chevron-right"></i> Литература</a></li>
+                         <li><a href="#"><i class="fas fa-chevron-right"></i> Разговорный</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Контакты</h3>
+                    <ul class="contact-info">
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>г.Ташкент, Узбекистан</span> </li>
+                        <li>
+                            <i class="fas fa-phone-alt"></i>
+                            <span>+998 (XX) XXX-XX-XX</span> </li>
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            <span>info@rusmastery.uz</span> </li>
+                        <li>
+                            <i class="fas fa-clock"></i>
+                            <span>Пн-Пт: 9:00 - 18:00</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="copyright">
+                <div>© 2025 Rus.mastery. Все права защищены.</div>
+                <div>
+                    <a href="#">Политика конфиденциальности</a> |
+                    <a href="#">Условия использования</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Optional: Script for sticky header if needed
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 10) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+         // Optional: Horizontal navigation scrolling script
+         const navLinks = document.querySelector('.nav-links');
+         if (navLinks) {
+             let isDown = false;
+             let startX;
+             let scrollLeft;
+
+             navLinks.addEventListener('mousedown', (e) => {
+                 isDown = true;
+                 startX = e.pageX - navLinks.offsetLeft;
+                 scrollLeft = navLinks.scrollLeft;
+             });
+             navLinks.addEventListener('mouseleave', () => { isDown = false; });
+             navLinks.addEventListener('mouseup', () => { isDown = false; });
+             navLinks.addEventListener('mousemove', (e) => {
+                 if (!isDown) return;
+                 e.preventDefault();
+                 const x = e.pageX - navLinks.offsetLeft;
+                 const walk = (x - startX) * 2;
+                 navLinks.scrollLeft = scrollLeft - walk;
+             });
+         }
+    </script>
+</body>
+</html>

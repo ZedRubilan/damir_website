@@ -1,0 +1,1881 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Знания.Тест — Современная платформа тестов по английскому языку и литературе</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap');
+        
+        :root {
+            --primary: #4361ee;
+            --primary-light: #4895ef;
+            --primary-dark: #3f37c9;
+            --secondary: #ff8c00;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --gray: #6c757d;
+            --gray-light: #e9ecef;
+            --success: #4caf50;
+            --warning: #ff9800;
+            --danger: #f44336;
+            --border-radius: 12px;
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+            --shadow-md: 0 5px 15px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.15);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-light);
+            border-radius: 10px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary);
+        }
+        
+        /* Header styles */
+        header {
+            background-color: #ffffff;
+            padding: 15px 0;
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: var(--transition);
+        }
+        
+        header.scrolled {
+            box-shadow: var(--shadow-md);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+        
+        .logo-image {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            color: white;
+            font-weight: 800;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
+        }
+        
+        .logo-image::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(transparent, rgba(255, 255, 255, 0.2), transparent);
+            transform: rotate(45deg);
+            animation: shine 3s infinite;
+        }
+        
+        @keyframes shine {
+            0% {
+                transform: translateX(-100%) rotate(45deg);
+            }
+            100% {
+                transform: translateX(100%) rotate(45deg);
+            }
+        }
+        
+        .logo span {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+        }
+        
+        .logo span.accent {
+            color: var(--secondary);
+            -webkit-text-fill-color: var(--secondary);
+        }
+        
+        .search-bar {
+            display: flex;
+            width: 45%;
+            position: relative;
+        }
+        
+        .search-bar input {
+            width: 100%;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 30px;
+            outline: none;
+            font-size: 14px;
+            background-color: var(--gray-light);
+            transition: var(--transition);
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+        
+        .search-bar input:focus {
+            background-color: white;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .search-bar button {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            padding: 7px 15px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            transition: var(--transition);
+            box-shadow: 0 3px 8px rgba(67, 97, 238, 0.3);
+        }
+        
+        .search-bar button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 12px rgba(67, 97, 238, 0.4);
+        }
+        
+        .user-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .login-btn, .register-btn {
+            padding: 10px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: var(--transition);
+            text-align: center;
+        }
+        
+        .login-btn {
+            background-color: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+        
+        .login-btn:hover {
+            background-color: rgba(67, 97, 238, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .register-btn {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            border: none;
+            box-shadow: 0 4px 10px rgba(67, 97, 238, 0.3);
+        }
+        
+        .register-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(67, 97, 238, 0.4);
+        }
+        
+        /* Navigation */
+        nav {
+            background-color: white;
+            padding: 5px 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            position: relative;
+        }
+        
+        .nav-container {
+            position: relative;
+        }
+        
+        .nav-scroll-indicator {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 50px;
+            background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
+            pointer-events: none;
+            z-index: 5;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            overflow-x: auto;
+            white-space: nowrap;
+            scrollbar-width: none;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 5px;
+        }
+        
+        .nav-links::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .nav-links li {
+            margin-right: 5px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            padding: 12px 18px;
+            display: block;
+            font-size: 14px;
+            position: relative;
+            transition: var(--transition);
+            border-radius: 30px;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+            background-color: rgba(67, 97, 238, 0.05);
+        }
+        
+        .nav-links a.active {
+            color: var(--primary);
+            background-color: rgba(67, 97, 238, 0.1);
+        }
+        
+        /* Hero section */
+        .hero {
+            padding: 60px 0 80px;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(67, 97, 238, 0.05), rgba(72, 149, 239, 0.1));
+        }
+        
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -80px;
+            left: -80px;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(255, 140, 0, 0.05), rgba(255, 140, 0, 0.1));
+        }
+        
+        .hero-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero-text {
+            flex: 1;
+        }
+        
+        .hero-title {
+            font-size: 44px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            color: var(--dark);
+        }
+        
+        .hero-title span {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .hero-subtitle {
+            font-size: 18px;
+            color: var(--gray);
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .primary-btn, .secondary-btn {
+            padding: 14px 28px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 16px;
+            text-decoration: none;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .primary-btn {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
+        }
+        
+        .primary-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(67, 97, 238, 0.4);
+        }
+        
+        .secondary-btn {
+            background-color: white;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .secondary-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            background-color: rgba(67, 97, 238, 0.05);
+        }
+        
+        .hero-image {
+            flex: 1;
+            max-width: 500px;
+            position: relative;
+        }
+        
+        .hero-image img {
+            width: 150%;
+            height: auto;
+            border-radius: var(--border-radius);
+        }
+        
+        /* Main content */
+        main {
+            padding: 50px 0;
+        }
+        
+        .section-title {
+            font-size: 28px;
+            margin-bottom: 30px;
+            font-weight: 700;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            position: relative;
+        }
+        
+        .section-title i {
+            color: var(--primary);
+            font-size: 24px;
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            border-radius: 2px;
+            margin-left: 15px;
+        }
+        
+        /* Categories */
+        .subjects {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 60px;
+        }
+        
+        .subject-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            cursor: pointer;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .subject-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .subject-card-image {
+            height: 160px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .subject-card-image::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 60%;
+            background-image: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
+            z-index: 1;
+        }
+        
+        .subject-card-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.2);
+            transition: var(--transition);
+        }
+        
+        .subject-card:hover .subject-card-image::after {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+        
+        .english-image {
+            background: linear-gradient(135deg, #4361ee, #4895ef);
+        }
+        
+        .literature-image {
+            background: linear-gradient(135deg, #7209b7, #560bad);
+        }
+        
+        .grammar-image {
+            background: linear-gradient(135deg, #f72585, #b5179e);
+        }
+        
+        .vocabulary-image {
+            background: linear-gradient(135deg, #3a86ff, #00b4d8);
+        }
+        
+        .subject-icon {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background-color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 22px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            z-index: 2;
+            transition: var(--transition);
+        }
+        
+        .subject-card:hover .subject-icon {
+            transform: rotate(360deg);
+        }
+        
+        .subject-card-content {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .subject-card h3 {
+            margin-bottom: 12px;
+            color: var(--dark);
+            font-weight: 700;
+            font-size: 18px;
+            position: relative;
+            padding-bottom: 12px;
+        }
+        
+        .subject-card h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            border-radius: 2px;
+        }
+        
+        .subject-card p {
+            color: var(--gray);
+            font-size: 14px;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            flex-grow: 1;
+        }
+        
+        .subject-card .test-count {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+        }
+        
+        .test-count-badge {
+            color: var(--primary);
+            font-size: 14px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .test-count-badge i {
+            font-size: 16px;
+        }
+        
+        .explore-btn {
+            color: var(--primary);
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: var(--transition);
+        }
+        
+        .explore-btn:hover {
+            color: var(--primary-dark);
+            gap: 8px;
+        }
+        
+        /* Stats section */
+        .stats-section {
+            background-color: white;
+            padding: 60px 0;
+            margin: 50px 0;
+            box-shadow: var(--shadow-sm);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .stats-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 10% 20%, rgba(67, 97, 238, 0.03) 0%, transparent 80%);
+        }
+        
+        .statistics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 30px;
+        }
+        
+        .stat-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 30px;
+            text-align: center;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--gray-light);
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+            border-color: transparent;
+        }
+        
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            transition: var(--transition);
+        }
+        
+        .stat-card:hover::before {
+            width: 100%;
+        }
+        
+        .stat-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .stat-icon::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(67, 97, 238, 0.1), rgba(72, 149, 239, 0.2));
+            z-index: -1;
+        }
+        
+        .users-icon {
+            color: #4361ee;
+        }
+        
+        .tests-icon {
+            color: #4cc9f0;
+        }
+        
+        .answers-icon {
+            color: #7209b7;
+        }
+        
+        .experts-icon {
+            color: #f72585;
+        }
+        
+        .stat-number {
+            font-size: 36px;
+            font-weight: 800;
+            margin-bottom: 10px;
+            color: var(--dark);
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        
+        }
+        
+        .stat-label {
+            color: var(--gray);
+            font-size: 16px;
+            font-weight: 500;
+        }
+        
+        /* Popular tests */
+        .popular-tests {
+            margin-top: 60px;
+        }
+        
+        .test-list {
+            list-style: none;
+        }
+        
+        .test-item {
+            margin-bottom: 20px;
+            padding: 25px;
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            transition: var(--transition);
+            border-left: 4px solid transparent;
+        }
+        
+        .test-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+            border-left-color: var(--primary);
+        }
+        
+        .test-info {
+            flex: 1;
+        }
+        
+        .test-title {
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 8px;
+            text-decoration: none;
+            display: block;
+            font-size: 18px;
+            transition: var(--transition);
+        }
+        
+        .test-title:hover {
+            color: var(--primary);
+        }
+        
+        .test-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            font-size: 14px;
+            color: var(--gray);
+        }
+        
+        .test-meta span {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .test-meta i {
+            color: var(--primary);
+        }
+        
+        .test-actions {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .test-difficulty {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .easy {
+            background-color: rgba(76, 175, 80, 0.1);
+            color: var(--success);
+        }
+        
+        .medium {
+            background-color: rgba(255, 152, 0, 0.1);
+            color: var(--warning);
+        }
+        
+        .hard {
+            background-color: rgba(244, 67, 54, 0.1);
+            color: var(--danger);
+        }
+        
+        .start-test-btn {
+            padding: 8px 16px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            border: none;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            text-decoration: none;
+        }
+        
+        .start-test-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 10px rgba(67, 97, 238, 0.3);
+        }
+        
+        /* Newsletter */
+        .newsletter {
+            background: linear-gradient(135deg, var(--primary-light), var(--primary-dark));
+            padding: 60px 40px;
+            border-radius: var(--border-radius);
+            margin: 60px 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .newsletter::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .newsletter::after {
+            content: '';
+            position: absolute;
+            bottom: -80px;
+            left: -80px;
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .newsletter-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .newsletter-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 15px;
+        }
+        
+        .newsletter-subtitle {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 30px;
+            max-width: 700px;
+        }
+        
+        .newsletter-form {
+            display: flex;
+            width: 100%;
+            max-width: 550px;
+            position: relative;
+        }
+        
+        .newsletter-form input {
+            width: 100%;
+            padding: 16px 20px;
+            border: none;
+            border-radius: 30px;
+            font-size: 16px;
+            outline: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .newsletter-form button {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            padding: 11px 25px;
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .newsletter-form button:hover {
+            background-color: #e67e00;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #2d3748;
+            color: white;
+            padding: 80px 0 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, var(--primary), var(--primary-light), var(--secondary));
+        }
+        
+        .footer-wave {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 80px;
+            background-image: url('/api/placeholder/1200/80');
+            background-size: cover;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+        }
+        
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-logo-img {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 800;
+        }
+        
+        .footer-logo-text {
+            font-size: 20px;
+            font-weight: 800;
+            color: white;
+        }
+        
+        .footer-about {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 20px;
+            line-height: 1.7;
+            font-size: 14px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: var(--transition);
+        }
+        
+        .social-links a:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .footer-column h3 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: white;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 30px;
+            height: 3px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            border-radius: 2px;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 14px;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+            transform: translateX(5px);
+        }
+        
+        .footer-links i {
+            font-size: 12px;
+            color: var(--primary-light);
+        }
+        
+        .contact-info {
+            list-style: none;
+        }
+        
+        .contact-info li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+        }
+        
+        .contact-info i {
+            margin-top: 5px;
+            color: var(--primary-light);
+        }
+        
+        .copyright {
+            margin-top: 60px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 14px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .hero-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            padding: 0;
+            margin-bottom: -80px; /* Уменьшаем отступ для десктопной версии */
+        }
+
+        .hero-image img {
+            max-width: 130%; /* Немного уменьшаем базовый размер */
+            height: auto;
+            border-radius: 12px 12px 0 0;
+        } 
+
+        /* Анимация появления */
+        .fade-in-image {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1.2s ease-out forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+                /* Удалено свойство добавления тени */
+            }
+        }
+
+        
+                /* Responsive styles */
+        @media (max-width: 1024px) {
+            .hero-title {
+                font-size: 36px;
+            }
+            
+            .hero-content {
+                gap: 30px;
+            }
+
+            .hero-image {
+                margin-bottom: -60px; /* Уменьшаем отступ для планшетов */
+            }
+
+            .hero-image img {
+                max-width: 140%; /* Увеличиваем размер изображения */
+            }
+        }
+
+        @media (max-width: 900px) {
+            .search-bar {
+                width: 40%;
+            }
+            
+            .hero-content {
+                flex-direction: column-reverse;
+                text-align: center;
+                gap: 20px;
+            }
+            
+            .hero-image {
+                max-width: 100%;
+                margin-bottom: -40px;
+                overflow: hidden;
+            }
+
+            .hero-image img {
+                max-width: 150%;
+                margin: 0 auto;
+            }
+
+            .hero-text {
+                padding: 20px;
+                background: linear-gradient(to bottom, rgba(248, 249, 250, 0.9) 0%, rgba(248, 249, 250, 1) 100%);
+                border-radius: 12px;
+                position: relative;
+                z-index: 2;
+            }
+
+            .hero-subtitle {
+                font-size: 16px;
+                margin: 0 auto;
+                max-width: 600px;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+                gap: 15px;
+            }
+        }
+        
+        /* Mobile Optimizations */
+        @media (max-width: 768px) {
+            /* Header */
+            .header-content {
+                flex-direction: column;
+                padding: 10px;
+            }
+
+            .search-bar {
+                width: 100%;
+                margin: 15px 0;
+            }
+
+            .user-actions {
+                width: 100%;
+                justify-content: center;
+                gap: 10px;
+            }
+
+            .login-btn, .register-btn {
+                width: 45%;
+                text-align: center;
+            }
+
+            /* Navigation */
+            .nav-links {
+                padding: 5px 0;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .nav-links li a {
+                padding: 8px 12px;
+                font-size: 13px;
+            }
+
+            /* Hero Section */
+            .hero {
+                padding: 30px 0 40px;
+            }
+
+            .hero-content {
+            flex-direction: column;
+            gap: 30px;
+            text-align: center;
+            position: relative; /* Добавляем для контроля положения элементов */
+            }
+
+            .hero-text {
+            order: 2;
+            position: relative; /* Для контроля z-index */
+            z-index: 2; /* Поднимаем текст над картинкой */
+            background: linear-gradient(to bottom, rgba(248, 249, 250, 0.9) 0%, rgba(248, 249, 250, 1) 100%); /* Добавляем градиентный фон под текст */
+            padding: 20px; /* Добавляем отступы вокруг текста */
+            border-radius: 12px; /* Скругляем углы */
+            }
+
+            .hero-image {
+            order: 1;
+            margin-bottom: -40px; /* Уменьшаем отрицательный отступ */
+            max-height: 300px; /* Ограничиваем высоту на мобильных */
+            overflow: hidden; /* Обрезаем выступающие части */
+            }
+
+            .hero-image img {
+            max-width: 160%; /* Регулируем размер изображения */
+            margin-bottom: 0; /* Убираем отрицательный отступ */
+            transform: translateY(0); /* Сбрасываем трансформацию */
+            }
+            .hero-title {
+                font-size: 28px;
+            }
+
+            .hero-subtitle {
+                font-size: 15px;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            /* Subjects Section */
+            .subjects {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .subject-card {
+                margin: 0 10px;
+            }
+
+            /* Statistics Section */
+            .statistics {
+                grid-template-columns: 1fr 1fr;
+                gap: 15px;
+                padding: 0 10px;
+            }
+
+            .stat-card {
+                padding: 15px;
+            }
+
+            .stat-number {
+                font-size: 24px;
+            }
+
+            .stat-label {
+                font-size: 13px;
+            }
+
+            /* Popular Tests Section */
+            .test-item {
+                flex-direction: column;
+                padding: 15px;
+            }
+
+            .test-meta {
+                flex-wrap: wrap;
+                gap: 8px;
+                font-size: 12px;
+            }
+
+            .test-actions {
+                width: 100%;
+                justify-content: space-between;
+                margin-top: 15px;
+            }
+
+            /* Newsletter Section */
+            .newsletter {
+                padding: 30px 15px;
+                margin: 30px 10px;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .newsletter-form input {
+                padding: 12px 15px;
+            }
+
+            .newsletter-form button {
+                position: static;
+                width: 100%;
+                padding: 12px;
+            }
+
+            /* Footer */
+            footer {
+                padding: 40px 0 20px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+                padding: 0 15px;
+            }
+
+            .copyright {
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .logo span {
+                display: none;
+            }
+            
+            .user-actions {
+                width: 100%;
+                justify-content: center;
+                margin-top: 10px;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                width: 100%;
+            }
+            .hero {
+            padding: 15px 0 40px;
+            }
+
+            .hero-image {
+                margin-bottom: -30px;
+                max-height: 250px;
+            }
+
+            .hero-image img {
+                max-width: 140%;
+            }
+
+            .hero-text {
+                padding: 15px;
+            }
+            
+            .primary-btn, .secondary-btn {
+                width: 100%;
+                text-align: center;
+                justify-content: center;
+            }
+            
+            .newsletter {
+                padding: 40px 20px;
+            }
+            
+            .newsletter-form {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .newsletter-form button {
+                position: static;
+                width: 100%;
+                border-radius: 30px;
+            }
+            
+            .copyright {
+                justify-content: center;
+                text-align: center;
+            }
+        }
+
+        /* Additional Small Screen Optimizations */
+        @media (max-width: 360px) {
+            .hero-title {
+                font-size: 24px;
+            }
+
+            .statistics {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links li a {
+                padding: 6px 10px;
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <a href="#" class="logo">
+                <div class="logo-image">R</div>
+                <span>Rus.<span class="accent">mastery</span></span>
+            </a>
+            <div class="search-bar">
+                <input type="text" placeholder="Поиск тестов, тем...">
+                <button type="submit">Найти</button>
+            </div>
+            <div class="user-actions">
+                <a href="#" class="login-btn">Войти</a>
+                <a href="#" class="register-btn">Регистрация</a>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Navigation -->
+    <nav>
+        <div class="container nav-container">
+            <ul class="nav-links">
+                <li><a href="#" class="active">Главная</a></li>
+                <li><a href="all_test.html">Все тесты</a></li>
+                <li><a href="dtm.html">DTM</a></li>
+                <li><a href="trki_c1.html">ТРКИ-С1</a></li>
+                <li><a href="milliy.html">Миллий</a></li>
+                <li><a href="grammar.html">Грамматика</a></li>
+                <li><a href="literature.html">Литература</a></li>
+                <li><a href="#">Разговорный</a></li>
+                <li><a href="#">Контакты</a></li>
+                <li><a href="about.html">О нас</a></li>
+            </ul>
+            <div class="nav-scroll-indicator"></div>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container hero-content">
+            <div class="hero-text">
+                <h1 class="hero-title">Проверь свои знания с <span>умными тестами</span></h1>
+                <p class="hero-subtitle">Наша платформа предлагает интерактивные тесты по русскому языку и литературе. Учитесь, проверяйте свои знания и отслеживайте прогресс с Rusmastery</p>
+                <div class="hero-buttons">
+                    <a href="all_test.html" class="primary-btn">Начать тестирование <i class="fas fa-arrow-right"></i></a>
+                    <a href="#" class="secondary-btn">Узнать больше <i class="fas fa-info-circle"></i></a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="image/начальная картинка.png" alt="Образовательная платформа" class="fade-in-image">
+            </div>
+        </div>
+    </section>
+    
+    <!-- Main Content -->
+    <main>
+        <div class="container">
+            <!-- Subjects Section -->
+            <h2 class="section-title"><i class="fas fa-book"></i> Предметы</h2>
+            <div class="subjects">
+                <!-- English Subject -->
+                <div class="subject-card">
+                    <div class="subject-card-image english-image">
+                        <div class="subject-icon">
+                            <i class="fas fa-language"></i>
+                        </div>
+                    </div>
+                    <div class="subject-card-content">
+                        <h3>ДТМ тесты </h3>
+                        <p>Тесты для проверки своих знания перед поступлением в университет.</p>
+                        <div class="test-count">
+                            <span class="test-count-badge"><i class="fas fa-clipboard-check"></i> 145 тестов</span>
+                            <a href="dtm.html" class="explore-btn">Перейти <i class="fas fa-chevron-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Literature Subject -->
+                <div class="subject-card">
+                    <div class="subject-card-image literature-image">
+                        <div class="subject-icon">
+                            <i class="fas fa-book-open"></i>
+                        </div>
+                    </div>
+                    <div class="subject-card-content">
+                        <h3>Литература</h3>
+                        <p>Тесты по мировой литературе, включающие классические и современные произведения, анализ текстов.</p>
+                        <div class="test-count">
+                            <span class="test-count-badge"><i class="fas fa-clipboard-check"></i> 98 тестов</span>
+                            <a href="#" class="explore-btn">Перейти <i class="fas fa-chevron-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Grammar Subject -->
+                <div class="subject-card">
+                    <div class="subject-card-image grammar-image">
+                        <div class="subject-icon">
+                            <i class="fas fa-pen-nib"></i>
+                        </div>
+                    </div>
+                    <div class="subject-card-content">
+                        <h3>Грамматика</h3>
+                        <p>Тесты для проверки грамматических навыков, правил построения предложений и языковых структур.</p>
+                        <div class="test-count">
+                            <span class="test-count-badge"><i class="fas fa-clipboard-check"></i> 112 тестов</span>
+                            <a href="grammar.html" class="explore-btn">Перейти <i class="fas fa-chevron-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Vocabulary Subject -->
+                <div class="subject-card">
+                    <div class="subject-card-image vocabulary-image">
+                        <div class="subject-icon">
+                            <i class="fas fa-spell-check"></i>
+                        </div>
+                    </div>
+                    <div class="subject-card-content">
+                        <h3>Словарный запас</h3>
+                        <p>Тесты для расширения и проверки словарного запаса, идиом, фразовых глаголов и выражений.</p>
+                        <div class="test-count">
+                            <span class="test-count-badge"><i class="fas fa-clipboard-check"></i> 87 тестов</span>
+                            <a href="#" class="explore-btn">Перейти <i class="fas fa-chevron-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Statistics Section -->
+            <div class="stats-section">
+                <div class="container">
+                    <div class="statistics">
+                        <div class="stat-card">
+                            <div class="stat-icon users-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="stat-number">50,000+</div>
+                            <div class="stat-label">Активных пользователей</div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon tests-icon">
+                                <i class="fas fa-clipboard-list"></i>
+                            </div>
+                            <div class="stat-number">450+</div>
+                            <div class="stat-label">Уникальных тестов</div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon answers-icon">
+                                <i class="fas fa-check-double"></i>
+                            </div>
+                            <div class="stat-number">2.5M+</div>
+                            <div class="stat-label">Пройденных тестов</div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon experts-icon">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <div class="stat-number">30+</div>
+                            <div class="stat-label">Профессиональных экспертов</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Popular Tests Section -->
+            <div class="popular-tests">
+                <h2 class="section-title"><i class="fas fa-star"></i> Популярные тесты</h2>
+                <ul class="test-list">
+                    <!-- Test 1 -->
+                    <li class="test-item">
+                        <div class="test-info">
+                            <a href="#" class="test-title">Времена русского языка: Прошедшее, Настоящее, Будущее</a>
+                            <div class="test-meta">
+                                <span><i class="fas fa-language"></i> Русский язык</span>
+                                <span><i class="fas fa-question-circle"></i> 25 вопросов</span>
+                                <span><i class="fas fa-clock"></i> 30 минут</span>
+                                <span><i class="fas fa-user-graduate"></i> 18,245 прошли</span>
+                            </div>
+                        </div>
+                        <div class="test-actions">
+                            <div class="test-difficulty medium">
+                                <i class="fas fa-signal"></i> Средний
+                            </div>
+                            <a href="#" class="start-test-btn">
+                                <i class="fas fa-play"></i> Начать
+                            </a>
+                        </div>
+                    </li>
+                    
+                    <!-- Test 2 -->
+                    <li class="test-item">
+                        <div class="test-info">
+                            <a href="#" class="test-title">Основы русской грамматики для начинающих</a>
+                            <div class="test-meta">
+                                <span><i class="fas fa-language"></i> Русский язык</span>
+                                <span><i class="fas fa-question-circle"></i> 20 вопросов</span>
+                                <span><i class="fas fa-clock"></i> 25 минут</span>
+                                <span><i class="fas fa-user-graduate"></i> 25,674 прошли</span>
+                            </div>
+                        </div>
+                        <div class="test-actions">
+                            <div class="test-difficulty easy">
+                                <i class="fas fa-signal"></i> Легкий
+                            </div>
+                            <a href="#" class="start-test-btn">
+                                <i class="fas fa-play"></i> Начать
+                            </a>
+                        </div>
+                    </li>
+                    
+                    <!-- Test 3 -->
+                    <li class="test-item">
+                        <div class="test-info">
+                            <a href="#" class="test-title">Анализ современной русской литературы</a>
+                            <div class="test-meta">
+                                <span><i class="fas fa-book-open"></i> Литература</span>
+                                <span><i class="fas fa-question-circle"></i> 15 вопросов</span>
+                                <span><i class="fas fa-clock"></i> 45 минут</span>
+                                <span><i class="fas fa-user-graduate"></i> 8,932 прошли</span>
+                            </div>
+                        </div>
+                        <div class="test-actions">
+                            <div class="test-difficulty hard">
+                                <i class="fas fa-signal"></i> Сложный
+                            </div>
+                            <a href="#" class="start-test-btn">
+                                <i class="fas fa-play"></i> Начать
+                            </a>
+                        </div>
+                    </li>
+                    
+                    <!-- Test 4 -->
+                    <li class="test-item">
+                        <div class="test-info">
+                            <a href="#" class="test-title">Фразовые глаголы и идиомы в русском языке</a>
+                            <div class="test-meta">
+                                <span><i class="fas fa-spell-check"></i> Словарный запас</span>
+                                <span><i class="fas fa-question-circle"></i> 30 вопросов</span>
+                                <span><i class="fas fa-clock"></i> 35 минут</span>
+                                <span><i class="fas fa-user-graduate"></i> 12,746 прошли</span>
+                            </div>
+                        </div>
+                        <div class="test-actions">
+                            <div class="test-difficulty medium">
+                                <i class="fas fa-signal"></i> Средний
+                            </div>
+                            <a href="#" class="start-test-btn">
+                                <i class="fas fa-play"></i> Начать
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Newsletter Section -->
+            <div class="newsletter">
+                <div class="newsletter-content">
+                    <h2 class="newsletter-title">Подпишитесь на нашу рассылку</h2>
+                    <p class="newsletter-subtitle">Получайте еженедельные обновления новых тестов, образовательных материалов и советов по изучению языка</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Введите ваш email" required>
+                        <button type="submit">Подписаться</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <div class="footer-logo">
+                        <div class="footer-logo-img">3</div>
+                        <div class="footer-logo-text">Знания.Тест</div>
+                    </div>
+                    <p class="footer-about">Образовательная платформа с интерактивными тестами по английскому языку и литературе для всех уровней подготовки.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="https://t.me/damir_688"><i class="fab fa-telegram"></i></a>
+                        <a href="#"><i class="fab fa-vk"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Тесты</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Английский язык</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Литература</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Грамматика</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Словарный запас</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Все тесты</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>О нас</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> О платформе</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Наша команда</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Преподаватели</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Блог</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Карьера</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Контакты</h3>
+                    <ul class="contact-info">
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>г.Наманган, 3-микрорайон, Premium education</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-phone-alt"></i>
+                            <span>+998(91)345-05-93</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            <span>info@znaniya-test.ru</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-clock"></i>
+                            <span>Пн-Пт: 9:00 - 18:00</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <div>© 2025 Знания.Тест. Все права защищены.</div>
+                <div>
+                    <a href="#" style="color: rgba(255, 255, 255, 0.6); margin-right: 15px;">Политика конфиденциальности</a>
+                    <a href="#" style="color: rgba(255, 255, 255, 0.6);">Условия использования</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- JavaScript -->
+    <script>
+        // Sticky header on scroll
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 10) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+        
+        // Animate statistics numbers
+        function animateStats() {
+            const stats = document.querySelectorAll('.stat-number');
+            stats.forEach(stat => {
+                const target = parseFloat(stat.textContent.replace(/,|\+/g, ''));
+                let current = 0;
+                const increment = target / 100;
+                const interval = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        clearInterval(interval);
+                        // Add the plus sign back for display
+                        if (stat.textContent.includes('+')) {
+                            stat.textContent = target.toLocaleString() + '+';
+                        } else {
+                            stat.textContent = target.toLocaleString();
+                        }
+                    } else {
+                        // Add the plus sign back for display
+                        if (stat.textContent.includes('+')) {
+                            stat.textContent = Math.floor(current).toLocaleString() + '+';
+                        } else {
+                            stat.textContent = Math.floor(current).toLocaleString();
+                        }
+                    }
+                }, 20);
+            });
+        }
+        
+        // Check if element is in viewport
+        function isElementInViewport(el) {
+            const rect = el.getBoundingClientRect();
+            return (
+                rect.top >= 0 &&
+                rect.left >= 0 &&
+                rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+                rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+            );
+        }
+        
+        // Check if stats section is visible and animate
+        function checkStatsVisibility() {
+            const statsSection = document.querySelector('.stats-section');
+            if (isElementInViewport(statsSection)) {
+                animateStats();
+                window.removeEventListener('scroll', checkStatsVisibility);
+            }
+        }
+        
+        // Listen for scroll event to check if stats are visible
+        window.addEventListener('scroll', checkStatsVisibility);
+        // Also check on load
+        window.addEventListener('load', checkStatsVisibility);
+        
+        // Horizontal navigation scrolling
+        const navLinks = document.querySelector('.nav-links');
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+        
+        navLinks.addEventListener('mousedown', (e) => {
+            isDown = true;
+            startX = e.pageX - navLinks.offsetLeft;
+            scrollLeft = navLinks.scrollLeft;
+        });
+        
+        navLinks.addEventListener('mouseleave', () => {
+            isDown = false;
+        });
+        
+        navLinks.addEventListener('mouseup', () => {
+            isDown = false;
+        });
+        
+        navLinks.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - navLinks.offsetLeft;
+            const walk = (x - startX) * 2;
+            navLinks.scrollLeft = scrollLeft - walk;
+        });
+    </script>
+</body>
+</html>

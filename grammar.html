@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тест по грамматике (DTM Style) - Rus.mastery</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Стили полностью скопированы из milliy.TXT / index.TXT */
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap'); /* [source index.TXT 1] */
+        :root { /* [source index.TXT 2] */
+            --primary: #4361ee;
+            --primary-light: #4895ef;
+            --primary-dark: #3f37c9;
+            --secondary: #ff8c00; /* [source index.TXT 3] */
+            --light: #f8f9fa;
+            --dark: #212529; /* [source index.TXT 4] */
+            --gray: #6c757d;
+            --gray-light: #e9ecef;
+            --success: #4caf50;
+            --warning: #ff9800;
+            --danger: #f44336;
+            --border-radius: 12px;
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08); /* [source index.TXT 5] */
+            --shadow-md: 0 5px 15px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.15); /* [source index.TXT 6] */
+            --transition: all 0.3s ease;
+        } /* [source index.TXT 7] */
+
+        * {
+            margin: 0; /* [source index.TXT 7] */
+            padding: 0; /* [source index.TXT 8] */
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        body {
+            background-color: var(--light); /* [source index.TXT 8] */
+            color: var(--dark); /* [source index.TXT 9] */
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 900px; /* [source index.TXT 9] */
+            margin: 20px auto; /* [source index.TXT 10] */
+            padding: 0 20px;
+        }
+
+        /* Header styles */
+        header {
+            background-color: #ffffff; /* [source index.TXT 10] */
+            padding: 15px 0; /* [source index.TXT 11] */
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 30px;
+        }
+
+        .header-content {
+            display: flex; /* [source index.TXT 11] */
+            justify-content: space-between; /* [source index.TXT 12] */
+            align-items: center;
+            max-width: 1200px;
+             margin: 0 auto;
+            padding: 0 20px; /* [source index.TXT 12] */
+        } /* [source index.TXT 13] */
+
+        .logo {
+            font-size: 24px; /* [source index.TXT 13] */
+            font-weight: 800; /* [source index.TXT 14] */
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center; /* [source index.TXT 14] */
+        } /* [source index.TXT 15] */
+
+        .logo-image {
+            width: 36px; /* [source index.TXT 15] */
+            height: 36px; /* [source index.TXT 16] */
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            color: white;
+            font-weight: 800; /* [source index.TXT 16] */
+        } /* [source index.TXT 17] */
+
+         .logo span {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light)); /* [source index.TXT 17] */
+            -webkit-background-clip: text; /* [source index.TXT 18] */
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+        }
+
+        .logo span.accent {
+            color: var(--secondary); /* [source index.TXT 18] */
+            -webkit-text-fill-color: var(--secondary); /* [source index.TXT 19] */
+        }
+
+        /* Variant Selection Styles */
+        #variant-selection-container {
+            text-align: center; /* [source index.TXT 19] */
+            padding: 40px 20px; /* [source index.TXT 20] */
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-md);
+            margin-top: 40px; /* [source index.TXT 20] */
+        } /* [source index.TXT 21] */
+        #variant-selection-container h2 {
+            margin-bottom: 30px; /* [source index.TXT 21] */
+            color: var(--primary-dark); /* [source index.TXT 22] */
+        }
+        .variant-button { /* Start Button */
+            display: inline-block; /* [source index.TXT 22] */
+            padding: 18px 35px; /* [source index.TXT 23] */
+            margin: 10px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 18px;
+            text-decoration: none;
+            transition: var(--transition);
+            background: linear-gradient(135deg, var(--primary), var(--primary-light)); /* [source index.TXT 23] */
+            color: white; /* [source index.TXT 24] */
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
+            min-width: 200px; /* [source index.TXT 24] */
+        } /* [source index.TXT 25] */
+        .variant-button:hover {
+            transform: translateY(-3px); /* [source index.TXT 25] */
+            box-shadow: 0 8px 20px rgba(67, 97, 238, 0.4); /* [source index.TXT 26] */
+        }
+
+        /* Progress Bar Styles (from index.TXT) */
+        .progress-bar-container {
+             margin-bottom: 30px; /* [source index.TXT 26] */
+             background-color: white; /* [source index.TXT 27] */
+             padding: 15px 20px 10px 20px;
+             border-radius: var(--border-radius); /* [source index.TXT 27] */
+            box-shadow: var(--shadow-sm); /* [source index.TXT 28] */
+        }
+        .progress-info {
+             display: flex; /* [source index.TXT 28] */
+             justify-content: space-between; /* [source index.TXT 29] */
+             font-size: 14px;
+             color: var(--gray);
+             margin-bottom: 8px;
+             font-weight: 500; /* [source index.TXT 29] */
+        } /* [source index.TXT 30] */
+        .progress-bar {
+            width: 100%; /* [source index.TXT 30] */
+            height: 12px; /* [source index.TXT 31] */
+            background-color: var(--gray-light); /* [source index.TXT 31] */
+            border-radius: 6px; /* [source index.TXT 32] */
+            overflow: hidden;
+        }
+        .progress {
+            height: 100%; /* [source index.TXT 32] */
+            background: linear-gradient(135deg, var(--primary), var(--primary-light)); /* [source index.TXT 33] */
+            width: 0;
+            transition: width 0.4s ease; /* [source index.TXT 33] */
+            border-radius: 6px; /* [source index.TXT 34] */
+        } /* [source index.TXT 35] */
+
+        /* Quiz Specific Styles */
+        #quiz-container {
+            margin-bottom: 30px; /* [source index.TXT 35] */
+        } /* [source index.TXT 36] */
+
+        .quiz-question {
+            background-color: white; /* [source index.TXT 36] */
+            border-radius: var(--border-radius); /* [source index.TXT 37] */
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow-sm);
+            border-left: 4px solid var(--primary-light);
+            transition: var(--transition); /* [source index.TXT 37] */
+        } /* [source index.TXT 38] */
+
+        .quiz-question:hover {
+             box-shadow: var(--shadow-md); /* [source index.TXT 38] */
+            transform: translateY(-3px); /* [source index.TXT 39] */
+        }
+
+        .question-header {
+            display: flex; /* [source index.TXT 39] */
+            justify-content: space-between; /* [source index.TXT 40] */
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--gray-light); /* [source index.TXT 40] */
+        } /* [source index.TXT 41] */
+
+        .question-number {
+            font-weight: 700; /* [source index.TXT 41] */
+            color: var(--primary); /* [source index.TXT 42] */
+            font-size: 18px;
+        }
+
+        .question-points {
+            font-size: 14px; /* [source index.TXT 42] */
+            font-weight: 600; /* [source index.TXT 43] */
+            color: var(--secondary);
+            background-color: rgba(255, 140, 0, 0.1);
+            padding: 5px 10px;
+            border-radius: 20px; /* [source index.TXT 43] */
+        } /* [source index.TXT 44] */
+
+        .question-text {
+            font-weight: 500; /* [source index.TXT 44] */
+            margin-bottom: 15px; /* [source index.TXT 45] */
+            color: var(--dark); /* [source index.TXT 45] */
+            font-size: 16px; /* [source index.TXT 46] */
+            white-space: pre-wrap;
+        }
+
+        .options-list {
+            list-style: none; /* [source index.TXT 46] */
+            padding-left: 0; /* [source index.TXT 47] */
+            margin-top: 15px;
+        }
+
+        .options-list li {
+            margin-bottom: 12px; /* [source index.TXT 47] */
+        } /* [source index.TXT 48] */
+
+        .options-list label {
+            display: block; /* [source index.TXT 48] */
+            background-color: var(--gray-light); /* [source index.TXT 49] */
+            padding: 12px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 2px solid transparent; /* [source index.TXT 49] */
+        } /* [source index.TXT 50] */
+
+        .options-list label:hover {
+            background-color: #dde2e7; /* [source index.TXT 50] */
+        } /* [source index.TXT 51] */
+
+        .options-list input[type="radio"] {
+            display: none; /* [source index.TXT 51] */
+        } /* [source index.TXT 52] */
+
+         .options-list input[type="radio"]:checked + label {
+            background-color: rgba(67, 97, 238, 0.1); /* [source index.TXT 52] */
+            border-color: var(--primary); /* [source index.TXT 53] */
+            color: var(--primary-dark);
+            font-weight: 600;
+        }
+
+        /* Submit Button */
+        #submit-btn {
+            display: block; /* [source index.TXT 53] */
+            width: 100%; /* [source index.TXT 54] */
+            padding: 14px 28px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 16px;
+            text-decoration: none;
+            transition: var(--transition);
+            background: linear-gradient(135deg, var(--primary), var(--primary-light)); /* [source index.TXT 54] */
+            color: white; /* [source index.TXT 55] */
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
+            text-align: center;
+            margin-top: 30px; /* [source index.TXT 55] */
+        } /* [source index.TXT 56] */
+
+        #submit-btn:hover {
+            transform: translateY(-3px); /* [source index.TXT 56] */
+            box-shadow: 0 8px 20px rgba(67, 97, 238, 0.4); /* [source index.TXT 57] */
+        }
+         #submit-btn:disabled {
+             background: var(--gray); /* [source index.TXT 57] */
+             cursor: not-allowed; /* [source index.TXT 58] */
+             box-shadow: none;
+             transform: none;
+         }
+
+        /* Results Styles */
+        #results-container {
+            background-color: white; /* [source index.TXT 58] */
+            padding: 30px; /* [source index.TXT 59] */
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-md);
+            margin-top: 40px;
+        }
+
+        #results-summary {
+            text-align: center; /* [source index.TXT 59] */
+            margin-bottom: 30px; /* [source index.TXT 60] */
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--gray-light);
+        }
+
+        #results-summary h2 {
+             font-size: 28px; /* [source index.TXT 60] */
+            font-weight: 700; /* [source index.TXT 61] */
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+         #results-summary p {
+            font-size: 18px; /* [source index.TXT 61] */
+            color: var(--dark); /* [source index.TXT 62] */
+            margin-bottom: 8px;
+         }
+         /* Style for score and percentage (from index.TXT) */
+         .score-display {
+             font-size: 24px; /* [source index.TXT 62] */
+             font-weight: 700; /* [source index.TXT 63] */
+             color: var(--primary-dark);
+             margin-bottom: 5px;
+         }
+         .percentage-display {
+             font-size: 16px; /* [source index.TXT 63] */
+             color: var(--gray); /* [source index.TXT 64] */
+         }
+
+
+        .result-item {
+            margin-bottom: 25px; /* [source index.TXT 64] */
+            padding: 20px; /* [source index.TXT 65] */
+            border-radius: 8px;
+            border: 1px solid var(--gray-light);
+        }
+
+        .result-item.correct {
+            background-color: rgba(76, 175, 80, 0.08); /* [source index.TXT 65] */
+            border-left: 5px solid var(--success); /* [source index.TXT 66] */
+        }
+
+        .result-item.incorrect {
+            background-color: rgba(244, 67, 54, 0.08); /* [source index.TXT 66] */
+            border-left: 5px solid var(--danger); /* [source index.TXT 67] */
+        }
+
+        .result-item .question-text {
+            font-weight: 600; /* [source index.TXT 67] */
+            margin-bottom: 15px; /* [source index.TXT 68] */
+            white-space: pre-wrap;
+        }
+
+        .result-details p {
+            margin-bottom: 8px; /* [source index.TXT 68] */
+            font-size: 14px; /* [source index.TXT 69] */
+        }
+
+        .result-details strong {
+            font-weight: 600; /* [source index.TXT 69] */
+        } /* [source index.TXT 70] */
+
+        .correct-answer {
+            color: var(--success); /* [source index.TXT 70] */
+            font-weight: bold; /* [source index.TXT 71] */
+        }
+        .incorrect-answer {
+             color: var(--danger); /* [source index.TXT 71] */
+            font-weight: bold; /* [source index.TXT 72] */
+        }
+
+        .hidden {
+            display: none !important; /* [source index.TXT 72] */
+        } /* [source index.TXT 73] */
+
+        /* Responsive */
+         @media (max-width: 768px) { /* [source index.TXT 73] */
+            .container {
+                max-width: 100%;
+                padding: 0 15px; /* [source index.TXT 74] */
+            }
+             .header-content {
+                flex-direction: column; /* [source index.TXT 74] */
+                gap: 10px; /* [source index.TXT 75] */
+             }
+             .quiz-question {
+                 padding: 15px; /* [source index.TXT 75] */
+            } /* [source index.TXT 76] */
+             .question-text {
+                 font-size: 15px; /* [source index.TXT 76] */
+            } /* [source index.TXT 77] */
+             .options-list label {
+                 padding: 10px 15px; /* [source index.TXT 77] */
+            } /* [source index.TXT 78] */
+             #submit-btn {
+                 font-size: 15px; /* [source index.TXT 78] */
+                 padding: 12px 20px; /* [source index.TXT 79] */
+             }
+             #results-container {
+                 padding: 20px; /* [source index.TXT 79] */
+            } /* [source index.TXT 80] */
+              #variant-selection-container {
+                 padding: 20px 15px; /* [source index.TXT 80] */
+            } /* [source index.TXT 81] */
+             .variant-button {
+                 font-size: 16px; /* [source index.TXT 81] */
+                 padding: 15px 25px; /* [source index.TXT 82] */
+                 min-width: 180px;
+             }
+             #results-summary h2 {
+                 font-size: 24px; /* [source index.TXT 82] */
+            } /* [source index.TXT 83] */
+             .score-display {
+                 font-size: 20px; /* [source index.TXT 83] */
+            } /* [source index.TXT 84] */
+             .percentage-display {
+                 font-size: 15px; /* [source index.TXT 84] */
+            } /* [source index.TXT 85] */
+         }
+
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <a href="index.html" class="logo"> <div class="logo-image">R</div> <span>Rus.<span class="accent">mastery</span></span> </a>
+             </div>
+    </header>
+
+    <main>
+         <div class="container"> <h1 id="main-title" style="text-align: center; margin-bottom: 30px; color: var(--primary-dark);">Тест по грамматике</h1>
+
+            <div id="variant-selection-container">
+                <h2>Готовы проверить свои знания грамматики?</h2>
+                <button class="variant-button" data-variant="grammar">Начать тест</button> </div>
+
+            <form id="quiz-form" class="hidden"> <div class="progress-bar-container"> <div class="progress-info">
+                         <span id="progress-text">Прогресс: 0 / 0</span>
+                         <span id="answered-count">Отвечено: 0</span>
+                     </div> <div class="progress-bar"> <div class="progress" id="progress"></div>
+                    </div>
+                 </div> <div id="quiz-container">
+                    <p style="text-align: center; padding: 20px; color: var(--gray);">Загрузка вопросов...</p> </div>
+                <button type="submit" id="submit-btn" disabled>Завершить тест</button> </form>
+
+             <div id="results-container" class="hidden">
+                <div id="results-summary"> <h2>Результаты Теста</h2>
+                    <p class="score-display" id="score-display">Ваш результат: 0 баллов</p> <p class="percentage-display" id="percentage-display">Правильных ответов: 0 из 0 (0%)</p> </div>
+                <div id="detailed-results">
+                 </div> <button id="retry-button" style="display: block; margin: 30px auto 0; padding: 10px 20px; background-color: var(--secondary); color: white; border: none; border-radius: 20px; cursor: pointer; font-weight: 600;">Пройти тест снова</button> </div>
+        </div>
+    </main>
+
+    <script>
+        // --- Constants for Local Storage Keys ---
+        // Оставляем ключи для грамматики
+        const LS_STATE_KEY_GRAMMAR = 'grammarQuiz_state';
+        const LS_VARIANT_KEY_GRAMMAR = 'grammarQuiz_variantId';
+        const LS_ANSWERS_KEY_GRAMMAR = 'grammarQuiz_answers';
+        const LS_QUESTIONS_KEY_GRAMMAR = 'grammarQuiz_questionIds';
+        const LS_SCORE_KEY_GRAMMAR = 'grammarQuiz_score';
+        const LS_CORRECT_COUNT_KEY_GRAMMAR = 'grammarQuiz_correctCount'; // Добавлено для процента
+
+        // --- Grammar Questions Data (Multiple Choice Only, Fixed Points) ---
+        // Убраны fill-in, установлен фиксированный балл
+        const FIXED_POINTS_PER_QUESTION = 1.5; // Установим балл за вопрос
+        const grammarQuestions = [
+            { id: 1, points: FIXED_POINTS_PER_QUESTION, type: 'multiple-choice', text: '1. Укажите имя существительное:', options: ['Белый', 'Белизна', 'Белеть', 'Бело'], correctAnswer: 'B' },
+            { id: 2, points: FIXED_POINTS_PER_QUESTION, type: 'multiple-choice', text: '2. Выберите глагол совершенного вида:', options: ['Читать', 'Прочитать', 'Читал', 'Читающий'], correctAnswer: 'B' },
+            { id: 3, points: FIXED_POINTS_PER_QUESTION, type: 'multiple-choice', text: '3. В каком слове пишется буква "И"?', options: ['Ц..ган', 'Ц..фра', 'Ц..пленок', 'Станц..я'], correctAnswer: 'B' },
+            { id: 4, points: FIXED_POINTS_PER_QUESTION, type: 'multiple-choice', text: '4. Какое слово является наречием?', options: ['Быстрый', 'Быстро', 'Быстрота', 'Ускорить'], correctAnswer: 'B' },
+            // { id: 5, ... } - fill-in удален
+            { id: 6, points: FIXED_POINTS_PER_QUESTION, type: 'multiple-choice', text: '6. Выберите правильную форму глагола: Они ... (хотеть) пойти в кино.', options: ['хочет', 'хотим', 'хотят', 'хотите'], correctAnswer: 'C' },
+            { id: 7, points: FIXED_POINTS_PER_QUESTION, type: 'multiple-choice', text: '7. Укажите предложение с прямой речью (знаки препинания не расставлены)', options: ['Он сказал что придет позже', 'По словам очевидцев пожар начался внезапно', 'Не опаздывай попросила мама', 'Все были рады что наступило лето'], correctAnswer: 'C' },
+            // { id: 8, ... } - fill-in удален
+            { id: 9, points: FIXED_POINTS_PER_QUESTION, type: 'multiple-choice', text: '9. Какое окончание у слова "здание" в предложном падеже?', options: ['-ие', '-ия', '-ий', '-ии'], correctAnswer: 'D' },
+            // { id: 10, ... } - fill-in удален
+            { id: 11, points: FIXED_POINTS_PER_QUESTION, type: 'multiple-choice', text: '11. Определите падеж существительного "книгу" в предложении: "Я читаю книгу."', options: ['Именительный', 'Родительный', 'Винительный', 'Творительный'], correctAnswer: 'C' },
+            { id: 12, points: FIXED_POINTS_PER_QUESTION, type: 'multiple-choice', text: '12. Какое слово образовано суффиксальным способом?', options: ['Переход', 'Лесник', 'Бездомный', 'Подоконник'], correctAnswer: 'B' }
+            // Добавьте еще вопросов с multiple-choice, если нужно
+        ];
+
+        // --- Quiz Logic (Адаптировано под index.TXT) ---
+        const variantSelectionContainer = document.getElementById('variant-selection-container');
+        const quizForm = document.getElementById('quiz-form');
+        const quizContainer = document.getElementById('quiz-container');
+        const resultsContainer = document.getElementById('results-container');
+        const detailedResultsContainer = document.getElementById('detailed-results');
+        const scoreDisplay = document.getElementById('score-display'); // Display for points
+        const percentageDisplay = document.getElementById('percentage-display'); // Display for percentage
+        const submitButton = document.getElementById('submit-btn');
+        const retryButton = document.getElementById('retry-button');
+        const mainTitle = document.getElementById('main-title');
+        // Элементы прогресс-бара
+        const progressBar = document.getElementById('progress'); // [source index.TXT 130]
+        const progressText = document.getElementById('progress-text');
+        const answeredCountText = document.getElementById('answered-count');
+
+
+        let selectedQuestions = [];
+        let currentAnswers = {};
+        let questionsToDisplay = grammarQuestions.length; // Количество вопросов в тесте
+
+        // --- Utility functions for Local Storage (Без изменений) ---
+        function saveToLocalStorage(key, value) { try { localStorage.setItem(key, JSON.stringify(value)); } catch (e) { console.error("Error saving to localStorage", e); } }
+        function getFromLocalStorage(key) { try { const item = localStorage.getItem(key); return item ? JSON.parse(item) : null; } catch (e) { console.error("Error reading from localStorage", e); return null; } }
+        function removeFromLocalStorage(key) { try { localStorage.removeItem(key); } catch (e) { console.error("Error removing from localStorage", e); } }
+
+        function clearQuizState() {
+            removeFromLocalStorage(LS_STATE_KEY_GRAMMAR);
+            removeFromLocalStorage(LS_VARIANT_KEY_GRAMMAR);
+            removeFromLocalStorage(LS_ANSWERS_KEY_GRAMMAR);
+            removeFromLocalStorage(LS_QUESTIONS_KEY_GRAMMAR);
+            removeFromLocalStorage(LS_SCORE_KEY_GRAMMAR);
+            removeFromLocalStorage(LS_CORRECT_COUNT_KEY_GRAMMAR); // Очистка счетчика правильных
+            selectedQuestions = [];
+            currentAnswers = {};
+            updateProgress(); // Сброс прогресс-бара [source index.TXT 138]
+        }
+
+        // Function to shuffle an array (Опционально)
+        function shuffleArray(array) { for (let i = array.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [array[i], array[j]] = [array[j], array[i]]; } }
+
+        // Function to display the start screen
+        function displayStartScreen() {
+            mainTitle.textContent = 'Тест по грамматике';
+            variantSelectionContainer.classList.remove('hidden');
+            quizForm.classList.add('hidden');
+            resultsContainer.classList.add('hidden');
+            quizContainer.innerHTML = '<p style="text-align: center; padding: 20px; color: var(--gray);">Загрузка вопросов...</p>';
+            submitButton.disabled = true;
+        }
+
+        // Function to start the quiz
+        function startQuiz(variantId) { // variantId здесь 'grammar'
+            if (variantId === 'grammar') {
+                clearQuizState();
+                mainTitle.textContent = 'Тест по грамматике - Выполнение';
+                variantSelectionContainer.classList.add('hidden');
+                quizForm.classList.remove('hidden');
+                resultsContainer.classList.add('hidden');
+
+                let allQuestionsCopy = [...grammarQuestions];
+                // shuffleArray(allQuestionsCopy); // Раскомментируйте для случайного порядка
+                // Обновляем questionsToDisplay если массив изменился
+                questionsToDisplay = allQuestionsCopy.length;
+                selectedQuestions = allQuestionsCopy.slice(0, questionsToDisplay);
+                const selectedQuestionIds = selectedQuestions.map(q => q.id);
+
+                saveToLocalStorage(LS_STATE_KEY_GRAMMAR, 'in-progress');
+                saveToLocalStorage(LS_VARIANT_KEY_GRAMMAR, variantId);
+                saveToLocalStorage(LS_QUESTIONS_KEY_GRAMMAR, selectedQuestionIds);
+                saveToLocalStorage(LS_ANSWERS_KEY_GRAMMAR, {});
+
+                loadQuizQuestionsUI(selectedQuestions, {});
+                updateProgress(); // Инициализация прогресс-бара [source index.TXT 145]
+            } else {
+                console.error("Unknown variant selected:", variantId);
+                alert("Выбран неизвестный вариант.");
+            }
+        }
+
+        // Function to load and display quiz UI (только Multiple Choice)
+        function loadQuizQuestionsUI(questions, answers) {
+            quizContainer.innerHTML = '';
+            currentAnswers = answers; // Загрузка сохраненных ответов
+
+            questions.forEach((q, index) => {
+                const questionElement = document.createElement('div');
+                questionElement.classList.add('quiz-question');
+                questionElement.setAttribute('data-question-id', q.id);
+
+                let optionsHTML = '';
+                 const savedAnswer = answers[q.id]; // [source index.TXT 148]
+                const optionLetters = ['A', 'B', 'C', 'D'];
+
+                optionsHTML = '<ul class="options-list">';
+                q.options.forEach((option, i) => {
+                    const optionId = `q${q.id}_option${i}`; // [source index.TXT 149]
+                    const optionValue = optionLetters[i];
+                    const isChecked = savedAnswer === optionValue;
+                    optionsHTML += `
+                        <li>
+                            <input type="radio" id="${optionId}" name="question_${q.id}" value="${optionValue}" required ${isChecked ? 'checked' : ''}> <label for="${optionId}">${optionValue}) ${option}</label>
+                        </li>
+                    `; // [source index.TXT 151]
+                });
+                optionsHTML += '</ul>';
+
+                questionElement.innerHTML = `
+                    <div class="question-header">
+                        <span class="question-number">Вопрос ${index + 1}</span>
+                        <span class="question-points">${q.points.toLocaleString()} балла</span>
+                    </div> <p class="question-text">${q.text}</p> ${optionsHTML}
+                `; // [source index.TXT 153]
+                quizContainer.appendChild(questionElement); // [source index.TXT 154]
+            });
+             submitButton.disabled = false;
+             updateProgress(); // Обновление прогресса после загрузки [source index.TXT 154]
+        }
+
+        // Function to handle quiz submission (переименована, добавлена проверка)
+        function submitTest(event) { // [source index.TXT 198]
+             event.preventDefault(); // Предотвращаем стандартную отправку формы
+            currentAnswers = collectCurrentAnswers(); // [source index.TXT 155]
+            const answeredCount = Object.values(currentAnswers).filter(a => a !== null).length;
+
+            // Проверка, все ли вопросы отвечены (из index.TXT)
+            if (answeredCount < questionsToDisplay) { // [source index.TXT 156]
+                 alert(`Пожалуйста, ответьте на все ${questionsToDisplay} вопросов! Отвечено: ${answeredCount}.`); // [source index.TXT 156]
+                 return; // [source index.TXT 157]
+            }
+
+            let correctCount = 0; // [source index.TXT 157]
+            window.scrollTo(0, 0); // [source index.TXT 157]
+            selectedQuestions.forEach(q => { // [source index.TXT 158]
+                if (checkCorrectness(q, currentAnswers[q.id])) {
+                    correctCount++; // [source index.TXT 158]
+                }
+            });
+            const score = (correctCount * FIXED_POINTS_PER_QUESTION).toFixed(1); // Расчет балла [source index.TXT 159]
+
+            // Save final state
+            saveToLocalStorage(LS_STATE_KEY_GRAMMAR, 'completed'); // [source index.TXT 159]
+            saveToLocalStorage(LS_ANSWERS_KEY_GRAMMAR, currentAnswers); // [source index.TXT 160]
+            saveToLocalStorage(LS_SCORE_KEY_GRAMMAR, score); // [source index.TXT 160]
+            saveToLocalStorage(LS_CORRECT_COUNT_KEY_GRAMMAR, correctCount); // Сохраняем кол-во правильных
+
+            displayResults(score, correctCount, currentAnswers); // [source index.TXT 160]
+        }
+
+        // Function to display results (Обновлен формат отображения)
+        function displayResults(score, correctCount, finalAnswers) {
+            quizForm.classList.add('hidden'); // [source index.TXT 160]
+            resultsContainer.classList.remove('hidden'); // [source index.TXT 161]
+
+            const percentage = questionsToDisplay > 0 ? ((correctCount / questionsToDisplay) * 100).toFixed(1) : 0; // [source index.TXT 161]
+
+            // Отображение баллов и процентов (как в index.TXT)
+            scoreDisplay.textContent = `Ваш результат: ${score} баллов`; // [source index.TXT 161]
+            percentageDisplay.textContent = `Правильных ответов: ${correctCount} из ${questionsToDisplay} (${percentage}%)`; // [source index.TXT 162]
+
+            detailedResultsContainer.innerHTML = ''; // [source index.TXT 162]
+             if (selectedQuestions.length === 0) { // [source index.TXT 163]
+                 const savedQuestionIds = getFromLocalStorage(LS_QUESTIONS_KEY_GRAMMAR); // [source index.TXT 163]
+                 if (savedQuestionIds) { // [source index.TXT 164]
+                     // Используем grammarQuestions для восстановления
+                     selectedQuestions = grammarQuestions.filter(q => savedQuestionIds.includes(q.id)); // [source index.TXT 164]
+                     const questionMap = selectedQuestions.reduce((map, q) => { map[q.id] = q; return map; }, {}); // [source index.TXT 165]
+                     selectedQuestions = savedQuestionIds.map(id => questionMap[id]).filter(q => q); // [source index.TXT 166]
+                 } else { // [source index.TXT 166]
+                     detailedResultsContainer.innerHTML = "<p>Не удалось загрузить детализацию вопросов.</p>"; // [source index.TXT 166]
+                     return; // [source index.TXT 167]
+                 }
+             }
+
+
+            selectedQuestions.forEach((q, index) => { // [source index.TXT 167]
+                const resultData = finalAnswers[q.id];
+                const isCorrect = checkCorrectness(q, resultData);
+
+                const resultElement = document.createElement('div');
+                 resultElement.classList.add('result-item'); // [source index.TXT 168]
+                resultElement.classList.add(isCorrect ? 'correct' : 'incorrect');
+
+                let questionTextHTML = q.text;
+
+                let answerDetailsHTML = '';
+                const optionLetters = ['A', 'B', 'C', 'D'];
+                 const userAnswerText = resultData ? q.options[ optionLetters.indexOf(resultData) ] : 'Нет ответа'; // [source index.TXT 169]
+                const correctAnswerIndex = optionLetters.indexOf(q.correctAnswer);
+                const correctAnswerText = (correctAnswerIndex !== -1) ? q.options[correctAnswerIndex] : 'N/A'; // [source index.TXT 169]
+
+                 answerDetailsHTML = `
+                    <p><strong>Ваш ответ:</strong> ${resultData ? `<span class="${isCorrect ? 'correct-answer' : 'incorrect-answer'}">${resultData}) ${userAnswerText}</span>` : 'Нет ответа'} ${isCorrect ? '<i class="fas fa-check" style="color: var(--success);"></i>' : '<i class="fas fa-times" style="color: var(--danger);"></i>'}</p> ${!isCorrect ? `<p><strong>Правильный ответ:</strong> <span class="correct-answer">${q.correctAnswer}) ${correctAnswerText}</span></p>` : ''} `; // [source index.TXT 172]
+                resultElement.innerHTML = `
+                    <div class="question-text"><strong>${index + 1}.</strong> ${questionTextHTML} (${q.points.toLocaleString()} балла)</div>
+                    <div class="result-details">
+                        ${answerDetailsHTML}
+                    </div>
+                 `; // [source index.TXT 173]
+                detailedResultsContainer.appendChild(resultElement); // [source index.TXT 174]
+            }); // [source index.TXT 174]
+        } // [source index.TXT 175]
+
+        // Helper function to check correctness (только Multiple Choice)
+        function checkCorrectness(question, userAnswer) {
+             if (userAnswer === null || userAnswer === undefined) return false; // [source index.TXT 175]
+             return userAnswer === question.correctAnswer; // [source index.TXT 176]
+         }
+
+
+        // Helper function to collect current answers (только Multiple Choice)
+        function collectCurrentAnswers() {
+            const answers = {}; // [source index.TXT 176]
+            selectedQuestions.forEach(q => { // [source index.TXT 177]
+                 const questionId = q.id;
+                 const selectedOption = quizForm.querySelector(`input[name="question_${questionId}"]:checked`);
+                 answers[questionId] = selectedOption ? selectedOption.value : null; // [source index.TXT 177]
+            });
+            return answers; // [source index.TXT 178]
+        }
+
+        // Function to save answers progressively and update progress bar
+        function saveProgress() {
+            const currentAnswers = collectCurrentAnswers(); // [source index.TXT 178]
+            saveToLocalStorage(LS_ANSWERS_KEY_GRAMMAR, currentAnswers); // [source index.TXT 179]
+            saveToLocalStorage(LS_STATE_KEY_GRAMMAR, 'in-progress');
+            updateProgress(); // Обновление прогресс-бара [source index.TXT 179]
+        }
+
+        // Update progress bar display function (из index.TXT)
+        function updateProgress() {
+            const answers = getFromLocalStorage(LS_ANSWERS_KEY_GRAMMAR) || {}; // [source index.TXT 179]
+            const answered = Object.values(answers).filter(a => a !== null).length; // [source index.TXT 180]
+            const progressPercentage = questionsToDisplay > 0 ? (answered / questionsToDisplay) * 100 : 0;
+            if (progressBar) { // Проверка на существование элемента
+                 progressBar.style.width = `${progressPercentage}%`; // [source index.TXT 180]
+            }
+             if (progressText) { // [source index.TXT 181]
+                 progressText.textContent = `Прогресс: ${answered} / ${questionsToDisplay}`;
+             }
+             if (answeredCountText) { // [source index.TXT 181]
+                 answeredCountText.textContent = `Отвечено: ${answered}`;
+             }
+        } // [source index.TXT 182]
+
+
+        // --- Initialization & Event Listeners (Адаптировано) ---
+        window.addEventListener('load', () => {
+            const savedState = getFromLocalStorage(LS_STATE_KEY_GRAMMAR);
+            const savedVariantId = getFromLocalStorage(LS_VARIANT_KEY_GRAMMAR);
+
+            if (savedState === 'completed' && savedVariantId === 'grammar') {
+                 mainTitle.textContent = 'Тест по грамматике - Результаты'; // [source index.TXT 183]
+                 const savedAnswers = getFromLocalStorage(LS_ANSWERS_KEY_GRAMMAR);
+                 const savedScore = getFromLocalStorage(LS_SCORE_KEY_GRAMMAR);
+                 const savedCorrectCount = getFromLocalStorage(LS_CORRECT_COUNT_KEY_GRAMMAR); // Загрузка счетчика
+                 const savedQuestionIds = getFromLocalStorage(LS_QUESTIONS_KEY_GRAMMAR); // [source index.TXT 183]
+
+                 if (savedQuestionIds) { // [source index.TXT 184]
+                     selectedQuestions = grammarQuestions.filter(q => savedQuestionIds.includes(q.id)); // [source index.TXT 184]
+                     // Обновляем questionsToDisplay на случай, если набор вопросов изменился
+                     questionsToDisplay = selectedQuestions.length;
+                     const questionMap = selectedQuestions.reduce((map, q) => { map[q.id] = q; return map; }, {}); // [source index.TXT 184]
+                     selectedQuestions = savedQuestionIds.map(id => questionMap[id]).filter(q => q); // [source index.TXT 185]
+                 } else { // [source index.TXT 186]
+                      console.error("Cannot display results: saved question IDs not found."); // [source index.TXT 186]
+                      clearQuizState(); displayStartScreen(); return; // [source index.TXT 187]
+                 }
+
+                 if (savedAnswers && savedScore !== null && savedCorrectCount !== null) { // [source index.TXT 187]
+                     displayResults(savedScore, savedCorrectCount, savedAnswers); // [source index.TXT 187]
+                 } else { // [source index.TXT 188]
+                      clearQuizState(); // [source index.TXT 188]
+                      displayStartScreen(); // [source index.TXT 189]
+                 }
+
+            } else if (savedState === 'in-progress' && savedVariantId === 'grammar') { // [source index.TXT 189]
+                 mainTitle.textContent = 'Тест по грамматике - Выполнение'; // [source index.TXT 189]
+                 const savedAnswers = getFromLocalStorage(LS_ANSWERS_KEY_GRAMMAR) || {}; // [source index.TXT 190]
+                 const savedQuestionIds = getFromLocalStorage(LS_QUESTIONS_KEY_GRAMMAR); // [source index.TXT 190]
+                 if (savedQuestionIds) { // [source index.TXT 191]
+                     selectedQuestions = grammarQuestions.filter(q => savedQuestionIds.includes(q.id)); // [source index.TXT 191]
+                      // Обновляем questionsToDisplay
+                     questionsToDisplay = selectedQuestions.length;
+                     const questionMap = selectedQuestions.reduce((map, q) => { map[q.id] = q; return map; }, {}); // [source index.TXT 192]
+                     selectedQuestions = savedQuestionIds.map(id => questionMap[id]).filter(q => q); // [source index.TXT 193]
+
+                     variantSelectionContainer.classList.add('hidden'); // [source index.TXT 193]
+                     quizForm.classList.remove('hidden');
+                     resultsContainer.classList.add('hidden');
+                     loadQuizQuestionsUI(selectedQuestions, savedAnswers); // [source index.TXT 193]
+                 } else { // [source index.TXT 194]
+                     clearQuizState(); // [source index.TXT 194]
+                     displayStartScreen(); // [source index.TXT 195]
+                 }
+
+            } else { // [source index.TXT 195]
+                clearQuizState(); // [source index.TXT 195]
+                displayStartScreen(); // [source index.TXT 196]
+            }
+        }); // [source index.TXT 196]
+
+        variantSelectionContainer.addEventListener('click', (event) => { // [source index.TXT 197]
+            if (event.target.classList.contains('variant-button')) {
+                const variantId = event.target.getAttribute('data-variant'); // 'grammar'
+                startQuiz(variantId); // [source index.TXT 197]
+            }
+        });
+
+        // Используем submitTest при отправке формы
+        quizForm.addEventListener('submit', submitTest); // [source index.TXT 198]
+
+        retryButton.addEventListener('click', () => { // [source index.TXT 198]
+            clearQuizState();
+            displayStartScreen(); // [source index.TXT 199]
+        });
+
+        // Event listener to save progress on input change (только radio)
+        quizContainer.addEventListener('change', (event) => { // [source index.TXT 199]
+             if (event.target.matches('input[type="radio"]')) {
+                 saveProgress(); // [source index.TXT 199]
+             }
+         }); // [source index.TXT 200]
+
+    </script>
+</body>
+</html>

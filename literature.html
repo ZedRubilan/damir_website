@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тесты по Литературе - Выбор варианта - Rus.mastery</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Стили, адаптированные из dtm.html / milliy.html */
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap');
+
+        :root {
+            --primary: #4361ee;
+            --primary-light: #4895ef;
+            --primary-dark: #3f37c9;
+            --secondary: #ff8c00; /* Можно изменить для Литературы, если нужно */
+            --light: #f8f9fa;
+            --dark: #212529;
+            --gray: #6c757d;
+            --gray-light: #e9ecef;
+            --success: #4caf50;
+            --warning: #ff9800;
+            --danger: #f44336;
+            --border-radius: 12px;
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+            --shadow-md: 0 5px 15px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.15);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+
+        /* Header styles */
+        header {
+            background-color: #ffffff;
+            padding: 15px 0;
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 30px;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+             margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-image {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            color: white;
+            font-weight: 800;
+        }
+
+         .logo span {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+        }
+
+        .logo span.accent {
+            color: var(--secondary);
+            -webkit-text-fill-color: var(--secondary);
+        }
+
+        /* Variant Selection Styles */
+        #variant-selection-container {
+            text-align: center;
+            padding: 40px 20px;
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-md);
+            margin-top: 40px;
+        }
+        #variant-selection-container h2 {
+            margin-bottom: 30px;
+            color: var(--primary-dark);
+        }
+        .variant-button {
+            display: inline-block;
+            padding: 18px 35px;
+            margin: 10px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 18px;
+            text-decoration: none;
+            transition: var(--transition);
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
+            min-width: 200px;
+        }
+        .variant-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(67, 97, 238, 0.4);
+        }
+
+        /* Progress Bar & Timer Styles */
+        .progress-bar-container {
+             margin-bottom: 30px;
+             background-color: white;
+             padding: 15px 20px 10px 20px;
+             border-radius: var(--border-radius);
+             box-shadow: var(--shadow-sm);
+        }
+        .progress-info {
+             display: flex;
+             justify-content: space-between;
+             align-items: center;
+             font-size: 14px;
+             color: var(--gray);
+             margin-bottom: 8px;
+             font-weight: 500;
+             flex-wrap: wrap;
+             gap: 10px;
+        }
+         #timer-display {
+             font-weight: 600;
+             color: var(--primary-dark);
+             background-color: var(--gray-light);
+             padding: 3px 8px;
+             border-radius: 6px;
+         }
+         #timer-display.warning {
+            color: var(--danger);
+            background-color: rgba(244, 67, 54, 0.1);
+         }
+
+        .progress-bar {
+            width: 100%;
+            height: 12px;
+            background-color: var(--gray-light);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+        .progress {
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            width: 0;
+            transition: width 0.4s ease;
+            border-radius: 6px;
+        }
+
+        /* Quiz Specific Styles */
+        #quiz-container {
+            margin-bottom: 30px;
+        }
+
+        .quiz-question {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow-sm);
+            border-left: 4px solid var(--primary-light);
+            transition: var(--transition);
+        }
+
+        .quiz-question:hover {
+             box-shadow: var(--shadow-md);
+             transform: translateY(-3px);
+        }
+
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--gray-light);
+        }
+
+        .question-number {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 18px;
+        }
+
+        .question-points { /* Keep for consistency, even if points are 1 */
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--secondary);
+            background-color: rgba(255, 140, 0, 0.1);
+            padding: 5px 10px;
+            border-radius: 20px;
+        }
+
+        .question-text {
+            font-weight: 500;
+            margin-bottom: 15px;
+            color: var(--dark);
+            font-size: 16px;
+            white-space: pre-wrap;
+        }
+
+        .options-list {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 15px;
+        }
+
+        .options-list li {
+            margin-bottom: 12px;
+        }
+
+        .options-list label {
+            display: block;
+            background-color: var(--gray-light);
+            padding: 12px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 2px solid transparent;
+        }
+
+        .options-list label:hover {
+            background-color: #dde2e7;
+        }
+
+        .options-list input[type="radio"] {
+            display: none;
+        }
+
+         .options-list input[type="radio"]:checked + label {
+            background-color: rgba(67, 97, 238, 0.1);
+            border-color: var(--primary);
+            color: var(--primary-dark);
+            font-weight: 600;
+        }
+
+        /* Submit Button */
+        #submit-btn {
+            display: block;
+            width: 100%;
+            padding: 14px 28px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 16px;
+            text-decoration: none;
+            transition: var(--transition);
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        #submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(67, 97, 238, 0.4);
+        }
+         #submit-btn:disabled {
+             background: var(--gray);
+             cursor: not-allowed;
+             box-shadow: none;
+             transform: none;
+         }
+
+        /* Results Styles */
+        #results-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-md);
+            margin-top: 40px;
+        }
+
+        #results-summary {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--gray-light);
+        }
+
+        #results-summary h2 {
+             font-size: 28px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+         #results-summary p {
+            font-size: 18px;
+            color: var(--dark);
+            margin-bottom: 8px;
+         }
+         /* Adjusted results display for Literature */
+         .correct-count-display {
+             font-size: 24px;
+             font-weight: 700;
+             color: var(--primary-dark);
+             margin-bottom: 5px;
+         }
+         .percentage-display {
+             font-size: 16px;
+             color: var(--gray);
+         }
+
+
+        .result-item {
+            margin-bottom: 25px;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid var(--gray-light);
+        }
+
+        .result-item.correct {
+            background-color: rgba(76, 175, 80, 0.08);
+            border-left: 5px solid var(--success);
+        }
+
+        .result-item.incorrect {
+            background-color: rgba(244, 67, 54, 0.08);
+            border-left: 5px solid var(--danger);
+        }
+
+        .result-item .question-text {
+            font-weight: 600;
+            margin-bottom: 15px;
+            white-space: pre-wrap;
+        }
+
+        .result-details p {
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .result-details strong {
+            font-weight: 600;
+        }
+
+        .correct-answer {
+            color: var(--success);
+            font-weight: bold;
+        }
+        .incorrect-answer {
+             color: var(--danger);
+             font-weight: bold;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* Responsive */
+         @media (max-width: 768px) {
+            .container { max-width: 100%; padding: 0 15px; }
+            .header-content { flex-direction: column; gap: 10px; }
+            .quiz-question { padding: 15px; }
+            .question-text { font-size: 15px; }
+            .options-list label { padding: 10px 15px; }
+            #submit-btn { font-size: 15px; padding: 12px 20px; }
+            #results-container { padding: 20px; }
+            #variant-selection-container { padding: 20px 15px; }
+            .variant-button { font-size: 16px; padding: 15px 25px; min-width: 180px; }
+            #results-summary h2 { font-size: 24px; }
+            .correct-count-display { font-size: 20px; }
+            .percentage-display { font-size: 15px; }
+            .progress-info { font-size: 13px; }
+            #timer-display { font-size: 13px; }
+         }
+
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <a href="index.html" class="logo"> <div class="logo-image">R</div>
+                <span>Rus.<span class="accent">mastery</span></span>
+            </a>
+             </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <h1 id="main-title" style="text-align: center; margin-bottom: 30px; color: var(--primary-dark);">Тесты по Литературе - Выбор варианта</h1>
+
+            <div id="variant-selection-container">
+                <h2>Выберите вариант теста:</h2>
+                <button class="variant-button" data-variant="lit1">Вариант Литература 1</button>
+            </div>
+
+            <form id="quiz-form" class="hidden">
+                <div class="progress-bar-container">
+                     <div class="progress-info">
+                         <span id="progress-text">Прогресс: 0 / 30</span>
+                         <span id="timer-display">Время: 60:00</span>
+                         <span id="answered-count">Отвечено: 0</span>
+                     </div>
+                    <div class="progress-bar">
+                        <div class="progress" id="progress"></div>
+                    </div>
+                </div>
+
+                <div id="quiz-container">
+                    <p style="text-align: center; padding: 20px; color: var(--gray);">Загрузка вопросов...</p>
+                </div>
+                <button type="submit" id="submit-btn" disabled>Завершить тест</button>
+            </form>
+
+            <div id="results-container" class="hidden">
+                <div id="results-summary">
+                    <h2>Результаты Теста</h2>
+                    <p class="correct-count-display" id="correct-count-display">Правильно: 0</p>
+                    <p class="percentage-display" id="percentage-display">Процент верных ответов: (0%)</p>
+                </div>
+                <div id="detailed-results">
+                    </div>
+                 <button id="retry-button" style="display: block; margin: 30px auto 0; padding: 10px 20px; background-color: var(--secondary); color: white; border: none; border-radius: 20px; cursor: pointer; font-weight: 600;">Выбрать другой вариант</button>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // --- Constants for Local Storage Keys (Literature specific) ---
+        const LS_STATE_KEY_LIT = 'litQuiz_state';
+        const LS_VARIANT_KEY_LIT = 'litQuiz_variantId';
+        const LS_ANSWERS_KEY_LIT = 'litQuiz_answers';
+        const LS_QUESTIONS_KEY_LIT = 'litQuiz_questionIds';
+        const LS_CORRECT_COUNT_KEY_LIT = 'litQuiz_correctCount';
+        const LS_TIMER_KEY_LIT = 'litQuiz_timer';
+
+        // --- Placeholder Literature Questions Data ---
+        // !!! ВАЖНО: Замените эти вопросы на ваши реальные !!!
+        const allLiteratureQuestions = [
+            { id: 1, points: 1, type: 'multiple-choice', text: 'Кто написал "Война и мир"?', options: ["Л.Н. Толстой", "Ф.М. Достоевский", "А.С. Пушкин", "И.С. Тургенев"], correctAnswer: 'A' },
+            { id: 2, points: 1, type: 'multiple-choice', text: 'Главный герой романа "Преступление и наказание"?', options: ["Раскольников", "Мышкин", "Ставрогин", "Версилов"], correctAnswer: 'A' },
+            { id: 3, points: 1, type: 'multiple-choice', text: 'В каком произведении А.С. Пушкина встречается Татьяна Ларина?', options: ["Капитанская дочка", "Евгений Онегин", "Дубровский", "Пиковая дама"], correctAnswer: 'B' },
+            { id: 4, points: 1, type: 'multiple-choice', text: 'Автор пьесы "Вишневый сад"?', options: ["А.П. Чехов", "А.Н. Островский", "М. Горький", "Н.В. Гоголь"], correctAnswer: 'A' },
+            { id: 5, points: 1, type: 'multiple-choice', text: 'Какой поэт написал "Бородино"?', options: ["А.С. Пушкин", "Н.А. Некрасов", "М.Ю. Лермонтов", "Ф.И. Тютчев"], correctAnswer: 'C' },
+            { id: 6, points: 1, type: 'multiple-choice', text: 'Название поэмы Н.В. Гоголя?', options: ["Ревизор", "Мертвые души", "Шинель", "Тарас Бульба"], correctAnswer: 'B' },
+            { id: 7, points: 1, type: 'multiple-choice', text: 'Кто из этих писателей является представителем Серебряного века?', options: ["Л.Н. Толстой", "А.А. Блок", "И.С. Тургенев", "Ф.М. Достоевский"], correctAnswer: 'B' },
+            { id: 8, points: 1, type: 'multiple-choice', text: 'Главный герой романа И.С. Тургенева "Отцы и дети"?', options: ["Павел Кирсанов", "Аркадий Кирсанов", "Евгений Базаров", "Николай Кирсанов"], correctAnswer: 'C' },
+            { id: 9, points: 1, type: 'multiple-choice', text: 'Какой жанр у произведения "Горе от ума" А.С. Грибоедова?', options: ["Трагедия", "Роман", "Поэма", "Комедия"], correctAnswer: 'D' },
+            { id: 10, points: 1, type: 'multiple-choice', text: 'Автор рассказа "Муму"?', options: ["Н.В. Гоголь", "И.С. Тургенев", "А.П. Чехов", "Л.Н. Толстой"], correctAnswer: 'B' },
+            { id: 11, points: 1, type: 'multiple-choice', text: 'В каком произведении М.А. Булгакова действует Воланд?', options: ["Собачье сердце", "Белая гвардия", "Мастер и Маргарита", "Записки юного врача"], correctAnswer: 'C' },
+            { id: 12, points: 1, type: 'multiple-choice', text: 'Кто написал стихотворение "Я помню чудное мгновенье..."?', options: ["М.Ю. Лермонтов", "А.А. Фет", "А.С. Пушкин", "С.А. Есенин"], correctAnswer: 'C' },
+            { id: 13, points: 1, type: 'multiple-choice', text: 'Какой литературный прием используется в выражении "лес поет"?', options: ["Метафора", "Олицетворение", "Сравнение", "Гипербола"], correctAnswer: 'B' },
+            { id: 14, points: 1, type: 'multiple-choice', text: 'Героиню какого романа звали Наташа Ростова?', options: ["Анна Каренина", "Война и мир", "Идиот", "Тихий Дон"], correctAnswer: 'B' },
+            { id: 15, points: 1, type: 'multiple-choice', text: 'Автор романа "Обломов"?', options: ["И.А. Гончаров", "Н.С. Лесков", "М.Е. Салтыков-Щедрин", "А.И. Куприн"], correctAnswer: 'A' },
+            { id: 16, points: 1, type: 'multiple-choice', text: 'Как звали главного героя поэмы Лермонтова "Мцыри"?', options: ["Печорин", "Демон", "Мцыри", "Арбенин"], correctAnswer: 'C' },
+            { id: 17, points: 1, type: 'multiple-choice', text: 'Какой писатель создал Шерлока Холмса?', options: ["Агата Кристи", "Жюль Верн", "Артур Конан Дойл", "Эдгар Аллан По"], correctAnswer: 'C' },
+            { id: 18, points: 1, type: 'multiple-choice', text: 'Кто написал "Маленького принца"?', options: ["Антуан де Сент-Экзюпери", "Шарль Перро", "Ханс Кристиан Андерсен", "Братья Гримм"], correctAnswer: 'A' },
+            { id: 19, points: 1, type: 'multiple-choice', text: 'В каком произведении Шекспира главные герои Ромео и Джульетта?', options: ["Гамлет", "Отелло", "Король Лир", "Ромео и Джульетта"], correctAnswer: 'D' },
+            { id: 20, points: 1, type: 'multiple-choice', text: 'Автор романа "1984"?', options: ["Олдос Хаксли", "Рэй Брэдбери", "Джордж Оруэлл", "Курт Воннегут"], correctAnswer: 'C' },
+            { id: 21, points: 1, type: 'multiple-choice', text: 'Кто из русских поэтов написал "Незнакомка"?', options: ["А.А. Блок", "В.В. Маяковский", "С.А. Есенин", "А.А. Ахматова"], correctAnswer: 'A' },
+            { id: 22, points: 1, type: 'multiple-choice', text: 'Какой роман начинается словами "Все счастливые семьи похожи друг на друга..."?', options: ["Война и мир", "Анна Каренина", "Отцы и дети", "Преступление и наказание"], correctAnswer: 'B' },
+            { id: 23, points: 1, type: 'multiple-choice', text: 'Автор "Тихого Дона"?', options: ["М.А. Шолохов", "А.И. Солженицын", "Б.Л. Пастернак", "М.А. Булгаков"], correctAnswer: 'A' },
+            { id: 24, points: 1, type: 'multiple-choice', text: 'Как называется цикл рассказов И.А. Бунина?', options: ["Жизнь Арсеньева", "Темные аллеи", "Господин из Сан-Франциско", "Легкое дыхание"], correctAnswer: 'B' },
+            { id: 25, points: 1, type: 'multiple-choice', text: 'Какой поэт является автором строк "Люблю грозу в начале мая"?', options: ["А.С. Пушкин", "А.А. Фет", "Н.А. Некрасов", "Ф.И. Тютчев"], correctAnswer: 'D' },
+            { id: 26, points: 1, type: 'multiple-choice', text: 'Главный герой романа "Герой нашего времени"?', options: ["Онегин", "Чацкий", "Печорин", "Базаров"], correctAnswer: 'C' },
+            { id: 27, points: 1, type: 'multiple-choice', text: 'В каком городе происходит действие "Преступления и наказания"?', options: ["Москва", "Санкт-Петербург", "Киев", "Одесса"], correctAnswer: 'B' },
+            { id: 28, points: 1, type: 'multiple-choice', text: 'Кто из персонажей "Мертвых душ" отличался скупостью?', options: ["Манилов", "Коробочка", "Плюшкин", "Собакевич"], correctAnswer: 'C' },
+            { id: 29, points: 1, type: 'multiple-choice', text: 'Автор стихотворения "Письмо к женщине"?', options: ["В.В. Маяковский", "С.А. Есенин", "А.А. Блок", "Б.Л. Пастернак"], correctAnswer: 'B' },
+            { id: 30, points: 1, type: 'multiple-choice', text: 'Какое произведение НЕ принадлежит А.П. Чехову?', options: ["Чайка", "Дядя Ваня", "Три сестры", "Гроза"], correctAnswer: 'D' }
+        ];
+
+        // --- Quiz Logic ---
+        const variantSelectionContainer = document.getElementById('variant-selection-container');
+        const quizForm = document.getElementById('quiz-form');
+        const quizContainer = document.getElementById('quiz-container');
+        const resultsContainer = document.getElementById('results-container');
+        const detailedResultsContainer = document.getElementById('detailed-results');
+        const correctCountDisplay = document.getElementById('correct-count-display'); // Changed ID
+        const percentageDisplay = document.getElementById('percentage-display');
+        const submitButton = document.getElementById('submit-btn');
+        const retryButton = document.getElementById('retry-button');
+        const mainTitle = document.getElementById('main-title');
+        const progressBar = document.getElementById('progress');
+        const progressText = document.getElementById('progress-text');
+        const answeredCountText = document.getElementById('answered-count');
+        const timerDisplay = document.getElementById('timer-display');
+
+
+        let selectedQuestions = [];
+        let currentAnswers = {};
+        const questionsToDisplay = 30; // Literature uses 30 questions
+        let timerInterval = null;
+        let timeRemaining = 3600; // 1 hour
+
+        // --- Utility functions for Local Storage ---
+        function saveToLocalStorage(key, value) { try { localStorage.setItem(key, JSON.stringify(value)); } catch (e) { console.error("Error saving to localStorage", e); } }
+        function getFromLocalStorage(key) { try { const item = localStorage.getItem(key); return item ? JSON.parse(item) : null; } catch (e) { console.error("Error reading from localStorage", e); return null; } }
+        function removeFromLocalStorage(key) { try { localStorage.removeItem(key); } catch (e) { console.error("Error removing from localStorage", e); } }
+
+        function clearQuizState() {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            removeFromLocalStorage(LS_STATE_KEY_LIT);
+            removeFromLocalStorage(LS_VARIANT_KEY_LIT);
+            removeFromLocalStorage(LS_ANSWERS_KEY_LIT);
+            removeFromLocalStorage(LS_QUESTIONS_KEY_LIT);
+            removeFromLocalStorage(LS_CORRECT_COUNT_KEY_LIT);
+            removeFromLocalStorage(LS_TIMER_KEY_LIT);
+            selectedQuestions = [];
+            currentAnswers = {};
+            updateProgress();
+            updateTimerDisplay(3600);
+        }
+
+        // Function to shuffle an array
+        function shuffleArray(array) { for (let i = array.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1));[array[i], array[j]] = [array[j], array[i]]; } }
+
+        // Function to display the variant selection screen
+        function displayVariantSelection() {
+            mainTitle.textContent = 'Тесты по Литературе - Выбор варианта';
+            variantSelectionContainer.classList.remove('hidden');
+            quizForm.classList.add('hidden');
+            resultsContainer.classList.add('hidden');
+            quizContainer.innerHTML = '<p style="text-align: center; padding: 20px; color: var(--gray);">Загрузка вопросов...</p>';
+            submitButton.disabled = true;
+        }
+
+        // --- Timer Functions ---
+        function updateTimerDisplay(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            const remainingSeconds = seconds % 60;
+            timerDisplay.textContent = `Время: ${String(minutes).padStart(2, '0')}:${String(remainingSeconds).padStart(2, '0')}`;
+            if (seconds <= 300) { timerDisplay.classList.add('warning'); }
+            else { timerDisplay.classList.remove('warning'); }
+        }
+
+        function startTimer(startTimeInSeconds) {
+            clearInterval(timerInterval);
+            timeRemaining = startTimeInSeconds;
+            updateTimerDisplay(timeRemaining);
+
+            timerInterval = setInterval(() => {
+                timeRemaining--;
+                updateTimerDisplay(timeRemaining);
+                saveToLocalStorage(LS_TIMER_KEY_LIT, timeRemaining);
+
+                if (timeRemaining <= 0) {
+                    clearInterval(timerInterval);
+                    timerInterval = null;
+                    alert("Время вышло! Тест будет завершен автоматически.");
+                    submitTest(true);
+                }
+            }, 1000);
+        }
+
+
+        // Function to start the quiz for the selected variant
+        function startQuiz(variantId) {
+            // Only one variant 'lit1' for now
+            if (variantId === 'lit1') {
+                clearQuizState();
+                mainTitle.textContent = 'Тесты по Литературе (Вариант 1)';
+                variantSelectionContainer.classList.add('hidden');
+                quizForm.classList.remove('hidden');
+                resultsContainer.classList.add('hidden');
+
+                let allQuestionsCopy = [...allLiteratureQuestions];
+                shuffleArray(allQuestionsCopy);
+                selectedQuestions = allQuestionsCopy.slice(0, questionsToDisplay);
+                const selectedQuestionIds = selectedQuestions.map(q => q.id);
+
+                saveToLocalStorage(LS_STATE_KEY_LIT, 'in-progress');
+                saveToLocalStorage(LS_VARIANT_KEY_LIT, variantId);
+                saveToLocalStorage(LS_QUESTIONS_KEY_LIT, selectedQuestionIds);
+                saveToLocalStorage(LS_ANSWERS_KEY_LIT, {});
+                saveToLocalStorage(LS_TIMER_KEY_LIT, 3600);
+
+                loadQuizQuestionsUI(selectedQuestions, {});
+                startTimer(3600);
+                updateProgress();
+            } else {
+                console.error("Unknown variant selected:", variantId);
+                alert("Выбран неизвестный вариант.");
+            }
+        }
+
+        // Function to load and display quiz UI
+        function loadQuizQuestionsUI(questions, answers) {
+            quizContainer.innerHTML = '';
+            currentAnswers = answers;
+
+            questions.forEach((q, index) => {
+                const questionElement = document.createElement('div');
+                questionElement.classList.add('quiz-question');
+                questionElement.setAttribute('data-question-id', q.id);
+
+                let optionsHTML = '';
+                const savedAnswer = answers[q.id];
+                const optionLetters = ['A', 'B', 'C', 'D'];
+
+                optionsHTML = '<ul class="options-list">';
+                q.options.forEach((option, i) => {
+                    const optionId = `q${q.id}_option${i}`;
+                    const optionValue = optionLetters[i];
+                    const isChecked = savedAnswer === optionValue;
+                    optionsHTML += `
+                        <li>
+                            <input type="radio" id="${optionId}" name="question_${q.id}" value="${optionValue}" required ${isChecked ? 'checked' : ''}>
+                            <label for="${optionId}">${optionValue}) ${option}</label>
+                        </li>
+                    `;
+                });
+                optionsHTML += '</ul>';
+
+                questionElement.innerHTML = `
+                    <div class="question-header">
+                        <span class="question-number">Вопрос ${index + 1}</span>
+                        <span class="question-points">${q.points.toLocaleString()} балл(а)</span>
+                    </div>
+                    <p class="question-text">${q.text}</p>
+                    ${optionsHTML}
+                `;
+                quizContainer.appendChild(questionElement);
+            });
+             submitButton.disabled = false;
+             updateProgress();
+        }
+
+        // Function to handle quiz submission
+        function submitTest(isAutoSubmit = false) {
+             clearInterval(timerInterval);
+             timerInterval = null;
+
+            currentAnswers = collectCurrentAnswers();
+            const answeredCount = Object.values(currentAnswers).filter(a => a !== null).length;
+
+            if (!isAutoSubmit && answeredCount < questionsToDisplay) {
+                 alert(`Пожалуйста, ответьте на все ${questionsToDisplay} вопросов! Отвечено: ${answeredCount}.`);
+                 const savedTime = getFromLocalStorage(LS_TIMER_KEY_LIT);
+                 if (savedTime !== null && savedTime > 0) { startTimer(savedTime); }
+                 return;
+            }
+
+            let correctCount = 0;
+            window.scrollTo(0, 0);
+
+            selectedQuestions.forEach(q => {
+                if (checkCorrectness(q, currentAnswers[q.id])) {
+                    correctCount++;
+                }
+            });
+
+            // Save final state
+            saveToLocalStorage(LS_STATE_KEY_LIT, 'completed');
+            saveToLocalStorage(LS_ANSWERS_KEY_LIT, currentAnswers);
+            saveToLocalStorage(LS_CORRECT_COUNT_KEY_LIT, correctCount);
+            removeFromLocalStorage(LS_TIMER_KEY_LIT);
+
+            displayResults(correctCount, currentAnswers);
+        }
+
+        // Function to display results
+        function displayResults(correctCount, finalAnswers) {
+            quizForm.classList.add('hidden');
+            resultsContainer.classList.remove('hidden');
+
+            const percentage = ((correctCount / questionsToDisplay) * 100).toFixed(1);
+
+            correctCountDisplay.textContent = `Правильно: ${correctCount} из ${questionsToDisplay}`;
+            percentageDisplay.textContent = `Процент верных ответов: (${percentage}%)`;
+
+
+            detailedResultsContainer.innerHTML = '';
+             if (selectedQuestions.length === 0) {
+                 const savedQuestionIds = getFromLocalStorage(LS_QUESTIONS_KEY_LIT);
+                 if (savedQuestionIds) {
+                     selectedQuestions = allLiteratureQuestions.filter(q => savedQuestionIds.includes(q.id));
+                      const questionMap = selectedQuestions.reduce((map, q) => { map[q.id] = q; return map; }, {});
+                     selectedQuestions = savedQuestionIds.map(id => questionMap[id]).filter(q => q);
+                 } else {
+                     detailedResultsContainer.innerHTML = "<p>Не удалось загрузить детализацию вопросов.</p>";
+                     return;
+                 }
+             }
+
+
+            selectedQuestions.forEach((q, index) => {
+                const resultData = finalAnswers[q.id];
+                const isCorrect = checkCorrectness(q, resultData);
+
+                const resultElement = document.createElement('div');
+                resultElement.classList.add('result-item');
+                resultElement.classList.add(isCorrect ? 'correct' : 'incorrect');
+
+                let questionTextHTML = q.text;
+
+                let answerDetailsHTML = '';
+                const optionLetters = ['A', 'B', 'C', 'D'];
+                const userAnswerText = resultData ? q.options[ optionLetters.indexOf(resultData) ] : 'Нет ответа';
+                const correctAnswerIndex = optionLetters.indexOf(q.correctAnswer);
+                const correctAnswerText = (correctAnswerIndex !== -1) ? q.options[correctAnswerIndex] : 'N/A';
+
+                 answerDetailsHTML = `
+                    <p><strong>Ваш ответ:</strong> ${resultData ? `<span class="${isCorrect ? 'correct-answer' : 'incorrect-answer'}">${resultData}) ${userAnswerText}</span>` : 'Нет ответа'} ${isCorrect ? '<i class="fas fa-check" style="color: var(--success);"></i>' : '<i class="fas fa-times" style="color: var(--danger);"></i>'}</p>
+                    ${!isCorrect ? `<p><strong>Правильный ответ:</strong> <span class="correct-answer">${q.correctAnswer}) ${correctAnswerText}</span></p>` : ''}
+                `;
+
+                resultElement.innerHTML = `
+                    <div class="question-text"><strong>${index + 1}.</strong> ${questionTextHTML} (${q.points.toLocaleString()} балл(а))</div>
+                    <div class="result-details">
+                        ${answerDetailsHTML}
+                    </div>
+                `;
+                detailedResultsContainer.appendChild(resultElement);
+            });
+        }
+
+        // Helper function to check correctness
+        function checkCorrectness(question, userAnswer) {
+             if (userAnswer === null || userAnswer === undefined) return false;
+             return userAnswer === question.correctAnswer;
+         }
+
+
+        // Helper function to collect current answers from the form
+        function collectCurrentAnswers() {
+            const answers = {};
+            selectedQuestions.forEach(q => {
+                 const questionId = q.id;
+                 const selectedOption = quizForm.querySelector(`input[name="question_${questionId}"]:checked`);
+                 answers[questionId] = selectedOption ? selectedOption.value : null;
+            });
+            return answers;
+        }
+
+        // Function to save answers progressively
+        function saveProgress() {
+            const currentAnswers = collectCurrentAnswers();
+            saveToLocalStorage(LS_ANSWERS_KEY_LIT, currentAnswers);
+            saveToLocalStorage(LS_STATE_KEY_LIT, 'in-progress');
+            updateProgress();
+        }
+
+        // Update progress bar display
+        function updateProgress() {
+            const answers = getFromLocalStorage(LS_ANSWERS_KEY_LIT) || {};
+            const answered = Object.values(answers).filter(a => a !== null).length;
+            const progressPercentage = (answered / questionsToDisplay) * 100;
+            progressBar.style.width = `${progressPercentage}%`;
+            progressText.textContent = `Прогресс: ${answered} / ${questionsToDisplay}`;
+            answeredCountText.textContent = `Отвечено: ${answered}`;
+        }
+
+
+        // --- Initialization & Event Listeners ---
+        window.addEventListener('load', () => {
+            const savedState = getFromLocalStorage(LS_STATE_KEY_LIT);
+            const savedVariantId = getFromLocalStorage(LS_VARIANT_KEY_LIT);
+
+            if (savedState === 'completed' && savedVariantId === 'lit1') {
+                 mainTitle.textContent = 'Тесты по Литературе - Результаты (Вариант 1)';
+                 const savedAnswers = getFromLocalStorage(LS_ANSWERS_KEY_LIT);
+                 const savedCorrectCount = getFromLocalStorage(LS_CORRECT_COUNT_KEY_LIT);
+                 const savedQuestionIds = getFromLocalStorage(LS_QUESTIONS_KEY_LIT);
+
+                 if (savedQuestionIds) {
+                     selectedQuestions = allLiteratureQuestions.filter(q => savedQuestionIds.includes(q.id));
+                     const questionMap = selectedQuestions.reduce((map, q) => { map[q.id] = q; return map; }, {});
+                     selectedQuestions = savedQuestionIds.map(id => questionMap[id]).filter(q => q);
+                 } else {
+                      console.error("Cannot display results: saved question IDs not found.");
+                      clearQuizState(); displayVariantSelection(); return;
+                 }
+
+                 if (savedAnswers && savedCorrectCount !== null) {
+                     displayResults(savedCorrectCount, savedAnswers);
+                 } else {
+                      clearQuizState(); displayVariantSelection();
+                 }
+
+            } else if (savedState === 'in-progress' && savedVariantId === 'lit1') {
+                 mainTitle.textContent = 'Тесты по Литературе (Вариант 1)';
+                 const savedAnswers = getFromLocalStorage(LS_ANSWERS_KEY_LIT) || {};
+                 const savedQuestionIds = getFromLocalStorage(LS_QUESTIONS_KEY_LIT);
+                 const savedTime = getFromLocalStorage(LS_TIMER_KEY_LIT);
+
+                 if (savedQuestionIds) {
+                     selectedQuestions = allLiteratureQuestions.filter(q => savedQuestionIds.includes(q.id));
+                     const questionMap = selectedQuestions.reduce((map, q) => { map[q.id] = q; return map; }, {});
+                     selectedQuestions = savedQuestionIds.map(id => questionMap[id]).filter(q => q);
+
+                     variantSelectionContainer.classList.add('hidden');
+                     quizForm.classList.remove('hidden');
+                     resultsContainer.classList.add('hidden');
+                     loadQuizQuestionsUI(selectedQuestions, savedAnswers);
+
+                     if (savedTime !== null && savedTime > 0) {
+                         startTimer(savedTime);
+                     } else if (savedTime !== null && savedTime <= 0) {
+                         submitTest(true);
+                     } else {
+                         startTimer(3600);
+                     }
+                 } else {
+                     clearQuizState(); displayVariantSelection();
+                 }
+
+            } else {
+                clearQuizState(); displayVariantSelection();
+            }
+        });
+
+        variantSelectionContainer.addEventListener('click', (event) => {
+            if (event.target.classList.contains('variant-button')) {
+                const variantId = event.target.getAttribute('data-variant');
+                startQuiz(variantId);
+            }
+        });
+
+        quizForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            submitTest();
+        });
+
+
+        retryButton.addEventListener('click', () => {
+            clearQuizState();
+            displayVariantSelection();
+        });
+
+        quizContainer.addEventListener('change', (event) => {
+             if (event.target.matches('input[type="radio"]')) {
+                 saveProgress();
+             }
+         });
+
+    </script>
+</body>
+</html>
