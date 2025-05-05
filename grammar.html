@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Тест по грамматике (DTM Style) - Rus.mastery</title>
+    <title>Тесты по русскому языку - Rus.mastery</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
         /* Стили полностью скопированы из milliy.TXT / index.TXT */
@@ -99,39 +99,60 @@
             -webkit-text-fill-color: var(--secondary); /* [source index.TXT 19] */
         }
 
-        /* Variant Selection Styles */
-        #variant-selection-container {
-            text-align: center; /* [source index.TXT 19] */
-            padding: 40px 20px; /* [source index.TXT 20] */
+        /* Section Selection Styles */
+        #section-selection-container {
+            /* text-align: center; */ /* Убрал центрирование для лучшего вида списка */
+            padding: 30px 20px; /* [source index.TXT 20] */
             background-color: white;
             border-radius: var(--border-radius);
             box-shadow: var(--shadow-md);
             margin-top: 40px; /* [source index.TXT 20] */
         } /* [source index.TXT 21] */
-        #variant-selection-container h2 {
-            margin-bottom: 30px; /* [source index.TXT 21] */
+        #section-selection-container h2 {
+            margin-bottom: 25px; /* [source index.TXT 21] */
             color: var(--primary-dark); /* [source index.TXT 22] */
+            text-align: center; /* Заголовок оставил по центру */
         }
-        .variant-button { /* Start Button */
-            display: inline-block; /* [source index.TXT 22] */
-            padding: 18px 35px; /* [source index.TXT 23] */
-            margin: 10px;
-            border-radius: 30px;
-            font-weight: 600;
-            font-size: 18px;
+        .section-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-wrap: wrap; /* Позволяет кнопкам переноситься */
+            gap: 15px; /* Пространство между кнопками */
+            justify-content: center; /* Центрирование кнопок в строке */
+        }
+        .section-list li {
+           flex-basis: calc(33.333% - 10px); /* Примерно 3 кнопки в ряд, учитывая gap */
+           display: flex; /* Чтобы кнопка растягивалась */
+        }
+
+        .section-button { /* Section Button Style */
+            /* display: inline-block; */
+            flex-grow: 1; /* Кнопка занимает все доступное место в li */
+            padding: 12px 18px; /* [source index.TXT 23] */
+            /* margin: 8px; */ /* Убрали margin, используем gap в .section-list */
+            border-radius: 8px; /* Сделали менее круглыми */
+            font-weight: 500; /* Немного тоньше */
+            font-size: 15px; /* Немного меньше */
             text-decoration: none;
             transition: var(--transition);
-            background: linear-gradient(135deg, var(--primary), var(--primary-light)); /* [source index.TXT 23] */
-            color: white; /* [source index.TXT 24] */
-            border: none;
+            background: var(--gray-light); /* Светлый фон по умолчанию */
+            color: var(--primary-dark); /* Темно-синий текст */
+            border: 1px solid var(--gray-light); /* Тонкая граница */
             cursor: pointer;
-            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
-            min-width: 200px; /* [source index.TXT 24] */
+            text-align: center;
+            /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); */ /* Уменьшили тень */
+            /* min-width: 180px; */ /* Убрали мин ширину */
         } /* [source index.TXT 25] */
-        .variant-button:hover {
-            transform: translateY(-3px); /* [source index.TXT 25] */
-            box-shadow: 0 8px 20px rgba(67, 97, 238, 0.4); /* [source index.TXT 26] */
+        .section-button:hover {
+            background-color: rgba(67, 97, 238, 0.1); /* Фон при наведении */
+            border-color: var(--primary-light); /* Граница при наведении */
+            color: var(--primary);
+            transform: translateY(-2px); /* [source index.TXT 25] */
+            box-shadow: var(--shadow-sm); /* [source index.TXT 26] */
         }
+
 
         /* Progress Bar Styles (from index.TXT) */
         .progress-bar-container {
@@ -362,6 +383,28 @@
             font-weight: bold; /* [source index.TXT 72] */
         }
 
+         /* Кнопка "Назад к выбору раздела" */
+         #back-to-sections-btn {
+            display: block;
+            margin: 30px auto 0;
+            padding: 12px 25px;
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 15px;
+            transition: var(--transition);
+            box-shadow: var(--shadow-sm);
+        }
+        #back-to-sections-btn:hover {
+            background-color: #e67e00; /* Darker orange */
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
+
+
         .hidden {
             display: none !important; /* [source index.TXT 72] */
         } /* [source index.TXT 73] */
@@ -375,6 +418,13 @@
              .header-content {
                 flex-direction: column; /* [source index.TXT 74] */
                 gap: 10px; /* [source index.TXT 75] */
+             }
+             .section-list li {
+                 flex-basis: calc(50% - 8px); /* 2 кнопки в ряд на мобильных */
+             }
+             .section-button {
+                 font-size: 14px;
+                 padding: 10px 15px;
              }
              .quiz-question {
                  padding: 15px; /* [source index.TXT 75] */
@@ -392,14 +442,9 @@
              #results-container {
                  padding: 20px; /* [source index.TXT 79] */
             } /* [source index.TXT 80] */
-              #variant-selection-container {
+              #section-selection-container {
                  padding: 20px 15px; /* [source index.TXT 80] */
             } /* [source index.TXT 81] */
-             .variant-button {
-                 font-size: 16px; /* [source index.TXT 81] */
-                 padding: 15px 25px; /* [source index.TXT 82] */
-                 min-width: 180px;
-             }
              #results-summary h2 {
                  font-size: 24px; /* [source index.TXT 82] */
             } /* [source index.TXT 83] */
@@ -410,89 +455,197 @@
                  font-size: 15px; /* [source index.TXT 84] */
             } /* [source index.TXT 85] */
          }
+         @media (max-width: 480px) {
+             .section-list li {
+                 flex-basis: 100%; /* 1 кнопка в ряд на маленьких экранах */
+             }
+         }
 
     </style>
 </head>
 <body>
     <header>
         <div class="container header-content">
-            <a href="index.html" class="logo"> <div class="logo-image">R</div> <span>Rus.<span class="accent">mastery</span></span> </a>
-             </div>
+            <a href="#" class="logo" onclick="displayStartScreen(); return false;"> <div class="logo-image">R</div>
+                <span>Rus.<span class="accent">mastery</span></span>
+            </a>
+        </div>
     </header>
 
     <main>
-         <div class="container"> <h1 id="main-title" style="text-align: center; margin-bottom: 30px; color: var(--primary-dark);">Тест по грамматике</h1>
+         <div class="container">
+             <h1 id="main-title" style="text-align: center; margin-bottom: 30px; color: var(--primary-dark);">Тесты по русскому языку</h1>
 
-            <div id="variant-selection-container">
-                <h2>Готовы проверить свои знания грамматики?</h2>
-                <button class="variant-button" data-variant="grammar">Начать тест</button> </div>
+            <div id="section-selection-container">
+                <h2>Выберите раздел для тестирования:</h2>
+                <ul id="section-list" class="section-list">
+                    </ul>
+            </div>
 
-            <form id="quiz-form" class="hidden"> <div class="progress-bar-container"> <div class="progress-info">
+            <form id="quiz-form" class="hidden">
+                 <div class="progress-bar-container">
+                     <div class="progress-info">
                          <span id="progress-text">Прогресс: 0 / 0</span>
                          <span id="answered-count">Отвечено: 0</span>
-                     </div> <div class="progress-bar"> <div class="progress" id="progress"></div>
+                     </div>
+                     <div class="progress-bar">
+                         <div class="progress" id="progress"></div>
                     </div>
-                 </div> <div id="quiz-container">
-                    <p style="text-align: center; padding: 20px; color: var(--gray);">Загрузка вопросов...</p> </div>
-                <button type="submit" id="submit-btn" disabled>Завершить тест</button> </form>
+                 </div>
+                 <div id="quiz-container">
+                    <p style="text-align: center; padding: 20px; color: var(--gray);">Загрузка вопросов...</p>
+                 </div>
+                <button type="submit" id="submit-btn" disabled>Завершить тест</button>
+            </form>
 
              <div id="results-container" class="hidden">
-                <div id="results-summary"> <h2>Результаты Теста</h2>
-                    <p class="score-display" id="score-display">Ваш результат: 0 баллов</p> <p class="percentage-display" id="percentage-display">Правильных ответов: 0 из 0 (0%)</p> </div>
+                <div id="results-summary">
+                    <h2 id="results-title">Результаты Теста</h2>
+                    <p class="score-display" id="score-display">Ваш результат: 0 баллов</p>
+                    <p class="percentage-display" id="percentage-display">Правильных ответов: 0 из 0 (0%)</p>
+                </div>
                 <div id="detailed-results">
-                 </div> <button id="retry-button" style="display: block; margin: 30px auto 0; padding: 10px 20px; background-color: var(--secondary); color: white; border: none; border-radius: 20px; cursor: pointer; font-weight: 600;">Пройти тест снова</button> </div>
+                 </div>
+                 <button id="back-to-sections-btn">Назад к выбору раздела</button>
+             </div>
         </div>
     </main>
 
     <script>
         // --- Constants for Local Storage Keys ---
-        // Оставляем ключи для грамматики
-        const LS_STATE_KEY_GRAMMAR = 'grammarQuiz_state';
-        const LS_VARIANT_KEY_GRAMMAR = 'grammarQuiz_variantId';
-        const LS_ANSWERS_KEY_GRAMMAR = 'grammarQuiz_answers';
-        const LS_QUESTIONS_KEY_GRAMMAR = 'grammarQuiz_questionIds';
-        const LS_SCORE_KEY_GRAMMAR = 'grammarQuiz_score';
-        const LS_CORRECT_COUNT_KEY_GRAMMAR = 'grammarQuiz_correctCount'; // Добавлено для процента
+        // Используем один набор ключей, т.к. одновременно проходится только один раздел
+        const LS_STATE_KEY = 'quiz_state';
+        const LS_SECTION_KEY = 'quiz_sectionId';
+        const LS_ANSWERS_KEY = 'quiz_answers';
+        const LS_QUESTIONS_KEY = 'quiz_questionIds';
+        const LS_SCORE_KEY = 'quiz_score';
+        const LS_CORRECT_COUNT_KEY = 'quiz_correctCount';
 
-        // --- Grammar Questions Data (Multiple Choice Only, Fixed Points) ---
-        // Убраны fill-in, установлен фиксированный балл
-        const FIXED_POINTS_PER_QUESTION = 1.5; // Установим балл за вопрос
-        const grammarQuestions = [
-            { id: 1, points: FIXED_POINTS_PER_QUESTION, type: 'multiple-choice', text: '1. Укажите имя существительное:', options: ['Белый', 'Белизна', 'Белеть', 'Бело'], correctAnswer: 'B' },
-            { id: 2, points: FIXED_POINTS_PER_QUESTION, type: 'multiple-choice', text: '2. Выберите глагол совершенного вида:', options: ['Читать', 'Прочитать', 'Читал', 'Читающий'], correctAnswer: 'B' },
-            { id: 3, points: FIXED_POINTS_PER_QUESTION, type: 'multiple-choice', text: '3. В каком слове пишется буква "И"?', options: ['Ц..ган', 'Ц..фра', 'Ц..пленок', 'Станц..я'], correctAnswer: 'B' },
-            { id: 4, points: FIXED_POINTS_PER_QUESTION, type: 'multiple-choice', text: '4. Какое слово является наречием?', options: ['Быстрый', 'Быстро', 'Быстрота', 'Ускорить'], correctAnswer: 'B' },
-            // { id: 5, ... } - fill-in удален
-            { id: 6, points: FIXED_POINTS_PER_QUESTION, type: 'multiple-choice', text: '6. Выберите правильную форму глагола: Они ... (хотеть) пойти в кино.', options: ['хочет', 'хотим', 'хотят', 'хотите'], correctAnswer: 'C' },
-            { id: 7, points: FIXED_POINTS_PER_QUESTION, type: 'multiple-choice', text: '7. Укажите предложение с прямой речью (знаки препинания не расставлены)', options: ['Он сказал что придет позже', 'По словам очевидцев пожар начался внезапно', 'Не опаздывай попросила мама', 'Все были рады что наступило лето'], correctAnswer: 'C' },
-            // { id: 8, ... } - fill-in удален
-            { id: 9, points: FIXED_POINTS_PER_QUESTION, type: 'multiple-choice', text: '9. Какое окончание у слова "здание" в предложном падеже?', options: ['-ие', '-ия', '-ий', '-ии'], correctAnswer: 'D' },
-            // { id: 10, ... } - fill-in удален
-            { id: 11, points: FIXED_POINTS_PER_QUESTION, type: 'multiple-choice', text: '11. Определите падеж существительного "книгу" в предложении: "Я читаю книгу."', options: ['Именительный', 'Родительный', 'Винительный', 'Творительный'], correctAnswer: 'C' },
-            { id: 12, points: FIXED_POINTS_PER_QUESTION, type: 'multiple-choice', text: '12. Какое слово образовано суффиксальным способом?', options: ['Переход', 'Лесник', 'Бездомный', 'Подоконник'], correctAnswer: 'B' }
-            // Добавьте еще вопросов с multiple-choice, если нужно
+        // --- Section Definitions ---
+        const sections = [
+            { id: 'phonetics', name: '0) Фонетика' },
+            { id: 'phonetics_sounds', name: '1) Звуки речи. Фонетика русского языка' },
+            { id: 'lexicology', name: '2) Лексикология русского языка' },
+            { id: 'orthography', name: '3) Орфография русского языка' },
+            { id: 'morphemics', name: '4) Морфемика. Словообразование' },
+            { id: 'noun', name: '5) Имя существительное' },
+            { id: 'adjective', name: '6) Имя прилагательное' },
+            { id: 'numeral', name: '7) Имя числительное' },
+            { id: 'pronoun', name: '8) Местоимение' },
+            { id: 'verb', name: '9) Глагол' },
+            { id: 'participle', name: '10) Причастие' },
+            { id: 'gerund', name: '11) Деепричастие' },
+            { id: 'adverb', name: '12) Наречие' },
+            { id: 'state_words', name: '13) Слова-состояния' },
+            { id: 'preposition', name: '14) Предлог' },
+            { id: 'conjunction', name: '15) Союз' },
+            { id: 'particle', name: '16) Частицы' },
+            { id: 'phrase', name: '17) Словосочетание' },
+            { id: 'sentence', name: '18) Предложение' },
+            { id: 'predicate_types', name: '19) Типы сказуемого' },
+            { id: 'punctuation_end', name: '20) Знаки препинания в конце предложения' },
+            { id: 'homogeneous_members', name: '21) Однородные члены предложения' },
+            { id: 'definitions_homogeneous', name: '22) Однородные и неоднородные определения' },
+            { id: 'isolated_members', name: '23) Обособленные члены предложения' },
+            { id: 'addressing_introductory', name: '24) Обращения. Вводные слова, словосочетания, предложения' },
+            { id: 'direct_indirect_speech', name: '25) Прямая и косвенная речь' },
+            { id: 'complex_sentence_compound', name: '26/27) Сложносочинённое предложение' }, // Объединено для краткости
+            { id: 'complex_sentence_subordinate', name: '28) Сложноподчинённое предложение' },
+            { id: 'complex_sentence_asyndetic', name: '29) Бессоюзное сложное предложение' },
+            { id: 'complex_sentence_mixed', name: '30) Сложное предложение с разными видами связи' },
+            { id: 'styles_errors', name: '31) Стили речи и ошибки' } // Укорочено
         ];
 
-        // --- Quiz Logic (Адаптировано под index.TXT) ---
-        const variantSelectionContainer = document.getElementById('variant-selection-container');
+
+        // --- Questions Data Placeholder ---
+        const FIXED_POINTS_PER_QUESTION = 1.5; // Балл за вопрос (можно сделать разным для разных разделов)
+
+        // <-- ВАЖНО: ЗАПОЛНИТЕ ЭТОТ ОБЪЕКТ ВОПРОСАМИ ДЛЯ КАЖДОГО РАЗДЕЛА!
+        // Ключ объекта должен совпадать с 'id' раздела из массива 'sections'.
+        // Значение - массив объектов вопросов для этого раздела.
+        // Структура объекта вопроса: { id: уникальный_номер_в_разделе, points: FIXED_POINTS_PER_QUESTION, type: 'multiple-choice', text: 'Текст вопроса...', options: ['Вариант А', 'Вариант Б', 'Вариант В', 'Вариант Г'], correctAnswer: 'A' | 'B' | 'C' | 'D' }
+        const allSectionsQuestions = {
+            'phonetics': [
+                 { id: 1, points: FIXED_POINTS_PER_QUESTION, type: 'multiple-choice', text: 'Пример вопроса по Фонетике 1?', options: ['Ответ 1', 'Ответ 2', 'Правильный ответ', 'Ответ 4'], correctAnswer: 'C' },
+                 { id: 2, points: FIXED_POINTS_PER_QUESTION, type: 'multiple-choice', text: 'Пример вопроса по Фонетике 2?', options: ['Правильный ответ', 'Ответ 2', 'Ответ 3', 'Ответ 4'], correctAnswer: 'A' }
+                 // Добавьте реальные вопросы сюда
+            ],
+            'phonetics_sounds': [], // <-- Добавьте вопросы для раздела 'Звуки речи...'
+            'lexicology': [], // <-- Добавьте вопросы для раздела 'Лексикология...'
+            'orthography': [
+                { id: 1, points: FIXED_POINTS_PER_QUESTION, type: 'multiple-choice', text: '3. В каком слове пишется буква "И"? (Пример из старого файла)', options: ['Ц..ган', 'Ц..фра', 'Ц..пленок', 'Станц..я'], correctAnswer: 'B' },
+                // Добавьте другие вопросы по орфографии
+            ],
+            'morphemics': [
+                 { id: 1, points: FIXED_POINTS_PER_QUESTION, type: 'multiple-choice', text: '12. Какое слово образовано суффиксальным способом? (Пример из старого файла)', options: ['Переход', 'Лесник', 'Бездомный', 'Подоконник'], correctAnswer: 'B' }
+                 // Добавьте другие вопросы по морфемике
+            ],
+            'noun': [
+                { id: 1, points: FIXED_POINTS_PER_QUESTION, type: 'multiple-choice', text: '1. Укажите имя существительное: (Пример из старого файла)', options: ['Белый', 'Белизна', 'Белеть', 'Бело'], correctAnswer: 'B' },
+                { id: 2, points: FIXED_POINTS_PER_QUESTION, type: 'multiple-choice', text: '9. Какое окончание у слова "здание" в предложном падеже? (Пример из старого файла)', options: ['-ие', '-ия', '-ий', '-ии'], correctAnswer: 'D' },
+                { id: 3, points: FIXED_POINTS_PER_QUESTION, type: 'multiple-choice', text: '11. Определите падеж существительного "книгу" в предложении: "Я читаю книгу." (Пример из старого файла)', options: ['Именительный', 'Родительный', 'Винительный', 'Творительный'], correctAnswer: 'C' },
+                // Добавьте другие вопросы по существительному
+            ],
+            'adjective': [], // <-- Добавьте вопросы для раздела 'Имя прилагательное'
+            'numeral': [],   // <-- Добавьте вопросы для раздела 'Имя числительное'
+            'pronoun': [],   // <-- Добавьте вопросы для раздела 'Местоимение'
+            'verb': [
+                 { id: 1, points: FIXED_POINTS_PER_QUESTION, type: 'multiple-choice', text: '2. Выберите глагол совершенного вида: (Пример из старого файла)', options: ['Читать', 'Прочитать', 'Читал', 'Читающий'], correctAnswer: 'B' },
+                 { id: 2, points: FIXED_POINTS_PER_QUESTION, type: 'multiple-choice', text: '6. Выберите правильную форму глагола: Они ... (хотеть) пойти в кино. (Пример из старого файла)', options: ['хочет', 'хотим', 'хотят', 'хотите'], correctAnswer: 'C' },
+                 // Добавьте другие вопросы по глаголу
+            ],
+            'participle': [], // <-- Добавьте вопросы для раздела 'Причастие'
+            'gerund': [],    // <-- Добавьте вопросы для раздела 'Деепричастие'
+            'adverb': [
+                { id: 1, points: FIXED_POINTS_PER_QUESTION, type: 'multiple-choice', text: '4. Какое слово является наречием? (Пример из старого файла)', options: ['Быстрый', 'Быстро', 'Быстрота', 'Ускорить'], correctAnswer: 'B' },
+                // Добавьте другие вопросы по наречию
+            ],
+            'state_words': [], // <-- Добавьте вопросы для раздела 'Слова-состояния'
+            'preposition': [], // <-- Добавьте вопросы для раздела 'Предлог'
+            'conjunction': [], // <-- Добавьте вопросы для раздела 'Союз'
+            'particle': [],    // <-- Добавьте вопросы для раздела 'Частицы'
+            'phrase': [],      // <-- Добавьте вопросы для раздела 'Словосочетание'
+            'sentence': [],    // <-- Добавьте вопросы для раздела 'Предложение'
+            'predicate_types': [], // <-- Добавьте вопросы для раздела 'Типы сказуемого'
+            'punctuation_end': [], // <-- Добавьте вопросы для раздела 'Знаки препинания в конце...'
+            'homogeneous_members': [], // <-- Добавьте вопросы для раздела 'Однородные члены...'
+            'definitions_homogeneous': [], // <-- Добавьте вопросы для раздела 'Однородные и неоднородные определения'
+            'isolated_members': [], // <-- Добавьте вопросы для раздела 'Обособленные члены...'
+            'addressing_introductory': [], // <-- Добавьте вопросы для раздела 'Обращения. Вводные слова...'
+            'direct_indirect_speech': [
+                { id: 1, points: FIXED_POINTS_PER_QUESTION, type: 'multiple-choice', text: '7. Укажите предложение с прямой речью (знаки препинания не расставлены) (Пример из старого файла)', options: ['Он сказал что придет позже', 'По словам очевидцев пожар начался внезапно', 'Не опаздывай попросила мама', 'Все были рады что наступило лето'], correctAnswer: 'C' },
+                // Добавьте другие вопросы по прямой/косвенной речи
+            ],
+            'complex_sentence_compound': [], // <-- Добавьте вопросы для раздела 'Сложносочинённое...'
+            'complex_sentence_subordinate': [], // <-- Добавьте вопросы для раздела 'Сложноподчинённое...'
+            'complex_sentence_asyndetic': [], // <-- Добавьте вопросы для раздела 'Бессоюзное...'
+            'complex_sentence_mixed': [], // <-- Добавьте вопросы для раздела 'Сложное с разными видами связи'
+            'styles_errors': [], // <-- Добавьте вопросы для раздела 'Стили речи и ошибки'
+            // И так далее для всех разделов...
+        };
+
+        // --- DOM Elements ---
+        const sectionSelectionContainer = document.getElementById('section-selection-container');
+        const sectionList = document.getElementById('section-list');
         const quizForm = document.getElementById('quiz-form');
         const quizContainer = document.getElementById('quiz-container');
         const resultsContainer = document.getElementById('results-container');
         const detailedResultsContainer = document.getElementById('detailed-results');
-        const scoreDisplay = document.getElementById('score-display'); // Display for points
-        const percentageDisplay = document.getElementById('percentage-display'); // Display for percentage
+        const scoreDisplay = document.getElementById('score-display');
+        const percentageDisplay = document.getElementById('percentage-display');
         const submitButton = document.getElementById('submit-btn');
-        const retryButton = document.getElementById('retry-button');
+        const backToSectionsButton = document.getElementById('back-to-sections-btn'); // Переименовали retryButton
         const mainTitle = document.getElementById('main-title');
-        // Элементы прогресс-бара
-        const progressBar = document.getElementById('progress'); // [source index.TXT 130]
+        const resultsTitle = document.getElementById('results-title');
+        const progressBar = document.getElementById('progress');
         const progressText = document.getElementById('progress-text');
         const answeredCountText = document.getElementById('answered-count');
 
-
+        // --- Global State ---
+        let currentSectionId = null;
         let selectedQuestions = [];
         let currentAnswers = {};
-        let questionsToDisplay = grammarQuestions.length; // Количество вопросов в тесте
+        let questionsToDisplay = 0;
 
         // --- Utility functions for Local Storage (Без изменений) ---
         function saveToLocalStorage(key, value) { try { localStorage.setItem(key, JSON.stringify(value)); } catch (e) { console.error("Error saving to localStorage", e); } }
@@ -500,83 +653,124 @@
         function removeFromLocalStorage(key) { try { localStorage.removeItem(key); } catch (e) { console.error("Error removing from localStorage", e); } }
 
         function clearQuizState() {
-            removeFromLocalStorage(LS_STATE_KEY_GRAMMAR);
-            removeFromLocalStorage(LS_VARIANT_KEY_GRAMMAR);
-            removeFromLocalStorage(LS_ANSWERS_KEY_GRAMMAR);
-            removeFromLocalStorage(LS_QUESTIONS_KEY_GRAMMAR);
-            removeFromLocalStorage(LS_SCORE_KEY_GRAMMAR);
-            removeFromLocalStorage(LS_CORRECT_COUNT_KEY_GRAMMAR); // Очистка счетчика правильных
+            removeFromLocalStorage(LS_STATE_KEY);
+            removeFromLocalStorage(LS_SECTION_KEY);
+            removeFromLocalStorage(LS_ANSWERS_KEY);
+            removeFromLocalStorage(LS_QUESTIONS_KEY);
+            removeFromLocalStorage(LS_SCORE_KEY);
+            removeFromLocalStorage(LS_CORRECT_COUNT_KEY);
             selectedQuestions = [];
             currentAnswers = {};
-            updateProgress(); // Сброс прогресс-бара [source index.TXT 138]
+            currentSectionId = null;
+            questionsToDisplay = 0;
+            updateProgress();
         }
 
-        // Function to shuffle an array (Опционально)
-        function shuffleArray(array) { for (let i = array.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [array[i], array[j]] = [array[j], array[i]]; } }
+        // --- UI Update Functions ---
 
-        // Function to display the start screen
+        // Function to generate section buttons
+        function populateSectionList() {
+            sectionList.innerHTML = ''; // Очистка старых кнопок
+            sections.forEach(section => {
+                const li = document.createElement('li');
+                const button = document.createElement('button');
+                button.classList.add('section-button');
+                button.textContent = section.name;
+                button.setAttribute('data-section-id', section.id);
+                li.appendChild(button);
+                sectionList.appendChild(li);
+            });
+        }
+
+        // Function to display the start screen (Section Selection)
         function displayStartScreen() {
-            mainTitle.textContent = 'Тест по грамматике';
-            variantSelectionContainer.classList.remove('hidden');
+            clearQuizState(); // Очищаем состояние при возврате на главный экран
+            mainTitle.textContent = 'Тесты по русскому языку';
+            sectionSelectionContainer.classList.remove('hidden');
             quizForm.classList.add('hidden');
             resultsContainer.classList.add('hidden');
             quizContainer.innerHTML = '<p style="text-align: center; padding: 20px; color: var(--gray);">Загрузка вопросов...</p>';
             submitButton.disabled = true;
+            window.scrollTo(0, 0); // Прокрутка вверх
         }
 
-        // Function to start the quiz
-        function startQuiz(variantId) { // variantId здесь 'grammar'
-            if (variantId === 'grammar') {
-                clearQuizState();
-                mainTitle.textContent = 'Тест по грамматике - Выполнение';
-                variantSelectionContainer.classList.add('hidden');
-                quizForm.classList.remove('hidden');
-                resultsContainer.classList.add('hidden');
+        // --- Quiz Logic ---
 
-                let allQuestionsCopy = [...grammarQuestions];
-                // shuffleArray(allQuestionsCopy); // Раскомментируйте для случайного порядка
-                // Обновляем questionsToDisplay если массив изменился
-                questionsToDisplay = allQuestionsCopy.length;
-                selectedQuestions = allQuestionsCopy.slice(0, questionsToDisplay);
-                const selectedQuestionIds = selectedQuestions.map(q => q.id);
+        // Function to start the quiz for a specific section
+        function startQuiz(sectionId) {
+            clearQuizState(); // Очищаем предыдущее состояние перед началом нового теста
+            currentSectionId = sectionId;
+            const sectionData = sections.find(s => s.id === sectionId);
+            const questionsForSection = allSectionsQuestions[sectionId] || [];
 
-                saveToLocalStorage(LS_STATE_KEY_GRAMMAR, 'in-progress');
-                saveToLocalStorage(LS_VARIANT_KEY_GRAMMAR, variantId);
-                saveToLocalStorage(LS_QUESTIONS_KEY_GRAMMAR, selectedQuestionIds);
-                saveToLocalStorage(LS_ANSWERS_KEY_GRAMMAR, {});
-
-                loadQuizQuestionsUI(selectedQuestions, {});
-                updateProgress(); // Инициализация прогресс-бара [source index.TXT 145]
-            } else {
-                console.error("Unknown variant selected:", variantId);
-                alert("Выбран неизвестный вариант.");
+            if (!sectionData) {
+                 console.error("Invalid section ID:", sectionId);
+                 alert("Ошибка: Неверный раздел.");
+                 displayStartScreen();
+                 return;
             }
+
+            // Проверка, есть ли вопросы для данного раздела
+            if (questionsForSection.length === 0) {
+                 alert(`Извините, вопросы для раздела "${sectionData.name}" еще не добавлены.`);
+                 displayStartScreen(); // Возвращаем на экран выбора
+                 return;
+            }
+
+
+            mainTitle.textContent = `Тест: ${sectionData.name}`;
+            sectionSelectionContainer.classList.add('hidden');
+            quizForm.classList.remove('hidden');
+            resultsContainer.classList.add('hidden');
+
+            // Можно добавить перемешивание вопросов, если нужно
+            // shuffleArray(questionsForSection);
+
+            questionsToDisplay = questionsForSection.length;
+            selectedQuestions = questionsForSection.slice(0, questionsToDisplay); // Берем все вопросы раздела
+            const selectedQuestionIds = selectedQuestions.map(q => q.id);
+
+            saveToLocalStorage(LS_STATE_KEY, 'in-progress');
+            saveToLocalStorage(LS_SECTION_KEY, sectionId);
+            saveToLocalStorage(LS_QUESTIONS_KEY, selectedQuestionIds);
+            saveToLocalStorage(LS_ANSWERS_KEY, {}); // Начинаем с пустых ответов
+
+            loadQuizQuestionsUI(selectedQuestions, {});
+            updateProgress();
+            window.scrollTo(0, 0); // Прокрутка вверх при старте
         }
 
-        // Function to load and display quiz UI (только Multiple Choice)
+        // Function to load and display quiz UI (Адаптировано)
         function loadQuizQuestionsUI(questions, answers) {
             quizContainer.innerHTML = '';
-            currentAnswers = answers; // Загрузка сохраненных ответов
+            currentAnswers = answers; // Загрузка сохраненных ответов (если есть)
+
+            if (questions.length === 0) {
+                 quizContainer.innerHTML = '<p style="text-align: center; padding: 20px; color: var(--gray);">В этом разделе пока нет вопросов.</p>';
+                 submitButton.disabled = true;
+                 return;
+            }
 
             questions.forEach((q, index) => {
                 const questionElement = document.createElement('div');
                 questionElement.classList.add('quiz-question');
-                questionElement.setAttribute('data-question-id', q.id);
+                questionElement.setAttribute('data-question-id', q.id); // Используем ID вопроса внутри раздела
 
                 let optionsHTML = '';
-                 const savedAnswer = answers[q.id]; // [source index.TXT 148]
-                const optionLetters = ['A', 'B', 'C', 'D'];
+                const savedAnswer = answers[q.id];
+                const optionLetters = ['A', 'B', 'C', 'D']; // Допустим, у нас всегда 4 варианта
 
                 optionsHTML = '<ul class="options-list">';
                 q.options.forEach((option, i) => {
-                    const optionId = `q${q.id}_option${i}`; // [source index.TXT 149]
+                    const optionId = `q${q.id}_option${i}`; // Уникальный ID для опции
                     const optionValue = optionLetters[i];
-                    const isChecked = savedAnswer === optionValue;
+                    const isChecked = savedAnswer === optionValue; // Проверяем сохраненный ответ
                     optionsHTML += `
                         <li>
-                            <input type="radio" id="${optionId}" name="question_${q.id}" value="${optionValue}" required ${isChecked ? 'checked' : ''}> <label for="${optionId}">${optionValue}) ${option}</label>
+                            <input type="radio" id="${optionId}" name="question_${q.id}" value="${optionValue}" required ${isChecked ? 'checked' : ''}>
+                            <label for="${optionId}">${optionValue}) ${option}</label>
                         </li>
-                    `; // [source index.TXT 151]
+                    `;
                 });
                 optionsHTML += '</ul>';
 
@@ -584,218 +778,232 @@
                     <div class="question-header">
                         <span class="question-number">Вопрос ${index + 1}</span>
                         <span class="question-points">${q.points.toLocaleString()} балла</span>
-                    </div> <p class="question-text">${q.text}</p> ${optionsHTML}
-                `; // [source index.TXT 153]
-                quizContainer.appendChild(questionElement); // [source index.TXT 154]
+                    </div>
+                    <p class="question-text">${q.text}</p>
+                    ${optionsHTML}
+                `;
+                quizContainer.appendChild(questionElement);
             });
-             submitButton.disabled = false;
-             updateProgress(); // Обновление прогресса после загрузки [source index.TXT 154]
+             submitButton.disabled = false; // Разрешаем отправку
+             updateProgress(); // Обновление прогресса после загрузки
         }
 
-        // Function to handle quiz submission (переименована, добавлена проверка)
-        function submitTest(event) { // [source index.TXT 198]
-             event.preventDefault(); // Предотвращаем стандартную отправку формы
-            currentAnswers = collectCurrentAnswers(); // [source index.TXT 155]
+        // Function to handle quiz submission (Адаптировано)
+        function submitTest(event) {
+             event.preventDefault();
+            currentAnswers = collectCurrentAnswers();
             const answeredCount = Object.values(currentAnswers).filter(a => a !== null).length;
 
-            // Проверка, все ли вопросы отвечены (из index.TXT)
-            if (answeredCount < questionsToDisplay) { // [source index.TXT 156]
-                 alert(`Пожалуйста, ответьте на все ${questionsToDisplay} вопросов! Отвечено: ${answeredCount}.`); // [source index.TXT 156]
-                 return; // [source index.TXT 157]
+            if (answeredCount < questionsToDisplay) {
+                 alert(`Пожалуйста, ответьте на все ${questionsToDisplay} вопросов! Отвечено: ${answeredCount}.`);
+                 return;
             }
 
-            let correctCount = 0; // [source index.TXT 157]
-            window.scrollTo(0, 0); // [source index.TXT 157]
-            selectedQuestions.forEach(q => { // [source index.TXT 158]
+            let correctCount = 0;
+            window.scrollTo(0, 0);
+            selectedQuestions.forEach(q => {
                 if (checkCorrectness(q, currentAnswers[q.id])) {
-                    correctCount++; // [source index.TXT 158]
+                    correctCount++;
                 }
             });
-            const score = (correctCount * FIXED_POINTS_PER_QUESTION).toFixed(1); // Расчет балла [source index.TXT 159]
+            // Балл может зависеть от раздела или быть фиксированным
+            const score = (correctCount * FIXED_POINTS_PER_QUESTION).toFixed(1);
 
             // Save final state
-            saveToLocalStorage(LS_STATE_KEY_GRAMMAR, 'completed'); // [source index.TXT 159]
-            saveToLocalStorage(LS_ANSWERS_KEY_GRAMMAR, currentAnswers); // [source index.TXT 160]
-            saveToLocalStorage(LS_SCORE_KEY_GRAMMAR, score); // [source index.TXT 160]
-            saveToLocalStorage(LS_CORRECT_COUNT_KEY_GRAMMAR, correctCount); // Сохраняем кол-во правильных
+            saveToLocalStorage(LS_STATE_KEY, 'completed');
+            saveToLocalStorage(LS_ANSWERS_KEY, currentAnswers);
+            saveToLocalStorage(LS_SCORE_KEY, score);
+            saveToLocalStorage(LS_CORRECT_COUNT_KEY, correctCount);
+            // LS_SECTION_KEY и LS_QUESTIONS_KEY уже сохранены при старте
 
-            displayResults(score, correctCount, currentAnswers); // [source index.TXT 160]
+            displayResults(score, correctCount, currentAnswers);
         }
 
-        // Function to display results (Обновлен формат отображения)
+        // Function to display results (Адаптировано)
         function displayResults(score, correctCount, finalAnswers) {
-            quizForm.classList.add('hidden'); // [source index.TXT 160]
-            resultsContainer.classList.remove('hidden'); // [source index.TXT 161]
+            quizForm.classList.add('hidden');
+            resultsContainer.classList.remove('hidden');
 
-            const percentage = questionsToDisplay > 0 ? ((correctCount / questionsToDisplay) * 100).toFixed(1) : 0; // [source index.TXT 161]
+            const sectionData = sections.find(s => s.id === currentSectionId);
+            resultsTitle.textContent = `Результаты теста: ${sectionData ? sectionData.name : 'Неизвестный раздел'}`;
 
-            // Отображение баллов и процентов (как в index.TXT)
-            scoreDisplay.textContent = `Ваш результат: ${score} баллов`; // [source index.TXT 161]
-            percentageDisplay.textContent = `Правильных ответов: ${correctCount} из ${questionsToDisplay} (${percentage}%)`; // [source index.TXT 162]
+            const percentage = questionsToDisplay > 0 ? ((correctCount / questionsToDisplay) * 100).toFixed(1) : 0;
 
-            detailedResultsContainer.innerHTML = ''; // [source index.TXT 162]
-             if (selectedQuestions.length === 0) { // [source index.TXT 163]
-                 const savedQuestionIds = getFromLocalStorage(LS_QUESTIONS_KEY_GRAMMAR); // [source index.TXT 163]
-                 if (savedQuestionIds) { // [source index.TXT 164]
-                     // Используем grammarQuestions для восстановления
-                     selectedQuestions = grammarQuestions.filter(q => savedQuestionIds.includes(q.id)); // [source index.TXT 164]
-                     const questionMap = selectedQuestions.reduce((map, q) => { map[q.id] = q; return map; }, {}); // [source index.TXT 165]
-                     selectedQuestions = savedQuestionIds.map(id => questionMap[id]).filter(q => q); // [source index.TXT 166]
-                 } else { // [source index.TXT 166]
-                     detailedResultsContainer.innerHTML = "<p>Не удалось загрузить детализацию вопросов.</p>"; // [source index.TXT 166]
-                     return; // [source index.TXT 167]
+            scoreDisplay.textContent = `Ваш результат: ${score} баллов`;
+            percentageDisplay.textContent = `Правильных ответов: ${correctCount} из ${questionsToDisplay} (${percentage}%)`;
+
+            detailedResultsContainer.innerHTML = '';
+             // Восстановление вопросов, если страница была перезагружена на экране результатов
+             if (selectedQuestions.length === 0) {
+                 const savedQuestionIds = getFromLocalStorage(LS_QUESTIONS_KEY);
+                 const savedSectionId = getFromLocalStorage(LS_SECTION_KEY);
+                 const questionsForSavedSection = allSectionsQuestions[savedSectionId] || [];
+
+                 if (savedQuestionIds && questionsForSavedSection.length > 0) {
+                      const questionMap = questionsForSavedSection.reduce((map, q) => { map[q.id] = q; return map; }, {});
+                      selectedQuestions = savedQuestionIds.map(id => questionMap[id]).filter(q => q); // Восстанавливаем порядок
+                      // Убедимся, что questionsToDisplay соответствует
+                      questionsToDisplay = selectedQuestions.length;
+                 } else {
+                     detailedResultsContainer.innerHTML = "<p>Не удалось загрузить детализацию вопросов.</p>";
+                     return;
                  }
              }
 
 
-            selectedQuestions.forEach((q, index) => { // [source index.TXT 167]
+            selectedQuestions.forEach((q, index) => {
                 const resultData = finalAnswers[q.id];
                 const isCorrect = checkCorrectness(q, resultData);
 
                 const resultElement = document.createElement('div');
-                 resultElement.classList.add('result-item'); // [source index.TXT 168]
+                 resultElement.classList.add('result-item');
                 resultElement.classList.add(isCorrect ? 'correct' : 'incorrect');
 
-                let questionTextHTML = q.text;
+                let questionTextHTML = q.text; // Уже содержит номер из цикла
 
                 let answerDetailsHTML = '';
                 const optionLetters = ['A', 'B', 'C', 'D'];
-                 const userAnswerText = resultData ? q.options[ optionLetters.indexOf(resultData) ] : 'Нет ответа'; // [source index.TXT 169]
+                 const userAnswerText = resultData ? q.options[ optionLetters.indexOf(resultData) ] : 'Нет ответа';
                 const correctAnswerIndex = optionLetters.indexOf(q.correctAnswer);
-                const correctAnswerText = (correctAnswerIndex !== -1) ? q.options[correctAnswerIndex] : 'N/A'; // [source index.TXT 169]
+                const correctAnswerText = (correctAnswerIndex !== -1) ? q.options[correctAnswerIndex] : 'N/A';
 
                  answerDetailsHTML = `
-                    <p><strong>Ваш ответ:</strong> ${resultData ? `<span class="${isCorrect ? 'correct-answer' : 'incorrect-answer'}">${resultData}) ${userAnswerText}</span>` : 'Нет ответа'} ${isCorrect ? '<i class="fas fa-check" style="color: var(--success);"></i>' : '<i class="fas fa-times" style="color: var(--danger);"></i>'}</p> ${!isCorrect ? `<p><strong>Правильный ответ:</strong> <span class="correct-answer">${q.correctAnswer}) ${correctAnswerText}</span></p>` : ''} `; // [source index.TXT 172]
+                    <p><strong>Ваш ответ:</strong> ${resultData ? `<span class="${isCorrect ? 'correct-answer' : 'incorrect-answer'}">${resultData}) ${userAnswerText}</span>` : 'Нет ответа'} ${isCorrect ? '<i class="fas fa-check" style="color: var(--success);"></i>' : '<i class="fas fa-times" style="color: var(--danger);"></i>'}</p>
+                    ${!isCorrect ? `<p><strong>Правильный ответ:</strong> <span class="correct-answer">${q.correctAnswer}) ${correctAnswerText}</span></p>` : ''}
+                 `;
                 resultElement.innerHTML = `
                     <div class="question-text"><strong>${index + 1}.</strong> ${questionTextHTML} (${q.points.toLocaleString()} балла)</div>
                     <div class="result-details">
                         ${answerDetailsHTML}
                     </div>
-                 `; // [source index.TXT 173]
-                detailedResultsContainer.appendChild(resultElement); // [source index.TXT 174]
-            }); // [source index.TXT 174]
-        } // [source index.TXT 175]
+                 `;
+                detailedResultsContainer.appendChild(resultElement);
+            });
+            window.scrollTo(0, 0); // Прокрутка вверх к результатам
+        }
 
-        // Helper function to check correctness (только Multiple Choice)
+        // Helper function to check correctness (Без изменений)
         function checkCorrectness(question, userAnswer) {
-             if (userAnswer === null || userAnswer === undefined) return false; // [source index.TXT 175]
-             return userAnswer === question.correctAnswer; // [source index.TXT 176]
+             if (userAnswer === null || userAnswer === undefined) return false;
+             return userAnswer === question.correctAnswer;
          }
 
 
-        // Helper function to collect current answers (только Multiple Choice)
+        // Helper function to collect current answers (Без изменений)
         function collectCurrentAnswers() {
-            const answers = {}; // [source index.TXT 176]
-            selectedQuestions.forEach(q => { // [source index.TXT 177]
+            const answers = {};
+            selectedQuestions.forEach(q => {
                  const questionId = q.id;
                  const selectedOption = quizForm.querySelector(`input[name="question_${questionId}"]:checked`);
-                 answers[questionId] = selectedOption ? selectedOption.value : null; // [source index.TXT 177]
+                 answers[questionId] = selectedOption ? selectedOption.value : null;
             });
-            return answers; // [source index.TXT 178]
+            return answers;
         }
 
         // Function to save answers progressively and update progress bar
         function saveProgress() {
-            const currentAnswers = collectCurrentAnswers(); // [source index.TXT 178]
-            saveToLocalStorage(LS_ANSWERS_KEY_GRAMMAR, currentAnswers); // [source index.TXT 179]
-            saveToLocalStorage(LS_STATE_KEY_GRAMMAR, 'in-progress');
-            updateProgress(); // Обновление прогресс-бара [source index.TXT 179]
+            // Сохраняем только если тест идет
+            if (getFromLocalStorage(LS_STATE_KEY) === 'in-progress') {
+                 const currentAnswers = collectCurrentAnswers();
+                 saveToLocalStorage(LS_ANSWERS_KEY, currentAnswers);
+                 updateProgress();
+            }
         }
 
-        // Update progress bar display function (из index.TXT)
+        // Update progress bar display function (Адаптировано)
         function updateProgress() {
-            const answers = getFromLocalStorage(LS_ANSWERS_KEY_GRAMMAR) || {}; // [source index.TXT 179]
-            const answered = Object.values(answers).filter(a => a !== null).length; // [source index.TXT 180]
+            const answers = getFromLocalStorage(LS_ANSWERS_KEY) || {};
+            const answered = Object.values(answers).filter(a => a !== null).length;
+            // Используем questionsToDisplay из глобального состояния
             const progressPercentage = questionsToDisplay > 0 ? (answered / questionsToDisplay) * 100 : 0;
-            if (progressBar) { // Проверка на существование элемента
-                 progressBar.style.width = `${progressPercentage}%`; // [source index.TXT 180]
+
+            if (progressBar) {
+                 progressBar.style.width = `${progressPercentage}%`;
             }
-             if (progressText) { // [source index.TXT 181]
+             if (progressText) {
                  progressText.textContent = `Прогресс: ${answered} / ${questionsToDisplay}`;
              }
-             if (answeredCountText) { // [source index.TXT 181]
+             if (answeredCountText) {
                  answeredCountText.textContent = `Отвечено: ${answered}`;
              }
-        } // [source index.TXT 182]
+        }
 
 
-        // --- Initialization & Event Listeners (Адаптировано) ---
+        // --- Initialization & Event Listeners ---
         window.addEventListener('load', () => {
-            const savedState = getFromLocalStorage(LS_STATE_KEY_GRAMMAR);
-            const savedVariantId = getFromLocalStorage(LS_VARIANT_KEY_GRAMMAR);
+            populateSectionList(); // Генерируем кнопки разделов при загрузке
 
-            if (savedState === 'completed' && savedVariantId === 'grammar') {
-                 mainTitle.textContent = 'Тест по грамматике - Результаты'; // [source index.TXT 183]
-                 const savedAnswers = getFromLocalStorage(LS_ANSWERS_KEY_GRAMMAR);
-                 const savedScore = getFromLocalStorage(LS_SCORE_KEY_GRAMMAR);
-                 const savedCorrectCount = getFromLocalStorage(LS_CORRECT_COUNT_KEY_GRAMMAR); // Загрузка счетчика
-                 const savedQuestionIds = getFromLocalStorage(LS_QUESTIONS_KEY_GRAMMAR); // [source index.TXT 183]
+            const savedState = getFromLocalStorage(LS_STATE_KEY);
+            const savedSectionId = getFromLocalStorage(LS_SECTION_KEY);
 
-                 if (savedQuestionIds) { // [source index.TXT 184]
-                     selectedQuestions = grammarQuestions.filter(q => savedQuestionIds.includes(q.id)); // [source index.TXT 184]
-                     // Обновляем questionsToDisplay на случай, если набор вопросов изменился
-                     questionsToDisplay = selectedQuestions.length;
-                     const questionMap = selectedQuestions.reduce((map, q) => { map[q.id] = q; return map; }, {}); // [source index.TXT 184]
-                     selectedQuestions = savedQuestionIds.map(id => questionMap[id]).filter(q => q); // [source index.TXT 185]
-                 } else { // [source index.TXT 186]
-                      console.error("Cannot display results: saved question IDs not found."); // [source index.TXT 186]
-                      clearQuizState(); displayStartScreen(); return; // [source index.TXT 187]
+            if (savedState === 'completed' && savedSectionId) {
+                 // Восстанавливаем состояние для показа результатов
+                 currentSectionId = savedSectionId;
+                 const savedAnswers = getFromLocalStorage(LS_ANSWERS_KEY);
+                 const savedScore = getFromLocalStorage(LS_SCORE_KEY);
+                 const savedCorrectCount = getFromLocalStorage(LS_CORRECT_COUNT_KEY);
+                 // questionsToDisplay и selectedQuestions будут восстановлены внутри displayResults
+
+                 if (savedAnswers && savedScore !== null && savedCorrectCount !== null) {
+                      // Скрываем выбор разделов, показываем результаты
+                      sectionSelectionContainer.classList.add('hidden');
+                      quizForm.classList.add('hidden');
+                      displayResults(savedScore, savedCorrectCount, savedAnswers);
+                 } else {
+                      clearQuizState();
+                      displayStartScreen();
                  }
 
-                 if (savedAnswers && savedScore !== null && savedCorrectCount !== null) { // [source index.TXT 187]
-                     displayResults(savedScore, savedCorrectCount, savedAnswers); // [source index.TXT 187]
-                 } else { // [source index.TXT 188]
-                      clearQuizState(); // [source index.TXT 188]
-                      displayStartScreen(); // [source index.TXT 189]
+            } else if (savedState === 'in-progress' && savedSectionId) {
+                 // Восстанавливаем прерванный тест
+                 currentSectionId = savedSectionId;
+                 const sectionData = sections.find(s => s.id === currentSectionId);
+                 const questionsForSavedSection = allSectionsQuestions[currentSectionId] || [];
+                 const savedAnswers = getFromLocalStorage(LS_ANSWERS_KEY) || {};
+                 const savedQuestionIds = getFromLocalStorage(LS_QUESTIONS_KEY);
+
+                 if (sectionData && questionsForSavedSection.length > 0 && savedQuestionIds) {
+                      mainTitle.textContent = `Тест: ${sectionData.name}`; // Восстанавливаем заголовок
+                      sectionSelectionContainer.classList.add('hidden');
+                      quizForm.classList.remove('hidden');
+                      resultsContainer.classList.add('hidden');
+
+                      // Восстанавливаем вопросы в правильном порядке
+                      const questionMap = questionsForSavedSection.reduce((map, q) => { map[q.id] = q; return map; }, {});
+                      selectedQuestions = savedQuestionIds.map(id => questionMap[id]).filter(q => q);
+                      questionsToDisplay = selectedQuestions.length; // Восстанавливаем количество
+
+                      loadQuizQuestionsUI(selectedQuestions, savedAnswers);
+                 } else {
+                     clearQuizState();
+                     displayStartScreen();
                  }
 
-            } else if (savedState === 'in-progress' && savedVariantId === 'grammar') { // [source index.TXT 189]
-                 mainTitle.textContent = 'Тест по грамматике - Выполнение'; // [source index.TXT 189]
-                 const savedAnswers = getFromLocalStorage(LS_ANSWERS_KEY_GRAMMAR) || {}; // [source index.TXT 190]
-                 const savedQuestionIds = getFromLocalStorage(LS_QUESTIONS_KEY_GRAMMAR); // [source index.TXT 190]
-                 if (savedQuestionIds) { // [source index.TXT 191]
-                     selectedQuestions = grammarQuestions.filter(q => savedQuestionIds.includes(q.id)); // [source index.TXT 191]
-                      // Обновляем questionsToDisplay
-                     questionsToDisplay = selectedQuestions.length;
-                     const questionMap = selectedQuestions.reduce((map, q) => { map[q.id] = q; return map; }, {}); // [source index.TXT 192]
-                     selectedQuestions = savedQuestionIds.map(id => questionMap[id]).filter(q => q); // [source index.TXT 193]
-
-                     variantSelectionContainer.classList.add('hidden'); // [source index.TXT 193]
-                     quizForm.classList.remove('hidden');
-                     resultsContainer.classList.add('hidden');
-                     loadQuizQuestionsUI(selectedQuestions, savedAnswers); // [source index.TXT 193]
-                 } else { // [source index.TXT 194]
-                     clearQuizState(); // [source index.TXT 194]
-                     displayStartScreen(); // [source index.TXT 195]
-                 }
-
-            } else { // [source index.TXT 195]
-                clearQuizState(); // [source index.TXT 195]
-                displayStartScreen(); // [source index.TXT 196]
-            }
-        }); // [source index.TXT 196]
-
-        variantSelectionContainer.addEventListener('click', (event) => { // [source index.TXT 197]
-            if (event.target.classList.contains('variant-button')) {
-                const variantId = event.target.getAttribute('data-variant'); // 'grammar'
-                startQuiz(variantId); // [source index.TXT 197]
+            } else {
+                displayStartScreen(); // Показываем экран выбора разделов по умолчанию
             }
         });
 
-        // Используем submitTest при отправке формы
-        quizForm.addEventListener('submit', submitTest); // [source index.TXT 198]
-
-        retryButton.addEventListener('click', () => { // [source index.TXT 198]
-            clearQuizState();
-            displayStartScreen(); // [source index.TXT 199]
+        // Listener for section selection
+        sectionList.addEventListener('click', (event) => {
+            if (event.target.classList.contains('section-button')) {
+                const sectionId = event.target.getAttribute('data-section-id');
+                startQuiz(sectionId);
+            }
         });
 
-        // Event listener to save progress on input change (только radio)
-        quizContainer.addEventListener('change', (event) => { // [source index.TXT 199]
+        // Listener for form submission
+        quizForm.addEventListener('submit', submitTest);
+
+        // Listener for "Back to Sections" button
+        backToSectionsButton.addEventListener('click', displayStartScreen);
+
+        // Listener to save progress on input change
+        quizContainer.addEventListener('change', (event) => {
              if (event.target.matches('input[type="radio"]')) {
-                 saveProgress(); // [source index.TXT 199]
+                 saveProgress();
              }
-         }); // [source index.TXT 200]
+         });
 
     </script>
 </body>
