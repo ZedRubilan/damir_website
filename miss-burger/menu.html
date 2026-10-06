@@ -43,6 +43,7 @@ html.lenis, html.lenis body { height: auto; }
 .lenis.lenis-stopped { overflow: hidden; }
 body { background: var(--night); color: #fff; font-family: var(--onest); -webkit-font-smoothing: antialiased; overflow-x: hidden; min-height: 100vh; }
 img, canvas, svg { display: block; }
+.sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 a { color: inherit; text-decoration: none; }
 ul { list-style: none; }
 
@@ -58,29 +59,47 @@ ul { list-style: none; }
 
 .page { position: relative; z-index: 1; }
 
-/* ═══ Шапка и категории ═══ */
-.head { position: sticky; top: 0; z-index: 20; background: rgba(11, 7, 7, 0.72); -webkit-backdrop-filter: blur(14px) saturate(1.2); backdrop-filter: blur(14px) saturate(1.2); border-bottom: 1px solid rgba(255,255,255,.08); }
-.bar { height: var(--bar); max-width: 1120px; margin: 0 auto; padding: 0 clamp(14px, 3vw, 24px); display: flex; align-items: center; gap: 16px; }
-.bar .mark { flex: none; width: 96px; height: 34px; background: #fff; -webkit-mask: var(--logo-mask) center / 100% 100% no-repeat; mask: var(--logo-mask) center / 100% 100% no-repeat; }
-.bar .open { display: flex; align-items: center; gap: 8px; font: 400 12px/1.2 var(--mono); color: rgba(255,255,255,.75); white-space: nowrap; }
-.bar .dot { flex: none; width: 7px; height: 7px; border-radius: 50%; background: #3ecf6b; box-shadow: 0 0 0 3px rgba(62, 207, 107, .18); animation: pulse 1.6s ease-in-out infinite; }
-.bar .dot.closed { background: #8a7a74; box-shadow: none; animation: none; }
+/* ═══ Верх: компактный 3D-логотип ═══ */
+.hero { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: clamp(200px, 30vh, 280px); padding: 14px 16px 16px; }
+.hero-stage { position: absolute; left: 0; right: 0; top: 14px; bottom: 60px; cursor: pointer; }
+.hero-meta { position: relative; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+.pill { display: inline-flex; align-items: center; gap: 8px; height: 34px; padding: 0 14px; border-radius: 999px; background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); font: 500 13px/1 var(--onest); color: rgba(255,255,255,.88); white-space: nowrap; }
+button.pill { cursor: pointer; transition: background-color 200ms var(--ease), border-color 200ms var(--ease); }
+button.pill:hover { background: rgba(255,255,255,.12); border-color: rgba(255,255,255,.25); }
+.pill .dot { flex: none; width: 7px; height: 7px; border-radius: 50%; background: #3ecf6b; box-shadow: 0 0 0 3px rgba(62, 207, 107, .18); animation: pulse 1.6s ease-in-out infinite; }
+.pill .dot.closed { background: #8a7a74; box-shadow: none; animation: none; }
+.pill svg { width: 15px; height: 15px; opacity: .8; }
+.pill b { font-weight: 600; color: #fff; }
 @keyframes pulse { 50% { opacity: .35; } }
-.bar .call { margin-left: auto; flex: none; display: inline-flex; align-items: center; gap: 8px; height: 38px; padding: 0 16px; border-radius: 999px; background: var(--lip); color: #fff; font: 600 14px/1 var(--onest); transition: background-color 200ms var(--ease), transform 200ms var(--ease); }
-.bar .call:hover { background: #c0324c; }
-.bar .call:active { transform: scale(.97); }
-.bar .call svg { width: 16px; height: 16px; }
-@media (max-width: 560px) { .bar { gap: 12px; } .bar .open .long, .bar .call .long { display: none; } .bar .call { padding: 0 13px; } .bar .mark { width: 82px; height: 29px; } }
 
-.chips { height: var(--chips); max-width: 1120px; margin: 0 auto; padding: 0 clamp(14px, 3vw, 24px); display: flex; align-items: center; gap: 8px; overflow-x: auto; scrollbar-width: none; }
+/* ═══ Закреплённая полоса: категории и «Вызвать официанта» ═══ */
+.dock { position: sticky; top: 0; z-index: 20; transition: background-color 300ms var(--ease), border-color 300ms var(--ease); border-bottom: 1px solid transparent; }
+.dock.stuck { background: rgba(11, 7, 7, 0.78); -webkit-backdrop-filter: blur(14px) saturate(1.2); backdrop-filter: blur(14px) saturate(1.2); border-color: rgba(255,255,255,.08); }
+.dock-in { max-width: 1120px; margin: 0 auto; height: 62px; padding: 0 clamp(10px, 3vw, 24px); display: flex; align-items: center; gap: 10px; }
+.dock .mark { flex: none; width: 0; height: 30px; opacity: 0; background: #fff; -webkit-mask: var(--logo-mask) center / contain no-repeat; mask: var(--logo-mask) center / contain no-repeat; transition: width 350ms var(--ease), opacity 300ms var(--ease), margin 350ms var(--ease); }
+.dock.stuck .mark { width: 84px; opacity: 1; margin-right: 6px; }
+.chips { flex: 1; min-width: 0; height: 100%; display: flex; align-items: center; gap: 6px; overflow-x: auto; scrollbar-width: none; padding: 0 2px; }
 .chips::-webkit-scrollbar { display: none; }
-.chip { flex: none; display: inline-flex; align-items: center; gap: 8px; height: 36px; padding: 0 16px; border-radius: 999px; border: 1px solid rgba(255,255,255,.16); color: rgba(255,255,255,.82); font: 500 14px/1 var(--onest); white-space: nowrap; transition: background-color 250ms var(--ease), color 250ms var(--ease), border-color 250ms var(--ease); }
-.chip:hover { border-color: rgba(255,255,255,.4); }
-.chip .n { font: 400 11px/1 var(--mono); opacity: .55; }
-.chip.on { background: var(--paper); border-color: var(--paper); color: var(--ink); }
+.chip { flex: none; display: inline-flex; align-items: center; gap: 7px; height: 38px; padding: 0 16px; border-radius: 999px; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.12); color: rgba(255,255,255,.85); font: 500 14px/1 var(--onest); white-space: nowrap; transition: background-color 250ms var(--ease), color 250ms var(--ease), border-color 250ms var(--ease), transform 200ms var(--ease); }
+.chip:hover { border-color: rgba(255,255,255,.35); }
+.chip:active { transform: scale(.96); }
+.chip .n { font: 400 11px/1 var(--mono); opacity: .5; }
+.chip.on { background: var(--paper); border-color: var(--paper); color: var(--ink); box-shadow: 0 6px 18px -8px rgba(0,0,0,.6); }
+.call-btn { flex: none; white-space: nowrap; display: inline-flex; align-items: center; gap: 9px; height: 42px; padding: 0 18px 0 14px; border-radius: 999px; border: 0; background: var(--lip); color: #fff; font: 600 14px/1 var(--onest); cursor: pointer; box-shadow: 0 10px 24px -10px rgba(168, 40, 63, .9), inset 0 1px 0 rgba(255,255,255,.18); transition: background-color 200ms var(--ease), transform 200ms var(--ease); }
+.call-btn:hover { background: #bd3049; }
+.call-btn:active { transform: scale(.97); }
+.call-btn svg { width: 18px; height: 18px; }
+.call-btn .sub { font: 400 12px/1 var(--mono); opacity: .75; }
+.call-btn.busy { background: #2f7d4b; box-shadow: 0 10px 24px -10px rgba(47, 125, 75, .9); }
+.dock .call-btn { display: none; }
+@media (min-width: 760px) { .dock .call-btn { display: inline-flex; } }
+/* На телефоне кнопка — внизу, под большим пальцем */
+.fab { position: fixed; z-index: 30; left: 50%; bottom: max(14px, env(safe-area-inset-bottom)); translate: -50% 0; height: 52px; padding: 0 22px 0 18px; font-size: 15px; transition: translate 400ms var(--ease), background-color 200ms var(--ease); }
+.fab.away { translate: -50% 140%; }
+@media (min-width: 760px) { .fab { display: none; } }
 
 /* ═══ Бумажное меню ═══ */
-.sheet-wrap { max-width: 1120px; margin: 0 auto; padding: clamp(14px, 3vw, 28px) clamp(10px, 3vw, 24px) clamp(48px, 8vh, 96px); }
+.sheet-wrap { max-width: 1120px; margin: 0 auto; padding: 8px clamp(10px, 3vw, 24px) clamp(40px, 7vh, 72px); }
 .sheet {
   position: relative; color: var(--ink); background-color: var(--paper);
   background-image: radial-gradient(140% 90% at 50% 30%, transparent 60%, rgba(150, 110, 70, 0.12) 100%);
@@ -99,7 +118,7 @@ ul { list-style: none; }
 .sheet-sub { font: 400 12px/1.6 var(--mono); color: var(--ink-soft); text-align: right; }
 .sheet-sub b { font-weight: 600; color: var(--ink); }
 
-.section { padding-top: clamp(26px, 4vw, 40px); scroll-margin-top: 130px; }
+.section { padding-top: clamp(26px, 4vw, 40px); scroll-margin-top: 80px; }
 .section-head { display: flex; align-items: baseline; gap: 12px; margin-bottom: clamp(10px, 1.6vw, 16px); }
 .section-head h2 { font: 400 clamp(36px, 4.6vw, 48px)/1 var(--script); color: var(--lip); }
 .section-head .count { font: 400 12px/1 var(--mono); color: var(--ink-soft); }
@@ -130,24 +149,62 @@ ul { list-style: none; }
 
 .sheet-note { margin-top: clamp(26px, 4vw, 40px); padding-top: 18px; border-top: 1px solid var(--ink-faint); font: 400 12px/1.6 var(--mono); color: var(--ink-soft); text-align: center; }
 
-/* ═══ Снизу: 3D-логотип и контакты ═══ */
-.finale { position: relative; min-height: clamp(560px, 92vh, 860px); display: flex; flex-direction: column; justify-content: center; align-items: center; padding: clamp(16px, 3vh, 32px) clamp(16px, 4vw, 40px) clamp(28px, 5vh, 56px); text-align: center; }
-/* The logo is drawn by the background scene over this box, so the box keeps its room in the flow. */
-.finale-stage { flex: none; width: 100%; height: clamp(190px, 36vh, 400px); cursor: pointer; }
-.finale h2 { font: 400 clamp(40px, 6vw, 64px)/1 var(--script); color: #fff; }
-.finale .lead-in { margin-top: 10px; font: 400 16px/1.5 var(--onest); color: rgba(255,255,255,.78); max-width: 34em; }
-.info-grid { margin-top: clamp(24px, 4vh, 40px); width: 100%; max-width: 1000px; display: grid; grid-template-columns: 1fr; gap: 12px; text-align: left; }
-@media (min-width: 760px) { .info-grid { grid-template-columns: repeat(3, 1fr); } }
-.card { padding: 18px 20px; border-radius: 16px; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
-.card h3 { font: 600 11px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.55); margin-bottom: 10px; }
-.card p, .card li { font: 400 15px/1.55 var(--onest); color: #fff; }
+/* ═══ Внизу: контакты ═══ */
+.foot { max-width: 1120px; margin: 0 auto; padding: 0 clamp(10px, 3vw, 24px) clamp(96px, 14vh, 120px); }
+.foot-title { text-align: center; font: 400 clamp(34px, 5vw, 48px)/1 var(--script); color: #fff; }
+.foot-sub { margin: 8px auto 0; text-align: center; font: 400 15px/1.5 var(--onest); color: rgba(255,255,255,.7); max-width: 32em; }
+.info-grid { margin-top: 22px; display: grid; grid-template-columns: 1fr; gap: 10px; }
+@media (min-width: 760px) { .info-grid { grid-template-columns: repeat(3, 1fr); } .foot { padding-bottom: 56px; } }
+.card { display: flex; gap: 14px; padding: 16px 18px; border-radius: 16px; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+.card .ico { flex: none; width: 38px; height: 38px; border-radius: 12px; display: grid; place-items: center; background: rgba(224, 102, 47, .16); color: #f0915f; }
+.card .ico svg { width: 18px; height: 18px; }
+.card h3 { font: 600 11px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.5); margin: 2px 0 8px; }
+.card p, .card li { font: 400 15px/1.5 var(--onest); color: #fff; }
 .card a { border-bottom: 1px solid rgba(255,255,255,.3); transition: border-color 200ms var(--ease); }
 .card a:hover { border-color: #fff; }
-.copy { margin-top: 28px; font: 400 12px/1.4 var(--mono); color: rgba(255,255,255,.5); }
+.copy { margin-top: 22px; text-align: center; font: 400 12px/1.4 var(--mono); color: rgba(255,255,255,.45); }
+
+/* ═══ Панель «Вызвать официанта» ═══ */
+.sheet-modal { position: fixed; inset: 0; z-index: 50; display: grid; align-items: end; justify-items: center; pointer-events: none; }
+.sheet-modal::before { content: ""; position: absolute; inset: 0; background: rgba(5, 3, 3, .55); opacity: 0; transition: opacity 300ms var(--ease); }
+.sheet-modal.open { pointer-events: auto; }
+.sheet-modal.open::before { opacity: 1; }
+.panel { position: relative; width: min(520px, 100%); max-height: 92vh; overflow: auto; margin: 0 auto; padding: 10px 20px max(22px, env(safe-area-inset-bottom)); border-radius: 22px 22px 0 0; background: var(--paper); color: var(--ink); box-shadow: 0 -20px 60px rgba(0,0,0,.5); translate: 0 104%; transition: translate 420ms var(--ease); }
+@media (min-width: 760px) { .sheet-modal { align-items: center; } .panel { border-radius: 22px; padding-bottom: 24px; translate: 0 30px; opacity: 0; transition: translate 380ms var(--ease), opacity 300ms var(--ease); } }
+.sheet-modal.open .panel { translate: 0 0; opacity: 1; }
+.grab { width: 40px; height: 4px; border-radius: 4px; background: rgba(42,27,27,.18); margin: 0 auto 12px; }
+@media (min-width: 760px) { .grab { display: none; } }
+.panel-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.panel h2 { font: 400 34px/1 var(--script); color: var(--lip); }
+.x { width: 36px; height: 36px; border-radius: 50%; border: 0; background: rgba(42,27,27,.07); color: var(--ink); font-size: 20px; line-height: 1; cursor: pointer; }
+.table-line { margin-top: 6px; font: 400 13px/1.4 var(--mono); color: var(--ink-soft); }
+.table-line b { color: var(--ink); font-weight: 600; }
+.table-line button { margin-left: 6px; border: 0; background: none; color: var(--lip); font: inherit; text-decoration: underline; cursor: pointer; }
+.reqs { margin-top: 16px; display: grid; gap: 8px; }
+.req { display: flex; align-items: center; gap: 14px; width: 100%; padding: 14px; border-radius: 14px; border: 1px solid rgba(42,27,27,.1); background: #fffaf2; text-align: left; cursor: pointer; transition: border-color 200ms var(--ease), transform 150ms var(--ease), background-color 200ms var(--ease); }
+.req:hover { border-color: rgba(168,40,63,.4); }
+.req:active { transform: scale(.98); }
+.req .ri { flex: none; width: 42px; height: 42px; border-radius: 12px; display: grid; place-items: center; background: rgba(168,40,63,.1); color: var(--lip); }
+.req .ri svg { width: 20px; height: 20px; }
+.req b { display: block; font: 600 16px/1.2 var(--onest); color: var(--ink); }
+.req span { display: block; margin-top: 3px; font: 400 13px/1.3 var(--onest); color: var(--ink-soft); }
+.tables { margin-top: 14px; display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+.tables button { height: 48px; border-radius: 12px; border: 1px solid rgba(42,27,27,.12); background: #fffaf2; font: 600 17px/1 var(--geist); color: var(--ink); cursor: pointer; transition: background-color 150ms var(--ease), color 150ms var(--ease); }
+.tables button:hover, .tables button.on { background: var(--lip); color: #fff; border-color: var(--lip); }
+.done { margin-top: 18px; text-align: center; }
+.done .tick { width: 76px; height: 76px; margin: 0 auto; border-radius: 50%; display: grid; place-items: center; background: #2f7d4b; color: #fff; animation: pop 500ms var(--ease) both; }
+.done .tick svg { width: 38px; height: 38px; stroke-dasharray: 30; stroke-dashoffset: 30; animation: draw 450ms 200ms var(--ease) forwards; }
+@keyframes pop { from { transform: scale(.4); opacity: 0; } }
+@keyframes draw { to { stroke-dashoffset: 0; } }
+.done h3 { margin-top: 14px; font: 600 20px/1.25 var(--onest); }
+.done p { margin-top: 6px; font: 400 14px/1.5 var(--onest); color: var(--ink-soft); }
+.done .demo { margin-top: 10px; font: 400 11px/1.4 var(--mono); color: #a0712a; }
+.panel .wide { margin-top: 16px; width: 100%; height: 48px; border-radius: 14px; border: 0; background: var(--ink); color: #fff; font: 600 15px/1 var(--onest); cursor: pointer; }
+.err { margin-top: 12px; padding: 10px 12px; border-radius: 10px; background: rgba(168,40,63,.08); color: var(--lip); font: 400 13px/1.4 var(--onest); }
 
 @media (prefers-reduced-motion: reduce) {
   .sheet, .dish { opacity: 1 !important; transform: none !important; transition: none !important; }
-  .bar .dot { animation: none; }
+  .pill .dot, .done .tick, .done .tick svg { animation: none; stroke-dashoffset: 0; }
 }
 </style>
 </head>
@@ -160,19 +217,27 @@ ul { list-style: none; }
 </div>
 
 <div class="page">
-  <header class="head">
-    <div class="bar">
-      <a href="#finale" class="mark" aria-label="Miss Burger — контакты"></a>
-      <span class="open"><span class="dot" id="dot"></span><span id="open-text">Открыто<span class="long"> · до 23:00</span></span></span>
-      <a class="call" id="call" href="tel:+998000000000"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.8 2z"/></svg>Заказать<span class="long">&nbsp;по телефону</span></a>
+  <header class="hero" id="hero">
+    <div class="hero-stage" id="stage" aria-hidden="true"></div>
+    <h1 class="sr-only">Miss Burger — меню</h1>
+    <div class="hero-meta">
+      <span class="pill"><span class="dot" id="dot"></span><span id="open-text">Открыто · до 23:00</span></span>
+      <button type="button" class="pill" id="table-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 9h18M5 9v11M19 9v11M8 9V5h8v4"/></svg><span id="table-text">Выбрать столик</span></button>
     </div>
-    <nav class="chips" id="chips" aria-label="Категории меню"></nav>
   </header>
+
+  <nav class="dock" id="dock" aria-label="Категории меню">
+    <div class="dock-in">
+      <a href="#top" class="mark" aria-label="Miss Burger — наверх"></a>
+      <div class="chips" id="chips"></div>
+      <button type="button" class="call-btn" data-call><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.9 1.9 0 0 0 3.4 0"/></svg><span class="label">Вызвать официанта</span><span class="sub" data-call-sub></span></button>
+    </div>
+  </nav>
 
   <main class="sheet-wrap">
     <article class="sheet" id="sheet" aria-label="Меню">
       <header class="sheet-head">
-        <h1 class="sheet-title">Меню</h1>
+        <h2 class="sheet-title">Меню</h2>
         <p class="sheet-sub"><b>Miss Burger</b> · Ташкент<br>Цены в сумах</p>
       </header>
       <div id="sections"></div>
@@ -180,17 +245,22 @@ ul { list-style: none; }
     </article>
   </main>
 
-  <section class="finale" id="finale" aria-label="Контакты">
-    <div class="finale-stage" id="stage" aria-hidden="true"></div>
-    <h2>Ждём вас в гости</h2>
-    <p class="lead-in">Свежая говядина, мягкие булочки и фирменные соусы — готовим сразу после заказа.</p>
+  <footer class="foot" id="contacts">
+    <p class="foot-title">Ждём вас снова</p>
+    <p class="foot-sub">Свежая говядина, мягкие булочки и фирменные соусы — готовим сразу после заказа.</p>
     <div class="info-grid">
-      <div class="card"><h3>Часы работы</h3><p id="hours">Ежедневно, 10:00–23:00</p><p>В зале · с собой · доставка</p></div>
-      <div class="card"><h3>Адреса</h3><ul id="locs"></ul></div>
-      <div class="card"><h3>Связаться</h3><p><a id="phone" href="tel:+998000000000">«+998 00 000 00 00»</a></p><p id="social"></p></div>
+      <div class="card"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><div><h3>Часы работы</h3><p id="hours">Ежедневно, 10:00–23:00</p><p>В зале · с собой · доставка</p></div></div>
+      <div class="card"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></span><div><h3>Адреса</h3><ul id="locs"></ul></div></div>
+      <div class="card"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.8 2z"/></svg></span><div><h3>Связаться</h3><p><a id="phone" href="tel:+998000000000">«+998 00 000 00 00»</a></p><p id="social"></p></div></div>
     </div>
     <p class="copy" id="legal">© 2026 MISS BURGER</p>
-  </section>
+  </footer>
+</div>
+
+<button type="button" class="call-btn fab" data-call><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.9 1.9 0 0 0 3.4 0"/></svg><span class="label">Вызвать официанта</span><span class="sub" data-call-sub></span></button>
+
+<div class="sheet-modal" id="waiter" role="dialog" aria-modal="true" aria-labelledby="waiter-title" aria-hidden="true">
+  <div class="panel" id="panel"></div>
 </div>
 
 <script type="module">
@@ -207,6 +277,15 @@ const SITE = {
   phone: { label: "«+998 00 000 00 00»", href: "tel:+998000000000" },
   social: [["Instagram", "https://instagram.com/"], ["Telegram", "https://t.me/"]],
   currency: "сум",
+  /** Сколько столиков в зале — для выбора столика, если гость открыл меню без QR-кода. */
+  tables: 20,
+  /** Куда отправлять «Вызвать официанта». Пока всё пусто — кнопка работает в демо-режиме
+      и честно об этом пишет. Номер столика берётся из ссылки QR-кода: menu.html?table=5 */
+  waiter: {
+    endpoint: "",                              // свой сервер: придёт POST с JSON {table, request, text, at}
+    telegram: { botToken: "", chatId: "" },    // быстрый вариант: бот пишет в чат официантов (токен виден в коде)
+    cooldown: 60,                              // секунд до повторного вызова
+  },
 };
 // Блюдо: [название, цена, описание, вес/объём, метка ("hit" | "hot" | ""), рисунок, файл фото]
 const MENU = [
@@ -404,8 +483,8 @@ const ART = {
   const m = now.getHours() * 60 + now.getMinutes();
   const isOpen = m >= minutes(open) && m < minutes(close);
   $("#dot").classList.toggle("closed", !isOpen);
-  $("#open-text").innerHTML = isOpen ? `Открыто<span class="long"> · до ${close}</span>` : `Закрыто<span class="long"> · откроемся в ${open}</span>`;
-  for (const a of [$("#call"), $("#phone")]) a.href = SITE.phone.href;
+  $("#open-text").textContent = isOpen ? `Открыто · до ${close}` : `Закрыто · откроемся в ${open}`;
+  $("#phone").href = SITE.phone.href;
   $("#phone").textContent = SITE.phone.label;
   $("#locs").innerHTML = SITE.locations.map((s) => `<li>${esc(s)}, ${esc(SITE.city)}</li>`).join("");
   $("#social").innerHTML = SITE.social.map(([n, h]) => `<a href="${esc(h)}" target="_blank" rel="noopener">${esc(n)}</a>`).join(" · ");
@@ -471,14 +550,21 @@ if (!REDUCED) {
     window.lenis = lenis;
   } catch {}
 }
-const headerOffset = () => -($(".head").getBoundingClientRect().height + 8);
+const headerOffset = () => -($("#dock").getBoundingClientRect().height + 6);
 document.addEventListener("click", (e) => {
   const a = e.target.closest?.('a[href^="#"]');
   if (!a) return;
-  const target = document.getElementById(a.getAttribute("href").slice(1));
+  const id = a.getAttribute("href").slice(1);
+  if (id === "top") {
+    e.preventDefault();
+    if (lenis) lenis.scrollTo(0);
+    else window.scrollTo({ top: 0, behavior: REDUCED ? "auto" : "smooth" });
+    return;
+  }
+  const target = document.getElementById(id);
   if (!target) return;
   e.preventDefault();
-  const offset = target.id === "finale" ? 0 : headerOffset();
+  const offset = headerOffset();
   if (lenis) lenis.scrollTo(target, { offset });
   else window.scrollTo({ top: target.getBoundingClientRect().top + scrollY + offset, behavior: REDUCED ? "auto" : "smooth" });
 });
@@ -491,7 +577,7 @@ const updateActive = () => {
   const line = -headerOffset() + 40;
   let id = sections[0].id;
   for (const s of sections) if (s.getBoundingClientRect().top <= line) id = s.id;
-  if ($("#finale").getBoundingClientRect().top < innerHeight * 0.5) id = null;
+  if ($("#contacts").getBoundingClientRect().top < innerHeight * 0.55) id = null;
   if (id === activeId) return;
   activeId = id;
   for (const c of chips) {
@@ -504,6 +590,135 @@ const updateActive = () => {
   }
 };
 updateActive();
+
+/* ═══ Столик и «Вызвать официанта» ═══ */
+{
+  const store = {
+    get: (k) => { try { return sessionStorage.getItem(k); } catch { return null; } },
+    set: (k, v) => { try { sessionStorage.setItem(k, v); } catch {} },
+  };
+  const params = new URLSearchParams(location.search);
+  const fromUrl = params.get("table") || params.get("t");
+  let table = fromUrl && /^\d{1,3}$/.test(fromUrl) ? String(+fromUrl) : store.get("mb-table");
+  if (table) store.set("mb-table", table);
+  let cooldownUntil = +(store.get("mb-cooldown") || 0);
+  let lastRequest = store.get("mb-last") || "waiter";
+  let pending = false;
+  const icon = (d) => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;
+  const REQUESTS = {
+    waiter: { title: "Позвать официанта", hint: "Подойдём к вашему столику", done: "Официант уже идёт", icon: icon('<path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.9 1.9 0 0 0 3.4 0"/>') },
+    bill: { title: "Попросить счёт", hint: "Принесём счёт и терминал", done: "Счёт уже несут", icon: icon('<path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"/><path d="M9 8h6M9 12h6"/>') },
+    cutlery: { title: "Приборы и салфетки", hint: "Принесём к столику", done: "Уже несём", icon: icon('<path d="M7 3v8M5 3v5a2 2 0 0 0 4 0V3M7 11v10M17 3c-2 2-3 5-3 8h3v10"/>') },
+  };
+  const modal = $("#waiter");
+  const panel = $("#panel");
+  const left = () => Math.max(0, Math.ceil((cooldownUntil - Date.now()) / 1000));
+  const clock = (sec) => `${Math.floor(sec / 60)}:${String(sec % 60).padStart(2, "0")}`;
+
+  const paint = () => {
+    $("#table-text").innerHTML = table ? `Столик <b>№${esc(table)}</b>` : "Выбрать столик";
+    const sec = left();
+    for (const b of document.querySelectorAll("[data-call]")) {
+      b.classList.toggle("busy", sec > 0);
+      b.querySelector(".label").textContent = sec > 0 ? REQUESTS[lastRequest].done : "Вызвать официанта";
+      b.querySelector("[data-call-sub]").textContent = sec > 0 ? clock(sec) : table ? `№${table}` : "";
+    }
+    const timer = $("#done-timer", panel);
+    if (timer) timer.textContent = sec > 0 ? `Повторно можно через ${clock(sec)}` : "Можно позвать ещё раз";
+  };
+  setInterval(paint, 1000);
+
+  let returnFocus = null;
+  const open = (view) => {
+    returnFocus = document.activeElement;
+    modal.classList.add("open");
+    modal.setAttribute("aria-hidden", "false");
+    lenis?.stop();
+    show(view);
+  };
+  const close = () => {
+    modal.classList.remove("open");
+    modal.setAttribute("aria-hidden", "true");
+    lenis?.start();
+    returnFocus?.focus?.();
+  };
+  const head = (title) => `<div class="grab"></div><div class="panel-head"><h2 id="waiter-title">${title}</h2><button type="button" class="x" data-close aria-label="Закрыть">×</button></div>`;
+  const show = (view, extra = {}) => {
+    if (view === "pick") {
+      panel.innerHTML = head("Ваш столик") + `<p class="table-line">Номер написан на столе или рядом с QR-кодом.</p><div class="tables">${Array.from({ length: SITE.tables }, (_, i) => `<button type="button" data-table="${i + 1}" class="${String(i + 1) === table ? "on" : ""}">${i + 1}</button>`).join("")}</div>`;
+    } else if (view === "menu") {
+      panel.innerHTML =
+        head("Вызвать официанта") +
+        `<p class="table-line">Столик <b>№${esc(table)}</b><button type="button" data-view="pick">сменить</button></p>` +
+        `<div class="reqs">${Object.entries(REQUESTS).map(([k, r]) => `<button type="button" class="req" data-req="${k}"><span class="ri">${r.icon}</span><span><b>${r.title}</b><span>${r.hint}</span></span></button>`).join("")}</div>` +
+        (extra.error ? `<p class="err">Не получилось отправить вызов. Попробуйте ещё раз или помашите официанту 👋</p>` : "");
+    } else if (view === "sending") {
+      panel.innerHTML = head("Вызвать официанта") + `<div class="done"><p>Отправляем…</p></div>`;
+    } else if (view === "done") {
+      const r = REQUESTS[lastRequest];
+      panel.innerHTML =
+        head("Готово") +
+        `<div class="done"><div class="tick">${icon('<path d="M5 12.5l4.5 4.5L19 7.5"/>')}</div><h3>${r.done} к столику №${esc(table)}</h3><p id="done-timer"></p>${extra.demo ? `<p class="demo">Демо-режим: вызов никуда не отправлен — подключите бота или сервер (см. README).</p>` : ""}</div><button type="button" class="wide" data-close>Хорошо</button>`;
+    }
+    paint();
+    panel.querySelector("button:not(.x)")?.focus?.({ preventScroll: true });
+  };
+
+  const send = async (kind) => {
+    const W = SITE.waiter;
+    const text = `🔔 Столик №${table}: ${REQUESTS[kind].title}`;
+    if (W.endpoint) {
+      await fetch(W.endpoint, { method: "POST", mode: "no-cors", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify({ table, request: kind, text, at: new Date().toISOString() }) });
+      return false;
+    }
+    if (W.telegram.botToken && W.telegram.chatId) {
+      const r = await fetch(`https://api.telegram.org/bot${W.telegram.botToken}/sendMessage`, { method: "POST", body: new URLSearchParams({ chat_id: W.telegram.chatId, text }) });
+      if (!r.ok) throw new Error(`telegram ${r.status}`);
+      return false;
+    }
+    await new Promise((r) => setTimeout(r, 600));
+    return true;
+  };
+  const call = async (kind) => {
+    if (pending) return;
+    pending = true;
+    show("sending");
+    try {
+      const demo = await send(kind);
+      lastRequest = kind;
+      cooldownUntil = Date.now() + SITE.waiter.cooldown * 1000;
+      store.set("mb-cooldown", String(cooldownUntil));
+      store.set("mb-last", kind);
+      show("done", { demo });
+    } catch (e) {
+      console.error("waiter", e);
+      show("menu", { error: true });
+    } finally {
+      pending = false;
+    }
+  };
+
+  for (const b of document.querySelectorAll("[data-call]"))
+    b.addEventListener("click", () => open(!table ? "pick" : left() > 0 ? "done" : "menu"));
+  $("#table-pill").addEventListener("click", () => open("pick"));
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal || e.target.closest("[data-close]")) return close();
+    const t = e.target.closest("[data-table]");
+    if (t) {
+      table = t.dataset.table;
+      store.set("mb-table", table);
+      return show(left() > 0 ? "done" : "menu");
+    }
+    const v = e.target.closest("[data-view]");
+    if (v) return show(v.dataset.view);
+    const r = e.target.closest("[data-req]");
+    if (r) call(r.dataset.req);
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && modal.classList.contains("open")) close();
+  });
+  paint();
+}
 
 /* ═══ Градиент ═══ */
 const CONFIG = {
@@ -736,7 +951,7 @@ const opal = (() => {
 
 
 
-/* ═══ 3D: логотип внизу «кусает» котлету, кунжут летает по всему фону ═══ */
+/* ═══ 3D: логотип наверху «кусает» котлету, кунжут летает по всему фону ═══ */
 let scene3d = null;
 try {
   const THREE = await import("three");
@@ -748,9 +963,12 @@ try {
 }
 
 /* ═══ Один цикл на всё ═══ */
+const dock = $("#dock");
+const hero = $("#hero");
 const loop = (now) => {
   lenis?.raf(now);
   updateActive();
+  dock.classList.toggle("stuck", hero.getBoundingClientRect().bottom <= 1);
   if (!document.hidden) {
     if (opal && !REDUCED) opal(now);
     scene3d?.(now);
@@ -1170,7 +1388,7 @@ function initThree(THREE, RoomEnvironment) {
     camera.aspect = innerWidth / innerHeight;
     camera.updateProjectionMatrix();
     view.aspect = camera.aspect;
-    const widthPx = Math.min(innerWidth * (mobile ? 0.86 : 0.56), 760, stage.getBoundingClientRect().height * 2.6);
+    const widthPx = Math.min(innerWidth * (mobile ? 0.78 : 0.5), 600, stage.getBoundingClientRect().height * 2.35);
     logoScale = (widthPx * unitPx()) / logoWidth;
     holder.scale.setScalar(logoScale);
     if (!field) field = createField(seeds.count, { base: 0.055 * 2 * VIEW.distance * tanHalf, min: 0.55, max: 1.7 }, world);
@@ -1248,11 +1466,11 @@ function initThree(THREE, RoomEnvironment) {
   const frame = (now) => {
     const dt = last ? Math.min(0.05, (now - last) / 1000) : 0;
     last = now;
-    /* Логотип стоит в верхней части финального блока и едет вместе с ним. */
+    /* Логотип стоит в компактной шапке и уезжает вместе с ней. */
     const r = stage.getBoundingClientRect();
     holder.visible = r.bottom > -200 && r.top < innerHeight + 200;
     holder.position.y = (innerHeight / 2 - (r.top + r.height * 0.5)) * unitPx();
-    if (holder.visible && state.start === null && r.top < innerHeight * 0.8) state.start = REDUCED ? -1e9 : now + 150;
+    if (holder.visible && state.start === null) state.start = REDUCED ? -1e9 : now + 250;
     const scroll = scrollY;
     if (REDUCED) {
       pose(now);
