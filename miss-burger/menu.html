@@ -222,6 +222,8 @@ button.pill:hover { background: rgba(255,255,255,.12); border-color: rgba(255,25
 .card p, .card li { font: 400 15px/1.5 var(--onest); color: #fff; }
 .card a { border-bottom: 1px solid rgba(255,255,255,.3); transition: border-color 200ms var(--ease); }
 .card a:hover { border-color: #fff; }
+.home-link { display: inline-flex; align-items: center; gap: 6px; padding: 10px 16px; border-radius: 999px; border: 1px solid rgba(255,255,255,.18); font: 500 14px/1 var(--onest); color: rgba(255,255,255,.85); transition: background-color 200ms var(--ease); }
+.home-link:hover { background: rgba(255,255,255,.08); }
 .copy { margin-top: 22px; text-align: center; font: 400 12px/1.4 var(--mono); color: rgba(255,255,255,.45); }
 
 /* ═══ Панель «Вызвать официанта» ═══ */
@@ -317,6 +319,7 @@ button.pill:hover { background: rgba(255,255,255,.12); border-color: rgba(255,25
       <div class="card"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></span><div><h3>Адреса</h3><ul id="locs"></ul></div></div>
       <div class="card"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.8 2z"/></svg></span><div><h3>Связаться</h3><p><a id="phone" href="tel:+998000000000">«+998 00 000 00 00»</a></p><p id="social"></p></div></div>
     </div>
+    <p class="copy"><a href="./" class="home-link">← Сайт Miss Burger</a></p>
     <p class="copy" id="legal">© 2026 MISS BURGER</p>
   </footer>
 </div>
