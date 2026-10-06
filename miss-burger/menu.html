@@ -55,6 +55,66 @@ ul { list-style: none; }
 #opal.on { opacity: 1; }
 .bg-scrim { background: radial-gradient(120% 80% at 50% 0%, rgba(11,7,7,.15) 30%, rgba(11, 7, 7, 0.6) 100%); }
 #three { opacity: 0; transition: opacity 500ms var(--ease); }
+
+/* ═══ Варианты фона — переключаются кнопкой слева внизу ═══ */
+.v { opacity: 0; transition: opacity 700ms var(--ease); overflow: hidden; }
+.v * { animation-play-state: paused; }
+html[data-bg="pattern"] .v-pattern, html[data-bg="marquee"] .v-marquee, html[data-bg="diner"] .v-diner, html[data-bg="glow"] .v-glow { opacity: 1; }
+html[data-bg="pattern"] .v-pattern *, html[data-bg="marquee"] .v-marquee *, html[data-bg="diner"] .v-diner *, html[data-bg="glow"] .v-glow * { animation-play-state: running; }
+html[data-bg="diner"] #opal { opacity: .35; }
+
+/* Узор: линейные бургеры, фри, шейки и губы, медленно плывут по диагонали */
+.pattern-move { position: absolute; inset: -280px; background-size: 280px 280px; animation: pattern 46s linear infinite; }
+@keyframes pattern { to { transform: translate(280px, 280px); } }
+.v-pattern::after { content: ""; position: absolute; inset: 0; background: radial-gradient(90% 70% at 50% 40%, transparent 30%, rgba(11,7,7,.55) 100%); }
+
+/* Бегущая строка: огромные контурные строки едут навстречу друг другу */
+.mq { position: absolute; left: 50%; top: 50%; width: 180vmax; translate: -50% -50%; rotate: -8deg; display: flex; flex-direction: column; gap: 1.2vmax; }
+.mq-row { display: flex; width: max-content; white-space: nowrap; font: 700 clamp(70px, 11vmax, 170px)/1 var(--geist); letter-spacing: -0.02em; text-transform: uppercase; animation: mq 60s linear infinite; }
+.mq-row:nth-child(even) { animation-direction: reverse; animation-duration: 75s; }
+.mq-row span { padding-right: .4em; color: transparent; -webkit-text-stroke: 1.5px rgba(246, 240, 232, .17); }
+.mq-row:nth-child(3n+2) span { color: rgba(200, 45, 70, .26); -webkit-text-stroke: 0; }
+@keyframes mq { to { transform: translateX(-50%); } }
+
+/* Дайнер: клетчатый пол в перспективе и неоновый горизонт */
+.v-diner { background: radial-gradient(120% 50% at 50% 30%, rgba(224, 102, 47, .26), transparent 60%), linear-gradient(#0b0707 0%, #2a0d12 30%, #0b0707 100%); }
+.floor { position: absolute; left: -60%; right: -60%; top: 30%; bottom: -60%; overflow: hidden; transform: perspective(520px) rotateX(64deg); transform-origin: 50% 0; -webkit-mask: linear-gradient(to bottom, transparent 0%, #000 22%); mask: linear-gradient(to bottom, transparent 0%, #000 22%); }
+.tiles { position: absolute; left: 0; right: 0; top: -96px; bottom: 0; background: repeating-conic-gradient(#5a1824 0 25%, #12070a 0 50%) 0 0 / 96px 96px; animation: tiles 3.2s linear infinite; }
+@keyframes tiles { to { transform: translateY(96px); } }
+.horizon { position: absolute; left: 0; right: 0; top: 30%; height: 2px; background: linear-gradient(90deg, transparent, #e0662f 20%, #ff4a64 50%, #e0662f 80%, transparent); box-shadow: 0 0 22px 4px rgba(224, 102, 47, .45), 0 0 80px 18px rgba(168, 40, 63, .35); animation: neon 4s ease-in-out infinite; }
+@keyframes neon { 50% { opacity: .75; } 52% { opacity: .45; } 54% { opacity: .8; } }
+.sun { position: absolute; left: 50%; top: 30%; width: 60vmin; height: 30vmin; translate: -50% -100%; border-radius: 46vmin 46vmin 0 0; background: repeating-linear-gradient(to bottom, rgba(238, 122, 51, .55) 0 10px, transparent 10px 16px), linear-gradient(#ee7a33, #a8283f); -webkit-mask: linear-gradient(to bottom, #000 30%, transparent); mask: linear-gradient(to bottom, #000 30%, transparent); opacity: .5; }
+
+/* Огни: большие мягкие тёплые пятна, как свет ламп в зале */
+.v-glow i { position: absolute; width: 60vmax; height: 60vmax; border-radius: 50%; mix-blend-mode: screen; opacity: .85; animation: drift 26s ease-in-out infinite alternate; }
+.v-glow i:nth-child(1) { left: -18vmax; top: -16vmax; background: radial-gradient(circle, rgba(238, 122, 51, .55), transparent 62%); }
+.v-glow i:nth-child(2) { right: -22vmax; top: 10vh; background: radial-gradient(circle, rgba(200, 40, 70, .6), transparent 62%); animation-duration: 32s; animation-delay: -8s; }
+.v-glow i:nth-child(3) { left: 18vw; bottom: -30vmax; background: radial-gradient(circle, rgba(242, 179, 61, .35), transparent 62%); animation-duration: 38s; animation-delay: -14s; }
+.v-glow i:nth-child(4) { right: 10vw; bottom: -20vmax; width: 44vmax; height: 44vmax; background: radial-gradient(circle, rgba(126, 36, 48, .7), transparent 62%); animation-duration: 22s; animation-delay: -5s; }
+.v-glow i:nth-child(5) { left: 30vw; top: -24vmax; width: 40vmax; height: 40vmax; background: radial-gradient(circle, rgba(255, 140, 90, .3), transparent 62%); animation-duration: 30s; animation-delay: -18s; }
+@keyframes drift { 0% { transform: translate(0, 0) scale(1); } 50% { transform: translate(8vmax, 6vmax) scale(1.12); } 100% { transform: translate(-6vmax, 10vmax) scale(.92); } }
+
+/* Переключатель фона */
+.bg-switch { position: fixed; z-index: 31; left: max(14px, env(safe-area-inset-left)); bottom: max(16px, env(safe-area-inset-bottom)); }
+@media (max-width: 759.98px) { .bg-switch { left: auto; right: max(12px, env(safe-area-inset-right)); bottom: max(17px, env(safe-area-inset-bottom)); } .bg-switch .bg-menu { left: auto; right: 0; } }
+.bg-btn { width: 46px; height: 46px; border-radius: 50%; border: 1px solid rgba(255,255,255,.18); background: rgba(11,7,7,.6); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); color: #fff; display: grid; place-items: center; cursor: pointer; transition: transform 200ms var(--ease), background-color 200ms var(--ease); }
+.bg-btn:hover { background: rgba(40, 20, 22, .8); }
+.bg-btn:active { transform: scale(.94); }
+.bg-btn svg { width: 20px; height: 20px; }
+.bg-menu { position: absolute; left: 0; bottom: 56px; width: 236px; padding: 8px; border-radius: 18px; background: rgba(20, 11, 12, .9); border: 1px solid rgba(255,255,255,.12); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); box-shadow: 0 20px 50px rgba(0,0,0,.5); opacity: 0; translate: 0 10px; pointer-events: none; transition: opacity 220ms var(--ease), translate 280ms var(--ease); }
+.bg-switch.open .bg-menu { opacity: 1; translate: 0 0; pointer-events: auto; }
+.bg-menu p { padding: 6px 8px 8px; font: 600 11px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.5); }
+.bg-opt { display: flex; align-items: center; gap: 12px; width: 100%; padding: 6px; border: 0; border-radius: 12px; background: none; color: #fff; font: 500 14px/1.2 var(--onest); text-align: left; cursor: pointer; transition: background-color 150ms var(--ease); }
+.bg-opt:hover { background: rgba(255,255,255,.07); }
+.bg-opt .sw { flex: none; width: 40px; height: 40px; border-radius: 10px; border: 1px solid rgba(255,255,255,.14); background-color: #0b0707; background-size: cover; overflow: hidden; }
+.bg-opt .ck { margin-left: auto; width: 18px; height: 18px; border-radius: 50%; border: 1.5px solid rgba(255,255,255,.25); }
+.bg-opt[aria-checked="true"] { background: rgba(255,255,255,.08); }
+.bg-opt[aria-checked="true"] .ck { border-color: var(--patty); background: radial-gradient(circle, var(--patty) 45%, transparent 50%); }
+.sw-gradient { background-image: linear-gradient(135deg, #0b0707, #3a1217 55%, #7e2430); }
+.sw-marquee { display: grid; place-items: center; font: 700 22px/1 var(--geist); color: transparent; -webkit-text-stroke: 1px rgba(246,240,232,.5); }
+.sw-diner { background-image: linear-gradient(#1a0a0c 50%, transparent 50%), repeating-conic-gradient(#5a1a24 0 25%, #120809 0 50%); background-size: 100% 100%, 10px 10px; box-shadow: inset 0 -20px 0 -19px #ee7a33; }
+.sw-glow { background-image: radial-gradient(circle at 30% 30%, rgba(238,122,51,.8), transparent 55%), radial-gradient(circle at 75% 70%, rgba(200,40,70,.8), transparent 55%); }
+@media (prefers-reduced-motion: reduce) { .v * { animation: none !important; } }
 #three.on { opacity: 1; }
 
 .page { position: relative; z-index: 1; }
@@ -213,6 +273,10 @@ button.pill:hover { background: rgba(255,255,255,.12); border-color: rgba(255,25
   <div class="bg-fallback"></div>
   <canvas id="opal"></canvas>
   <div class="bg-scrim"></div>
+  <div class="v v-pattern"><div class="pattern-move" id="pattern"></div></div>
+  <div class="v v-marquee"><div class="mq" id="mq"></div></div>
+  <div class="v v-diner"><div class="sun"></div><div class="floor"><div class="tiles"></div></div><div class="horizon"></div></div>
+  <div class="v v-glow"><i></i><i></i><i></i><i></i><i></i></div>
   <canvas id="three"></canvas>
 </div>
 
@@ -259,6 +323,11 @@ button.pill:hover { background: rgba(255,255,255,.12); border-color: rgba(255,25
 
 <button type="button" class="call-btn fab" data-call><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.9 1.9 0 0 0 3.4 0"/></svg><span class="label">Вызвать официанта</span><span class="sub" data-call-sub></span></button>
 
+<div class="bg-switch" id="bg-switch">
+  <div class="bg-menu" role="radiogroup" aria-label="Фон страницы" id="bg-menu"><p>Фон</p></div>
+  <button type="button" class="bg-btn" id="bg-btn" aria-expanded="false" aria-controls="bg-menu" aria-label="Сменить фон"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18c1.1 0 1.7-.8 1.7-1.7 0-.5-.2-.9-.5-1.2-.3-.3-.5-.7-.5-1.2 0-.9.8-1.7 1.7-1.7H16a5 5 0 0 0 5-5c0-4-4-7.2-9-7.2z"/><circle cx="7.5" cy="11" r="1.2"/><circle cx="10.5" cy="7" r="1.2"/><circle cx="15" cy="7.5" r="1.2"/></svg></button>
+</div>
+
 <div class="sheet-modal" id="waiter" role="dialog" aria-modal="true" aria-labelledby="waiter-title" aria-hidden="true">
   <div class="panel" id="panel"></div>
 </div>
@@ -277,6 +346,11 @@ const SITE = {
   phone: { label: "«+998 00 000 00 00»", href: "tel:+998000000000" },
   social: [["Instagram", "https://instagram.com/"], ["Telegram", "https://t.me/"]],
   currency: "сум",
+  /** Фон по умолчанию: "gradient" | "pattern" | "marquee" | "diner" | "glow".
+      Гость может переключить его кнопкой слева внизу; ссылка ?bg=diner задаёт фон явно. */
+  background: "pattern",
+  /** Показывать ли гостям кнопку смены фона. */
+  backgroundSwitch: true,
   /** Сколько столиков в зале — для выбора столика, если гость открыл меню без QR-кода. */
   tables: 20,
   /** Куда отправлять «Вызвать официанта». Пока всё пусто — кнопка работает в демо-режиме
@@ -718,6 +792,74 @@ updateActive();
     if (e.key === "Escape" && modal.classList.contains("open")) close();
   });
   paint();
+}
+
+/* ═══ Варианты фона ═══ */
+{
+  const VARIANTS = [
+    ["gradient", "Градиент"],
+    ["pattern", "Узор"],
+    ["marquee", "Бегущая строка"],
+    ["diner", "Дайнер"],
+    ["glow", "Огни"],
+  ];
+  const ids = VARIANTS.map(([id]) => id);
+  /* Узор: тайл из линейных иконок, рисуется один раз. */
+  const ink = "rgba(246,240,232,0.17)";
+  const icons = {
+    burger: '<path d="M10 30 Q10 12 32 12 Q54 12 54 30 Z"/><path d="M8 36 q4 -4 8 0 t8 0 t8 0 t8 0 t8 0 t8 0"/><rect x="9" y="39" width="46" height="7" rx="3.5"/><path d="M11 49 H53 Q53 56 46 56 H18 Q11 56 11 49 Z"/><path d="M24 20 l3 -1 M34 17 l3 1 M42 22 l2 2"/>',
+    fries: '<path d="M18 30 Q32 36 46 30 L42 56 H22 Z"/><path d="M22 30 L20 10 M28 32 L27 6 M34 32 L35 8 M40 31 L43 12"/>',
+    shake: '<path d="M20 22 H44 L40 58 H24 Z"/><path d="M18 22 Q18 12 26 12 Q28 4 34 6 Q42 4 42 12 Q48 12 46 22"/><path d="M38 12 L46 -2"/><circle cx="33" cy="4" r="3"/>',
+    lips: '<path d="M6 30 Q16 14 26 20 Q32 14 38 20 Q48 14 58 30 Q32 28 6 30 Z"/><path d="M6 34 Q32 32 58 34 Q48 52 32 52 Q16 52 6 34 Z"/>',
+    cup: '<path d="M18 16 H46 L42 58 H22 Z"/><path d="M15 16 H49 M17 16 Q32 8 47 16"/><path d="M36 12 L41 0 H46"/><path d="M20 32 H44"/>',
+    star: '<path d="M32 10 L35 27 L52 30 L35 33 L32 50 L29 33 L12 30 L29 27 Z"/>',
+  };
+  const place = [["burger", 20, 18, -12], ["fries", 150, 30, 14], ["shake", 230, 150, -8], ["lips", 70, 140, 8], ["cup", 160, 200, -16], ["star", 110, 90, 20], ["star", 250, 40, -10], ["lips", 0, 230, -18]];
+  const tile = `<svg xmlns="http://www.w3.org/2000/svg" width="280" height="280" viewBox="0 0 280 280"><g fill="none" stroke="${ink}" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">${place.map(([k, x, y, r]) => `<g transform="translate(${x} ${y}) rotate(${r} 32 32)">${icons[k]}</g>`).join("")}</g></svg>`;
+  const tileUrl = `url("data:image/svg+xml,${encodeURIComponent(tile)}")`;
+  $("#pattern").style.backgroundImage = tileUrl;
+  /* Бегущая строка */
+  const words = "MISS BURGER • БУРГЕРЫ • ФРИ • ШЕЙКИ • ";
+  $("#mq").innerHTML = Array.from({ length: 7 }, (_, i) => `<div class="mq-row"><span>${(i % 2 ? "БУРГЕРЫ • ШЕЙКИ • MISS BURGER • ФРИ • " : words).repeat(3)}</span><span aria-hidden="true">${(i % 2 ? "БУРГЕРЫ • ШЕЙКИ • MISS BURGER • ФРИ • " : words).repeat(3)}</span></div>`).join("");
+
+  const store = {
+    get: () => { try { return localStorage.getItem("mb-bg"); } catch { return null; } },
+    set: (v) => { try { localStorage.setItem("mb-bg", v); } catch {} },
+  };
+  const fromUrl = new URLSearchParams(location.search).get("bg");
+  let current = ids.includes(fromUrl) ? fromUrl : ids.includes(store.get()) ? store.get() : ids.includes(SITE.background) ? SITE.background : "gradient";
+  const swatch = { gradient: "sw-gradient", pattern: "", marquee: "sw-marquee", diner: "sw-diner", glow: "sw-glow" };
+  const menu = $("#bg-menu");
+  menu.insertAdjacentHTML("beforeend", VARIANTS.map(([id, label]) => `<button type="button" class="bg-opt" role="radio" data-bg="${id}" aria-checked="false"><span class="sw ${swatch[id]}"${id === "pattern" ? ` style='background-image:${tileUrl};background-size:60px'` : ""}>${id === "marquee" ? "Aa" : ""}</span>${label}<span class="ck"></span></button>`).join(""));
+  const apply = (id) => {
+    current = id;
+    document.documentElement.dataset.bg = id;
+    for (const b of menu.querySelectorAll(".bg-opt")) b.setAttribute("aria-checked", String(b.dataset.bg === id));
+  };
+  apply(current);
+  const wrap = $("#bg-switch");
+  const btn = $("#bg-btn");
+  if (!SITE.backgroundSwitch) wrap.hidden = true;
+  const toggle = (open) => {
+    wrap.classList.toggle("open", open);
+    btn.setAttribute("aria-expanded", String(open));
+  };
+  btn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    toggle(!wrap.classList.contains("open"));
+  });
+  menu.addEventListener("click", (e) => {
+    const o = e.target.closest(".bg-opt");
+    if (!o) return;
+    apply(o.dataset.bg);
+    store.set(o.dataset.bg);
+  });
+  document.addEventListener("click", (e) => {
+    if (!wrap.contains(e.target)) toggle(false);
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") toggle(false);
+  });
 }
 
 /* ═══ Градиент ═══ */
