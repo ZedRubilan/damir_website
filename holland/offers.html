@@ -1,0 +1,817 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Акции и Комбо — HOLLAND Fries &amp; Cheese · картошка фри с сыром</title>
+<meta name="description" content="Скидки, комбо-наборы и специальные предложения от HOLLAND Fries & Cheese. Промокоды, 1+1 на сырные боксы и бесплатная доставка.">
+<meta name="theme-color" content="#0b0d0a">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230f4a26'/%3E%3Cg fill='%23f7c21b'%3E%3Crect x='29' y='8' width='6' height='22' rx='2'/%3E%3Crect x='29' y='8' width='6' height='22' rx='2' transform='rotate(-22 32 40)'/%3E%3Crect x='29' y='8' width='6' height='22' rx='2' transform='rotate(22 32 40)'/%3E%3C/g%3E%3Cpath d='M18 30h28L32 56z' fill='%23e3261c'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Manrope:wght@400;500;600;700;800&family=Marck+Script&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+<script type="importmap">
+{
+  "imports": {
+    "lenis": "https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.mjs"
+  }
+}
+</script>
+<style>
+:root {
+  --bg: #0b0d0a;
+  --bg-2: #10130e;
+  --card: #141811;
+  --card-2: #1a1f16;
+  --line: rgba(246, 241, 230, .1);
+  --line-2: rgba(246, 241, 230, .18);
+  --fg: #f6f1e6;
+  --muted: rgba(246, 241, 230, .64);
+  --dim: rgba(246, 241, 230, .42);
+  --yellow: #ffc21a;
+  --yellow-2: #ffd75a;
+  --green: #0f4a26;
+  --green-2: #0a361c;
+  --red: #e3261c;
+  --ink: #12100a;
+  --f-display: "Oswald", "Arial Narrow", Arial, sans-serif;
+  --f-sans: "Manrope", system-ui, sans-serif;
+  --f-mono: "JetBrains Mono", ui-monospace, monospace;
+  --f-script: "Marck Script", cursive;
+  --ease: cubic-bezier(.2, 0, 0, 1);
+  --pad: clamp(20px, 4vw, 40px);
+  --maxw: 1280px;
+  --header-h: 76px;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
+html.is-locked { overflow: hidden; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font: 500 16px/1.55 var(--f-sans);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+img, svg, canvas { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+ul { list-style: none; margin: 0; padding: 0; }
+h1, h2, h3, h4, p { margin: 0; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.wrap { width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 0 var(--pad); }
+:focus-visible { outline: 2px solid var(--yellow); outline-offset: 3px; border-radius: 6px; }
+
+/* ── typography ──────────────────────────────────── */
+.eyebrow {
+  font: 500 12px/1.3 var(--f-mono);
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--dim);
+  display: inline-flex; align-items: center; gap: 10px;
+}
+.eyebrow .sl { letter-spacing: -.05em; }
+.script { font-family: var(--f-script); color: var(--yellow); font-weight: 400; text-transform: none; letter-spacing: 0; }
+.h2 {
+  font: 700 clamp(40px, 5.4vw, 76px)/.95 var(--f-display);
+  text-transform: uppercase;
+  letter-spacing: -.005em;
+}
+.accent { color: var(--yellow); }
+.mono { font-family: var(--f-mono); }
+.dot { width: 6px; height: 6px; border-radius: 50%; background: var(--yellow); flex: none; box-shadow: 0 0 12px var(--yellow); }
+
+/* buttons */
+.btn {
+  position: relative; display: inline-flex; align-items: center; gap: 12px;
+  height: 52px; padding: 0 24px; border-radius: 999px;
+  font: 700 14px/1 var(--f-sans); letter-spacing: .08em; text-transform: uppercase;
+  white-space: nowrap; overflow: hidden; isolation: isolate;
+  transition: background-color .2s var(--ease), color .2s var(--ease), border-color .2s var(--ease), transform .2s var(--ease);
+}
+.btn-yellow { background: var(--yellow); color: var(--ink); }
+.btn-yellow:hover { background: var(--yellow-2); transform: translateY(-2px); }
+.btn-ghost { border: 1px solid var(--line-2); }
+.btn-ghost:hover { border-color: var(--yellow); transform: translateY(-2px); }
+.arw { position: relative; width: 14px; height: 14px; flex: none; overflow: hidden; }
+.arw svg { position: absolute; inset: 0; width: 14px; height: 14px; }
+
+/* ── logo ────────────────────────────────────────── */
+.logo { display: inline-flex; align-items: center; gap: 10px; line-height: 1; }
+.logo svg { width: 40px; height: 40px; flex: none; }
+.logo b { display: block; font: 700 24px/.9 var(--f-display); letter-spacing: .02em; color: var(--fg); }
+.logo i { display: block; font: 800 11px/1 var(--f-sans); font-style: normal; color: var(--yellow); margin-top: 4px; letter-spacing: .02em; }
+
+/* ── header ──────────────────────────────────────── */
+.site-header { position: fixed; inset: 0 0 auto 0; z-index: 50; height: var(--header-h); }
+.site-header::before {
+  content: ""; position: absolute; inset: 0; background: rgba(11, 13, 10, .72);
+  -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--line); opacity: var(--hdr-bg, 0);
+}
+.site-header .wrap { position: relative; height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+.nav { display: flex; gap: 34px; }
+.nav a { font: 600 13px/1 var(--f-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); padding: 8px 0; position: relative; transition: color .2s var(--ease); }
+.nav a:hover, .nav a.is-active { color: var(--fg); }
+.nav a.is-active::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: var(--yellow); }
+.hdr-right { display: flex; align-items: center; gap: 14px; }
+.cart-btn { position: relative; width: 46px; height: 46px; border-radius: 50%; border: 1px solid var(--line-2); display: grid; place-items: center; transition: border-color .2s var(--ease); }
+.cart-btn:hover { border-color: var(--yellow); }
+.cart-btn svg { width: 19px; height: 19px; }
+.cart-count { position: absolute; top: -4px; right: -4px; min-width: 20px; height: 20px; border-radius: 10px; background: var(--yellow); color: var(--ink); font: 800 11px/20px var(--f-sans); text-align: center; padding: 0 5px; }
+.hdr-order { height: 46px; padding: 0 20px; font-size: 13px; }
+.menu-toggle { display: none; width: 46px; height: 46px; border-radius: 50%; border: 1px solid var(--line-2); place-items: center; }
+.menu-toggle span { display: block; width: 18px; height: 2px; background: var(--fg); position: relative; }
+.menu-toggle span::before, .menu-toggle span::after { content: ""; position: absolute; left: 0; width: 18px; height: 2px; background: var(--fg); }
+.menu-toggle span::before { top: -6px; } .menu-toggle span::after { top: 6px; }
+.mobile-panel { position: fixed; inset: 0; z-index: 49; background: var(--bg); padding: calc(var(--header-h) + 30px) var(--pad) var(--pad); display: flex; flex-direction: column; gap: 6px; visibility: hidden; clip-path: inset(0 0 100% 0); }
+.mobile-panel a.m-link { font: 700 44px/1.15 var(--f-display); text-transform: uppercase; border-bottom: 1px solid var(--line); padding: 8px 0; }
+.mobile-panel .btn { margin-top: 24px; justify-content: center; }
+@media (max-width: 1023px) {
+  .nav, .hdr-order { display: none; }
+  .menu-toggle { display: grid; }
+}
+
+/* ── hero ────────────────────────────────────────── */
+.offers-hero {
+  position: relative;
+  padding: calc(var(--header-h) + 60px) 0 40px;
+  text-align: center;
+  overflow: hidden;
+  background:
+    radial-gradient(60% 80% at 50% 100%, rgba(227, 38, 28, .18), transparent 60%),
+    radial-gradient(80% 60% at 50% 0%, rgba(255, 194, 26, .08), transparent 50%),
+    var(--bg);
+}
+.offers-hero .script { font-size: clamp(28px, 3vw, 38px); line-height: 1; display: flex; align-items: center; justify-content: center; gap: 14px; margin-bottom: 8px; }
+.offers-hero .script::before, .offers-hero .script::after { content: ""; width: 44px; height: 1px; background: currentColor; opacity: .6; }
+.offers-hero .h2 { text-align: center; }
+.offers-hero .subtitle { margin-top: 18px; color: var(--muted); max-width: 580px; margin-left: auto; margin-right: auto; font-size: clamp(15px, 1.2vw, 18px); }
+
+/* ── featured offer banner ───────────────────────── */
+.offer-section { padding: 40px 0 60px; }
+.offer-box {
+  position: relative;
+  overflow: hidden;
+  border-radius: 28px;
+  background: var(--yellow);
+  color: var(--ink);
+  min-height: 320px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 36px;
+  padding: 44px 56px;
+  box-shadow: 0 24px 60px rgba(255, 194, 26, .2);
+}
+.offer-box::before { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(-55deg, rgba(0,0,0,.035) 0 18px, transparent 18px 36px); pointer-events: none; }
+.offer-watch { position: relative; width: 96px; height: 96px; flex: none; }
+.offer-watch svg { width: 100%; height: 100%; }
+.offer-copy { position: relative; z-index: 2; }
+.offer-copy .k { font: 700 22px/1 var(--f-display); text-transform: uppercase; letter-spacing: .03em; }
+.offer-copy .big { margin-top: 6px; font: 700 clamp(42px, 5.5vw, 80px)/.92 var(--f-display); text-transform: uppercase; }
+.offer-copy .sub { margin-top: 10px; font: 700 18px/1.2 var(--f-display); text-transform: uppercase; letter-spacing: .04em; }
+.offer-actions { margin-top: 22px; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.code-chip {
+  display: inline-flex; align-items: center; gap: 10px;
+  height: 46px; padding: 0 20px; border-radius: 999px;
+  background: var(--ink); color: var(--fg);
+  font: 600 14px/1 var(--f-mono); letter-spacing: .08em;
+  transition: transform .2s var(--ease), background .2s var(--ease);
+}
+.code-chip:hover { transform: scale(1.04); background: #222; }
+.code-chip b { color: var(--yellow); font-weight: 600; }
+.code-chip svg { width: 15px; height: 15px; opacity: .7; }
+.offer-pics { position: relative; width: clamp(280px, 32vw, 440px); height: 320px; align-self: end; margin-bottom: -44px; z-index: 2; }
+.offer-pics img { position: absolute; bottom: -10px; filter: drop-shadow(0 20px 26px rgba(0,0,0,.35)); transform-origin: bottom center; }
+.offer-pics img:nth-of-type(1) { left: -2%; width: 50%; transform: rotate(-8deg); }
+.offer-pics img:nth-of-type(2) { right: 4%; width: 56%; transform: rotate(6deg); }
+.bogo { position: absolute; right: 0; top: 10px; width: 92px; height: 92px; border-radius: 50%; background: var(--ink); color: var(--yellow); display: grid; place-items: center; text-align: center; font: 700 26px/.9 var(--f-display); z-index: 3; box-shadow: 0 10px 30px rgba(0,0,0,.3); }
+.bogo small { display: block; font: 600 9px/1 var(--f-mono); letter-spacing: .14em; color: var(--fg); margin-top: 4px; }
+@media (max-width: 1023px) {
+  .offer-box { grid-template-columns: 1fr; padding: 36px 28px 0; gap: 18px; }
+  .offer-watch { width: 64px; height: 64px; }
+  .offer-pics { justify-self: center; margin-bottom: 0; height: 260px; }
+}
+
+/* ── promotions grid ─────────────────────────────── */
+.promos-sec { padding: 40px 0 clamp(90px, 10vw, 140px); }
+.sec-head { text-align: center; margin-bottom: 44px; }
+.sec-head .script { font-size: clamp(26px, 2.8vw, 36px); line-height: 1; display: flex; align-items: center; justify-content: center; gap: 14px; margin-bottom: 8px; }
+.sec-head .script::before, .sec-head .script::after { content: ""; width: 44px; height: 1px; background: currentColor; opacity: .6; }
+
+.promos-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+@media (max-width: 1023px) { .promos-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; } }
+@media (max-width: 639px) { .promos-grid { grid-template-columns: 1fr; gap: 18px; } }
+
+.pcard {
+  border: 1px solid var(--line-2);
+  border-radius: 22px;
+  background: linear-gradient(180deg, var(--card-2), var(--card));
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: transform .35s var(--ease), box-shadow .35s var(--ease), border-color .35s var(--ease);
+}
+.pcard:hover {
+  transform: translateY(-5px);
+  border-color: rgba(255, 194, 26, .35);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, .45);
+}
+.pcard-pic {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: #141811;
+  border-bottom: 1px solid var(--line);
+}
+.pcard-pic img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: brightness(0.96) contrast(1.04);
+  transition: transform .5s var(--ease);
+}
+.pcard:hover .pcard-pic img { transform: scale(1.06); }
+.pcard-pic::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, transparent 40%, rgba(20,24,17,0.7) 100%);
+  pointer-events: none;
+}
+.pcard-badge {
+  position: absolute; left: 14px; top: 14px; z-index: 2;
+  font: 700 11px/1 var(--f-mono); letter-spacing: .12em; text-transform: uppercase;
+  background: var(--red); color: #fff;
+  padding: 6px 12px; border-radius: 999px;
+  box-shadow: 0 4px 12px rgba(0,0,0,.35);
+}
+.pcard-badge.gold {
+  background: var(--yellow); color: var(--ink);
+}
+.pcard-body {
+  padding: 20px 22px 22px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.pcard-body h3 {
+  font: 700 22px/1.1 var(--f-display);
+  text-transform: uppercase;
+  letter-spacing: .02em;
+}
+.pcard-body p {
+  margin-top: 10px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--dim);
+  flex: 1;
+}
+.pcard-foot {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.price-wrap { display: flex; align-items: baseline; gap: 8px; }
+.price { font: 700 24px/1 var(--f-display); color: var(--yellow); letter-spacing: .01em; }
+.price small { font: 600 12px/1 var(--f-mono); color: var(--dim); margin-left: 4px; letter-spacing: .06em; }
+.old-price { font: 500 14px/1 var(--f-mono); color: var(--dim); text-decoration: line-through; }
+.pcard .btn { height: 42px; padding: 0 18px; font-size: 12px; }
+
+/* ── order / printer section ─────────────────────── */
+.order-sec { padding: 0 0 clamp(90px, 10vw, 140px); }
+.order-box {
+  position: relative; border-radius: 28px; overflow: hidden; border: 1px solid var(--line-2);
+  background: radial-gradient(70% 90% at 80% 10%, rgba(255,194,26,.12), transparent 60%), linear-gradient(160deg, #15301d, #0c1a10 60%, #0b0d0a);
+  display: grid; grid-template-columns: 1.05fr 1fr; gap: 40px; padding: 64px 64px 0; min-height: 560px;
+}
+.order-copy { padding-bottom: 64px; align-self: center; }
+.order-copy .lede { margin-top: 20px; color: var(--muted); max-width: 460px; }
+.order-copy .btns { margin-top: 30px; display: flex; flex-wrap: wrap; gap: 12px; }
+.order-copy .meta { margin-top: 34px; display: grid; grid-template-columns: auto auto; gap: 6px 30px; justify-content: start; font: 500 12px/1.5 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.order-copy .meta .k { color: var(--dim); }
+.printer { position: relative; align-self: start; justify-self: center; width: min(360px, 100%); }
+.printer-bar { position: relative; z-index: 2; height: 74px; border-radius: 18px; background: linear-gradient(180deg, #2a2f26, #171a14); box-shadow: 0 20px 40px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.08); display: flex; align-items: center; justify-content: space-between; padding: 0 20px; }
+.printer-bar .led { width: 8px; height: 8px; border-radius: 50%; background: var(--yellow); box-shadow: 0 0 10px var(--yellow); }
+.printer-bar .brand { font: 700 15px/1 var(--f-display); letter-spacing: .1em; color: rgba(246,241,230,.5); }
+.printer-slot { position: absolute; left: 22px; right: 22px; bottom: 12px; height: 6px; border-radius: 3px; background: #050604; }
+.receipt-clip { position: relative; z-index: 1; margin: -16px 30px 0; overflow: hidden; padding-bottom: 30px; }
+.receipt { position: relative; background: #f7f3ea; color: #1b1a16; font: 400 12.5px/1.55 var(--f-mono); padding: 30px 22px 26px; transform: translateY(-30%); box-shadow: 0 20px 30px rgba(0,0,0,.35); transition: transform .6s var(--ease); }
+.receipt::after { content: ""; position: absolute; left: 0; right: 0; bottom: -10px; height: 10px; background: linear-gradient(-45deg, transparent 6px, #f7f3ea 6px) 0 0 / 12px 10px repeat-x, linear-gradient(45deg, transparent 6px, #f7f3ea 6px) 0 0 / 12px 10px repeat-x; }
+.receipt .c { text-align: center; }
+.receipt .t { font-weight: 600; letter-spacing: .1em; }
+.receipt hr { border: 0; border-top: 1px dashed #9a958a; margin: 12px 0; }
+.receipt .r { display: flex; justify-content: space-between; gap: 10px; }
+.receipt .tot { font-weight: 600; font-size: 15px; }
+.receipt .logo-r { display: flex; justify-content: center; margin-bottom: 8px; }
+.receipt .logo-r svg { width: 44px; height: 44px; }
+.barcode { display: flex; justify-content: center; margin-top: 14px; height: 50px; }
+.barcode svg { height: 100%; width: 100%; }
+@media (max-width: 1023px) {
+  .order-box { grid-template-columns: 1fr; padding: 44px 28px 0; }
+  .order-copy { padding-bottom: 10px; }
+}
+
+/* ── footer ──────────────────────────────────────── */
+.site-footer { border-top: 1px solid var(--line); background: #080a07; }
+.foot-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1.3fr 1.2fr; gap: 40px; padding: 64px 0 50px; }
+.foot-grid h5 { margin: 0 0 18px; font: 600 12px/1 var(--f-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--fg); }
+.foot-grid li { margin-bottom: 10px; }
+.foot-grid li a, .foot-grid li span { font-size: 14px; color: var(--muted); transition: color .2s var(--ease); }
+.foot-grid li a:hover { color: var(--yellow); }
+.foot-about p { margin-top: 18px; font-size: 14px; color: var(--dim); max-width: 280px; }
+.socials { margin-top: 20px; display: flex; gap: 10px; }
+.socials a { width: 38px; height: 38px; border-radius: 50%; background: var(--yellow); color: var(--ink); display: grid; place-items: center; transition: transform .2s var(--ease); }
+.socials a:hover { transform: translateY(-3px); }
+.socials svg { width: 17px; height: 17px; }
+.contact-li { display: flex; gap: 10px; align-items: flex-start; }
+.contact-li svg { width: 16px; height: 16px; color: var(--yellow); flex: none; margin-top: 3px; }
+.store { display: flex; align-items: center; gap: 10px; height: 46px; padding: 0 14px; border: 1px solid var(--line-2); border-radius: 12px; margin-bottom: 10px; width: max-content; transition: border-color .2s var(--ease); }
+.store:hover { border-color: var(--yellow); }
+.store svg { width: 20px; height: 20px; }
+.store span { display: block; font-size: 10px; line-height: 1.1; color: var(--dim); }
+.store b { display: block; font: 700 14px/1.1 var(--f-sans); }
+.foot-bottom { border-top: 1px solid var(--line); padding: 22px 0 28px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; font: 500 12px/1.4 var(--f-mono); letter-spacing: .08em; color: var(--dim); text-transform: uppercase; }
+.foot-bottom .dot { width: 5px; height: 5px; display: inline-block; vertical-align: middle; margin-right: 8px; }
+@media (max-width: 1023px) { .foot-grid { grid-template-columns: 1fr 1fr; } .foot-about { grid-column: 1 / -1; } }
+@media (max-width: 479px) { .foot-grid { grid-template-columns: 1fr; } }
+
+/* toast */
+.toast { position: fixed; z-index: 70; left: 50%; bottom: 24px; transform: translate(-50%, calc(100% + 40px)); background: var(--fg); color: var(--ink); font: 700 14px/1 var(--f-sans); padding: 14px 20px; border-radius: 999px; box-shadow: 0 10px 30px rgba(0,0,0,.4); display: flex; align-items: center; gap: 10px; white-space: nowrap; pointer-events: none; transition: transform .3s var(--ease); }
+.toast.is-shown { transform: translate(-50%, 0); }
+.toast i { width: 8px; height: 8px; border-radius: 50%; background: var(--green); }
+
+/* page entrance reveal */
+.js [data-entrance] {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity .7s cubic-bezier(.16,1,.3,1), transform .7s cubic-bezier(.16,1,.3,1);
+  will-change: opacity, transform;
+}
+.js [data-entrance].is-shown {
+  opacity: 1;
+  transform: translateY(0);
+}
+</style>
+</head>
+<body>
+<script>
+  document.documentElement.classList.add('js');
+  sessionStorage.setItem('holland_visited', '1');
+</script>
+
+<!-- ═══ SVG sprite ═══ -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-logo" viewBox="0 0 120 120">
+      <g fill="#f7c21b">
+        <rect x="53" y="8" width="14" height="50" rx="4" transform="rotate(-40 60 100)"/>
+        <rect x="53" y="2" width="14" height="50" rx="4" transform="rotate(-20 60 100)"/>
+        <rect x="53" y="0" width="14" height="52" rx="4"/>
+        <rect x="53" y="2" width="14" height="50" rx="4" transform="rotate(20 60 100)"/>
+        <rect x="53" y="8" width="14" height="50" rx="4" transform="rotate(40 60 100)"/>
+      </g>
+      <path d="M22 54h76L60 116z" fill="#e3261c"/>
+    </symbol>
+    <symbol id="i-arrow" viewBox="0 0 14 14"><path d="M1 7h11M7.5 2.5 12 7l-4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 16 16"><path d="M8 2v12M2 8h12" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
+  </defs>
+</svg>
+
+<!-- ═══ HEADER ═══ -->
+<header class="site-header" id="header">
+  <div class="wrap">
+    <a href="index.html" class="logo" aria-label="HOLLAND Fries & Cheese — на главную"><svg><use href="#i-logo"/></svg><span><b>HOLLAND</b><i>Fries &amp; Cheese</i></span></a>
+    <nav class="nav" aria-label="Основное меню">
+      <a href="index.html">Главная</a>
+      <a href="menu.html">Меню</a>
+      <a href="offers.html" class="is-active">Акции</a>
+      <a href="index.html#about">О нас</a>
+    </nav>
+    <div class="hdr-right">
+      <button class="cart-btn" aria-label="Корзина" id="cart-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg>
+        <span class="cart-count" id="cart-count">0</span>
+      </button>
+      <a href="index.html#order" class="btn btn-yellow hdr-order"><span class="dot" style="background:var(--ink);box-shadow:none"></span>Заказать онлайн</a>
+      <button class="menu-toggle" id="menu-toggle" aria-label="Открыть меню" aria-expanded="false"><span></span></button>
+    </div>
+  </div>
+</header>
+<nav class="mobile-panel" id="mobile-panel" aria-label="Мобильное меню">
+  <a class="m-link" href="index.html">Главная</a>
+  <a class="m-link" href="menu.html">Меню</a>
+  <a class="m-link" href="offers.html">Акции</a>
+  <a class="m-link" href="index.html#about">О нас</a>
+  <a class="btn btn-yellow" href="index.html#order">Заказать онлайн</a>
+</nav>
+
+<main>
+<!-- ═══ OFFERS HERO ═══ -->
+<section class="offers-hero" aria-labelledby="offers-title">
+  <div class="wrap">
+    <p class="script" data-entrance>Выгода</p>
+    <h1 class="h2" id="offers-title" data-entrance>Акции &amp; Комбо</h1>
+    <p class="subtitle" data-entrance>Двойные порции, скидки выходного дня и комбо-наборы для одного, двоих и больших компаний. Используй промокоды при заказе!</p>
+  </div>
+</section>
+
+<!-- ═══ FEATURED PROMO BANNER ═══ -->
+<section class="offer-section" aria-label="Главная акция недели">
+  <div class="wrap">
+    <div class="offer-box" data-entrance>
+      <div class="offer-watch" aria-hidden="true">
+        <svg viewBox="0 0 96 96" fill="none" stroke="#12100a" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><circle cx="48" cy="54" r="34"/><path d="M40 10h16M48 10v10M76 24l6-6"/><path id="watch-hand" d="M48 54V32" style="transform-origin:48px 54px"/><circle cx="48" cy="54" r="3" fill="#12100a"/></svg>
+      </div>
+      <div class="offer-copy">
+        <p class="k">Акция выходного дня!</p>
+        <p class="big">1 + 1 бесплатно</p>
+        <p class="sub">на Fries &amp; Cheese · суббота и воскресенье</p>
+        <div class="offer-actions">
+          <button class="code-chip" id="code-chip" aria-label="Скопировать промокод HOLLAND11">Промокод: <b>HOLLAND11</b><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="5" y="5" width="9" height="9" rx="2"/><path d="M11 5V3.5A1.5 1.5 0 0 0 9.5 2h-6A1.5 1.5 0 0 0 2 3.5v6A1.5 1.5 0 0 0 3.5 11H5"/></svg></button>
+          <a href="#order" class="btn" style="background:var(--ink);color:var(--fg)" data-arrow>Забрать <span class="arw"><svg><use href="#i-arrow"/></svg><svg><use href="#i-arrow"/></svg></span></a>
+        </div>
+      </div>
+      <div class="offer-pics" aria-hidden="true">
+        <div class="bogo" id="bogo"><div>1+1<small>ВЫХОДНЫЕ</small></div></div>
+        <img src="assets/holland-fries-cheese.webp" alt="Fries & Cheese" loading="lazy">
+        <img src="assets/holland-fries-cheese.webp" alt="Fries & Cheese" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PROMOTIONS GRID ═══ -->
+<section class="promos-sec" aria-labelledby="promos-list-title">
+  <div class="wrap">
+    <div class="sec-head" data-entrance>
+      <p class="script">Спецпредложения</p>
+      <h2 class="h2" id="promos-list-title">Все действующие <span class="accent">акции</span></h2>
+    </div>
+
+    <div class="promos-grid">
+      <!-- Card 1 -->
+      <article class="pcard" data-entrance>
+        <div class="pcard-pic">
+          <img src="assets/menu/fries-classic.webp" alt="Студенческий комбо" loading="lazy">
+          <span class="pcard-badge">-15% СКИДКА</span>
+        </div>
+        <div class="pcard-body">
+          <h3>Студенческий комбо</h3>
+          <p>Большая порция классической хрустящей фри, фирменный соус на выбор и ледяная Кола 0,5 л со льдом.</p>
+          <div class="pcard-foot">
+            <div class="price-wrap">
+              <span class="price">23 000<small>сум</small></span>
+              <span class="old-price">27 000 сум</span>
+            </div>
+            <button class="btn btn-yellow" data-add="Студенческий комбо" aria-label="Добавить Студенческий комбо в корзину">+ В корзину</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 2 -->
+      <article class="pcard" data-entrance>
+        <div class="pcard-pic">
+          <img src="assets/menu/fries-cheese.webp" alt="Сырный вторник" loading="lazy">
+          <span class="pcard-badge gold">КАЖДЫЙ ВТОРНИК</span>
+        </div>
+        <div class="pcard-body">
+          <h3>Сырный вторник</h3>
+          <p>Скидка 20% на весь раздел «Сырные боксы» при заказе от двух порций. Вводи промокод при оформлении.</p>
+          <div class="pcard-foot">
+            <div class="price-wrap">
+              <span class="price">-20%<small>скидка</small></span>
+            </div>
+            <button class="btn btn-ghost" data-copy="CHEESEDAY" aria-label="Скопировать промокод CHEESEDAY">Код: CHEESEDAY</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 3 -->
+      <article class="pcard" data-entrance>
+        <div class="pcard-pic">
+          <img src="assets/menu/loaded-beef.webp" alt="Комбо для двоих" loading="lazy">
+          <span class="pcard-badge">ХИТ СЕЗОНА</span>
+        </div>
+        <div class="pcard-body">
+          <h3>Комбо для двоих</h3>
+          <p>Фирменный бокс Fries &amp; Cheese, сытный Loaded Beef с говяжьим фаршем и 2 домашних лимонада на выбор.</p>
+          <div class="pcard-foot">
+            <div class="price-wrap">
+              <span class="price">69 000<small>сум</small></span>
+              <span class="old-price">82 000 сум</span>
+            </div>
+            <button class="btn btn-yellow" data-add="Комбо для двоих" aria-label="Добавить Комбо для двоих в корзину">+ В корзину</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 4 -->
+      <article class="pcard" data-entrance>
+        <div class="pcard-pic">
+          <img src="assets/menu/chicken-strips.webp" alt="Party Box для компании" loading="lazy">
+          <span class="pcard-badge">ВЫГОДА 25 000 СУМ</span>
+        </div>
+        <div class="pcard-body">
+          <h3>Party Box для компании</h3>
+          <p>2 loaded-бокса на выбор, хрустящие куриные стрипсы, порция наггетсов и дегустационный сет из 4 соусов.</p>
+          <div class="pcard-foot">
+            <div class="price-wrap">
+              <span class="price">129 000<small>сум</small></span>
+              <span class="old-price">154 000 сум</span>
+            </div>
+            <button class="btn btn-yellow" data-add="Party Box для компании" aria-label="Добавить Party Box в корзину">+ В корзину</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 5 -->
+      <article class="pcard" data-entrance>
+        <div class="pcard-pic">
+          <img src="assets/menu/chicken-wings.webp" alt="Крылья + Фри сет" loading="lazy">
+          <span class="pcard-badge">-12% СКИДКА</span>
+        </div>
+        <div class="pcard-body">
+          <h3>Крылья + Фри Сет</h3>
+          <p>6 сочных пряных куриных крыльев в глазури, золотистая картошка фри M, соус ранч и прохладительный напиток.</p>
+          <div class="pcard-foot">
+            <div class="price-wrap">
+              <span class="price">44 000<small>сум</small></span>
+              <span class="old-price">50 000 сум</span>
+            </div>
+            <button class="btn btn-yellow" data-add="Крылья + Фри сет" aria-label="Добавить Крылья + Фри сет в корзину">+ В корзину</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 6 -->
+      <article class="pcard" data-entrance>
+        <div class="pcard-pic">
+          <img src="assets/menu/fries-truffle.webp" alt="Бесплатная доставка" loading="lazy">
+          <span class="pcard-badge gold">ОТ 100 000 СУМ</span>
+        </div>
+        <div class="pcard-body">
+          <h3>Бесплатная доставка</h3>
+          <p>При заказе любых блюд и напитков на сумму от 100 000 сум через наш Telegram-бот доставим заказ горячим бесплатно!</p>
+          <div class="pcard-foot">
+            <div class="price-wrap">
+              <span class="price">0<small>сум доставка</small></span>
+            </div>
+            <a href="https://t.me/" target="_blank" rel="noopener" class="btn btn-yellow" style="font-size:12px;height:42px;padding:0 18px">В Telegram</a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ ORDER / RECEIPT ═══ -->
+<section class="order-sec" id="order" aria-labelledby="order-title">
+  <div class="wrap">
+    <div class="order-box" id="order-box">
+      <div class="order-copy">
+        <p class="eyebrow"><span class="dot"></span>Самовывоз за 7 минут · доставка</p>
+        <h2 class="h2" id="order-title">Закажи онлайн<br><span class="accent">без очереди</span></h2>
+        <p class="lede">Оформи заказ заранее через Telegram или по телефону: мы начнём жарить прямо к твоему приходу.</p>
+        <div class="btns">
+          <a href="https://t.me/" target="_blank" rel="noopener" class="btn btn-yellow" data-arrow>Заказать в Telegram <span class="arw"><svg><use href="#i-arrow"/></svg><svg><use href="#i-arrow"/></svg></span></a>
+          <a href="tel:+998000000000" class="btn btn-ghost" id="order-phone">Позвонить</a>
+        </div>
+        <div class="meta">
+          <div><span class="k">Время работы:</span><br>10:00 – 23:00</div>
+          <div><span class="k">Среднее время:</span><br>7 минут</div>
+        </div>
+      </div>
+      <div class="printer" aria-hidden="true">
+        <div class="printer-bar">
+          <span class="brand">HOLLAND TERMINAL</span>
+          <span class="led"></span>
+        </div>
+        <div class="printer-slot"></div>
+        <div class="receipt-clip">
+          <div class="receipt" id="receipt">
+            <div class="logo-r"><svg><use href="#i-logo"/></svg></div>
+            <div class="c t">HOLLAND · FRIES &amp; CHEESE</div>
+            <div class="c">СПЕЦПРЕДЛОЖЕНИЯ &amp; АКЦИИ</div>
+            <hr>
+            <div class="r"><span>Fries &amp; Cheese 1+1</span><span>25 000</span></div>
+            <div class="r"><span>Студенческий комбо</span><span>23 000</span></div>
+            <div class="r"><span>Промокод HOLLAND11</span><span>−15 000</span></div>
+            <hr>
+            <div class="r tot"><span>ИТОГО К ОПЛАТЕ</span><span>33 000</span></div>
+            <hr>
+            <div class="c t">ГОТОВО ЧЕРЕЗ 7 МИН</div>
+            <div class="c">ХРУСТИ НА ЗДОРОВЬЕ!</div>
+            <div class="barcode"><svg viewBox="0 0 160 50" preserveAspectRatio="none" fill="#1b1a16"><rect x="0" y="0" width="3" height="50"/><rect x="6" y="0" width="2" height="50"/><rect x="11" y="0" width="4" height="50"/><rect x="18" y="0" width="1" height="50"/><rect x="22" y="0" width="5" height="50"/><rect x="30" y="0" width="2" height="50"/><rect x="35" y="0" width="3" height="50"/><rect x="42" y="0" width="6" height="50"/><rect x="52" y="0" width="2" height="50"/><rect x="58" y="0" width="4" height="50"/><rect x="66" y="0" width="1" height="50"/><rect x="71" y="0" width="5" height="50"/><rect x="80" y="0" width="3" height="50"/><rect x="86" y="0" width="2" height="50"/><rect x="92" y="0" width="6" height="50"/><rect x="102" y="0" width="2" height="50"/><rect x="108" y="0" width="4" height="50"/><rect x="116" y="0" width="2" height="50"/><rect x="122" y="0" width="5" height="50"/><rect x="131" y="0" width="1" height="50"/><rect x="136" y="0" width="4" height="50"/><rect x="144" y="0" width="2" height="50"/><rect x="150" y="0" width="6" height="50"/></svg></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="site-footer" id="contacts">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-about">
+        <a href="index.html" class="logo"><svg><use href="#i-logo"/></svg><span><b>HOLLAND</b><i>Fries &amp; Cheese</i></span></a>
+        <p>Свежо. Горячо. Хрустит. Всё с картошкой фри — от классики до сырных боксов.</p>
+        <div class="socials">
+          <a href="https://instagram.com/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+          <a href="https://t.me/" target="_blank" rel="noopener" aria-label="Telegram"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.5 4.2 2.9 11.4c-1 .4-1 1.7.1 2l4.6 1.4 1.8 5.6c.3.8 1.3 1 1.9.4l2.6-2.5 4.9 3.6c.8.5 1.8.1 2-.8l3-14.6c.2-1.1-.8-1.9-1.8-1.5zM9.8 14.4l-.4 3.6-1.4-4.4 9.6-6.1-7.8 6.9z"/></svg></a>
+          <a href="https://tiktok.com/" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.6 3c.4 2.2 1.8 3.6 4 3.8v3.1a7.4 7.4 0 0 1-4-1.2v6.6A5.7 5.7 0 1 1 11 9.7v3.2a2.6 2.6 0 1 0 2.4 2.6V3z"/></svg></a>
+        </div>
+      </div>
+      <div>
+        <h5>Разделы</h5>
+        <ul><li><a href="index.html">Главная</a></li><li><a href="menu.html">Меню</a></li><li><a href="offers.html">Акции</a></li><li><a href="index.html#about">О нас</a></li><li><a href="index.html#order">Заказать</a></li></ul>
+      </div>
+      <div>
+        <h5>Гостям</h5>
+        <ul><li><a href="index.html#order">Мои заказы</a></li><li><a href="index.html#order">Доставка</a></li><li><a href="menu.html">Аллергены</a></li><li><a href="index.html#contacts">Вакансии</a></li></ul>
+      </div>
+      <div>
+        <h5>Контакты</h5>
+        <ul>
+          <li class="contact-li"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 2h3l1.5 3.5L6 7a8 8 0 0 0 3 3l1.5-1.5L14 10v3a1 1 0 0 1-1 1A11 11 0 0 1 2 3a1 1 0 0 1 1-1z"/></svg><a href="tel:+998000000000" id="f-phone">«+998 00 000 00 00»</a></li>
+          <li class="contact-li"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3.5" width="12" height="9" rx="1.5"/><path d="m2.5 4.5 5.5 4 5.5-4"/></svg><a href="mailto:hello@holland.uz" id="f-mail">«hello@holland.uz»</a></li>
+          <li class="contact-li"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 14.5s5-4.6 5-8.5a5 5 0 0 0-10 0c0 3.9 5 8.5 5 8.5z"/><circle cx="8" cy="6" r="1.8"/></svg><span id="f-addr">Ташкент, «уточнить адрес»</span></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Наше приложение</h5>
+        <a class="store" href="#contacts"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.4 12.6c0-2.4 2-3.5 2-3.6-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.2-2.8.9-3.5.9s-1.8-.8-3-.8c-1.5 0-3 .9-3.8 2.3-1.6 2.8-.4 7 1.2 9.3.8 1.1 1.7 2.4 2.9 2.3 1.2 0 1.6-.7 3-.7s1.8.7 3 .7c1.3 0 2.1-1.1 2.8-2.3.9-1.3 1.3-2.6 1.3-2.6s-2.5-1-2.5-3.7zM14.2 5.7c.6-.8 1.1-1.8 1-2.9-.9 0-2.1.6-2.7 1.4-.6.7-1.1 1.8-1 2.8 1 .1 2.1-.5 2.7-1.3z"/></svg><div><span>Скоро в</span><b>App Store</b></div></a>
+        <a class="store" href="#contacts"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 2.8v18.4c0 .4.4.6.7.4l10.5-9.6L4.7 2.4c-.3-.2-.7 0-.7.4zM16.4 13.2l2.7 2.5 2.6-1.5c.8-.5.8-1.7 0-2.2l-2.6-1.5-2.7 2.7zM15.3 12.1 6 3.5l10.6 6.1zM6 20.5l9.3-8.4 1.3 1.6z"/></svg><div><span>Скоро в</span><b>Google Play</b></div></a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span><span class="dot"></span>© 2026 HOLLAND Fries &amp; Cheese</span>
+      <span>Свежо · Горячо · Хрустит</span>
+    </div>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"><i></i><span></span></div>
+
+<script type="module">
+const RM = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+
+/* ═══ toast ═════════════════════════════════════════════════════════════ */
+const toastEl = $("#toast");
+let toastT;
+function toast(msg) {
+  $("span", toastEl).textContent = msg;
+  toastEl.classList.add("is-shown");
+  clearTimeout(toastT);
+  toastT = setTimeout(() => toastEl.classList.remove("is-shown"), 2200);
+}
+
+/* ═══ promo codes copy ═════════════════════════════════════════════════ */
+$("#code-chip")?.addEventListener("click", async () => {
+  try {
+    await navigator.clipboard.writeText("HOLLAND11");
+    toast("Промокод HOLLAND11 скопирован!");
+  } catch {
+    toast("Промокод: HOLLAND11");
+  }
+});
+
+$$("[data-copy]").forEach((btn) => {
+  btn.addEventListener("click", async () => {
+    const code = btn.dataset.copy;
+    try {
+      await navigator.clipboard.writeText(code);
+      toast(`Промокод ${code} скопирован!`);
+    } catch {
+      toast(`Промокод: ${code}`);
+    }
+  });
+});
+
+/* ═══ cart ══════════════════════════════════════════════════════════════ */
+let cart = 0;
+const cartCount = $("#cart-count"), cartBtn = $("#cart-btn");
+document.addEventListener("click", (e) => {
+  const b = e.target.closest("[data-add]");
+  if (!b) return;
+  cart++;
+  cartCount.textContent = cart;
+  cartBtn.style.transform = "scale(1.15)";
+  setTimeout(() => (cartBtn.style.transform = ""), 150);
+  toast(`Добавлено в заказ: ${b.dataset.add}`);
+});
+cartBtn?.addEventListener("click", () => toast(cart ? `В корзине: ${cart} шт. — оформим по телефону` : "Корзина пока пустая"));
+
+/* ═══ watch hand animation ══════════════════════════════════════════════ */
+const watchHand = $("#watch-hand");
+if (watchHand && !RM) {
+  function tick(now) {
+    watchHand.style.transform = `rotate(${(now / 8) % 360}deg)`;
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+
+/* ═══ header background on scroll ═══════════════════════════════════════ */
+const header = $("#header");
+function onScroll() {
+  header.style.setProperty("--hdr-bg", clamp(scrollY / 120, 0, 1));
+}
+addEventListener("scroll", onScroll, { passive: true });
+onScroll();
+
+/* ═══ mobile menu ══════════════════════════════════════════════════════ */
+const panel = $("#mobile-panel"), toggle = $("#menu-toggle");
+let menuOpen = false;
+function closeMenu() {
+  if (!menuOpen) return;
+  menuOpen = false;
+  panel.style.clipPath = "inset(0 0 100% 0)";
+  panel.style.visibility = "hidden";
+  toggle.setAttribute("aria-expanded", "false");
+}
+toggle.addEventListener("click", () => {
+  menuOpen = !menuOpen;
+  toggle.setAttribute("aria-expanded", String(menuOpen));
+  if (menuOpen) {
+    panel.style.visibility = "visible";
+    panel.style.clipPath = "inset(0 0 0% 0)";
+    panel.style.transition = "clip-path .4s cubic-bezier(.2,0,0,1)";
+  } else {
+    panel.style.clipPath = "inset(0 0 100% 0)";
+    setTimeout(() => { if (!menuOpen) panel.style.visibility = "hidden"; }, 400);
+  }
+});
+$$("a", panel).forEach((a) => a.addEventListener("click", closeMenu));
+
+/* ═══ pulse dots ════════════════════════════════════════════════════════ */
+if (!RM) {
+  $$(".dot").forEach((el) => {
+    const ph = Math.random() * 1000;
+    const tickDot = (now) => {
+      el.style.opacity = 0.15 + 0.85 * (0.5 + 0.5 * Math.cos(((now + ph) / 700) * Math.PI));
+      requestAnimationFrame(tickDot);
+    };
+    requestAnimationFrame(tickDot);
+  });
+}
+
+/* ═══ page entrance animations ═══════════════════════════════════════ */
+if (!RM) {
+  const entranceEls = $$("[data-entrance]");
+  /* hero elements (above fold) fire immediately; promo cards use IntersectionObserver */
+  const heroEls = entranceEls.filter(el => !el.classList.contains("pcard"));
+  const cardEls = entranceEls.filter(el => el.classList.contains("pcard"));
+
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      heroEls.forEach((el, i) => {
+        el.style.transitionDelay = `${40 + i * 90}ms`;
+        el.classList.add("is-shown");
+      });
+    });
+  });
+
+  if (cardEls.length) {
+    const cardObs = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-shown");
+          cardObs.unobserve(entry.target);
+        }
+      });
+    }, { rootMargin: "0px 0px -6% 0px" });
+    cardEls.forEach((el, i) => {
+      el.style.transitionDelay = `${i * 60}ms`;
+      cardObs.observe(el);
+    });
+  }
+} else {
+  $$("[data-entrance]").forEach(el => el.classList.add("is-shown"));
+}
+
+/* ═══ Lenis smooth scroll ═══════════════════════════════════════════════ */
+import("lenis").then(({ default: Lenis }) => {
+  const lenis = new Lenis({ smoothWheel: true });
+  window.lenis = lenis;
+  function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+  requestAnimationFrame(raf);
+}).catch(() => {});
+</script>
+</body>
+</html>

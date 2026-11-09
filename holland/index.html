@@ -173,9 +173,9 @@ h1, h2, h3, p { margin: 0; }
 
 /* ── hero ────────────────────────────────────────── */
 .hero { position: relative; min-height: 100svh; min-height: max(100svh, 720px); overflow: hidden; background: var(--bg); }
-#opal { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; }
-.hero-fallback-bg { position: absolute; inset: 0; z-index: 0; background: radial-gradient(60% 70% at 72% 52%, rgba(255, 194, 26, .16), transparent 60%), radial-gradient(80% 80% at 80% 40%, #12361d, transparent 70%), var(--bg); }
-.hero-scrim { position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(90deg, rgba(11, 13, 10, .82) 0%, rgba(11, 13, 10, .45) 38%, rgba(11, 13, 10, 0) 62%), linear-gradient(0deg, rgba(11, 13, 10, .9) 0%, rgba(11, 13, 10, 0) 22%); }
+#opal { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+.hero-fallback-bg { position: absolute; inset: 0; z-index: 0; background: url("assets/bg-wave.webp") right center / cover no-repeat, var(--bg); }
+.hero-scrim { position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(90deg, rgba(11, 13, 10, .78) 0%, rgba(11, 13, 10, .38) 36%, rgba(11, 13, 10, 0) 66%), linear-gradient(0deg, rgba(11, 13, 10, .92) 0%, rgba(11, 13, 10, 0) 24%); }
 .hero-media { margin: 0; position: absolute; z-index: 5; top: 0; right: 0; bottom: 0; width: 58%; }
 .hero-media canvas { width: 100% !important; height: 100% !important; touch-action: pan-y; }
 .hero-media .photo-fallback { position: absolute; left: 50%; bottom: 12%; width: min(78%, 620px); transform: translateX(-50%); filter: drop-shadow(0 40px 60px rgba(0,0,0,.6)); }
@@ -194,24 +194,9 @@ h1, h2, h3, p { margin: 0; }
 .hero-bar { position: absolute; z-index: 10; left: 0; right: 0; bottom: 0; }
 .hero-bar .wrap { display: flex; justify-content: space-between; align-items: flex-end; gap: 20px; padding-bottom: 28px; font: 500 12px/1.5 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
 .hero-bar .k { color: var(--dim); display: block; }
-.scroll-cue { display: flex; align-items: center; gap: 10px; }
-.scroll-cue i { display: block; width: 1px; height: 38px; background: var(--line-2); position: relative; overflow: hidden; }
-.scroll-cue i::after { content: ""; position: absolute; left: 0; top: 0; width: 1px; height: 14px; background: var(--yellow); transform: translateY(var(--cue, -14px)); }
 
 .badge-rot { position: absolute; z-index: 6; width: 128px; height: 128px; left: 14%; bottom: 24%; pointer-events: none; }
 .badge-rot svg { width: 100%; height: 100%; }
-.hero-hint { position: absolute; z-index: 7; left: 50%; translate: -50% 0; bottom: 108px; display: flex; align-items: center; gap: 10px; font: 600 12px/1.3 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--fg); background: rgba(11, 13, 10, .55); border: 1px solid var(--line-2); padding: 10px 14px 10px 10px; border-radius: 999px; -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); pointer-events: none; }
-.hero-hint .tap { width: 26px; height: 26px; border-radius: 50%; background: var(--yellow); color: var(--ink); display: grid; place-items: center; }
-.hero-hint .tap svg { width: 14px; height: 14px; }
-.info-card { position: absolute; z-index: 8; right: var(--pad); top: calc(var(--header-h) + 40px); width: max-content; pointer-events: none; opacity: 0; border: 1px solid var(--line-2); background: rgba(11, 13, 10, .7); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); padding: 16px 20px; border-radius: 16px; }
-.info-card .row { margin-top: 10px; display: flex; align-items: baseline; justify-content: space-between; gap: 40px; }
-.info-card .nm { font: 700 28px/1 var(--f-display); text-transform: uppercase; }
-.info-card .pr { font: 600 16px/1 var(--f-mono); color: var(--yellow); }
-.info-card ul { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--line); display: flex; gap: 10px; font: 500 11px/1 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
-.info-card li + li::before { content: "·"; margin-right: 10px; color: var(--dim); }
-.burst { position: fixed; z-index: 60; left: 0; top: 0; pointer-events: none; font: 700 34px/1 var(--f-display); color: var(--yellow); text-transform: uppercase; letter-spacing: .02em; text-shadow: 0 4px 0 var(--red), 0 10px 30px rgba(0,0,0,.6); white-space: nowrap; }
-.trick-label { position: absolute; z-index: 7; left: 50%; top: calc(var(--header-h) + 18px); transform: translateX(-50%); font: 600 12px/1 var(--f-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--dim); pointer-events: none; white-space: nowrap; }
-.trick-label b { color: var(--yellow); font-weight: 600; }
 
 @media (max-width: 1023px) {
   .hero-inner { justify-content: flex-start; padding-top: calc(var(--header-h) + 28px); padding-bottom: 0; min-height: 0; }
@@ -223,9 +208,6 @@ h1, h2, h3, p { margin: 0; }
   .hero-scrim { background: linear-gradient(180deg, rgba(11,13,10,.75) 0%, rgba(11,13,10,0) 45%), linear-gradient(0deg, rgba(11,13,10,.9) 0%, rgba(11,13,10,0) 22%); }
   .hero-feats { margin-top: 30px; }
   .badge-rot { width: 96px; height: 96px; left: auto; right: 6%; top: 8%; bottom: auto; }
-  .hero-hint { bottom: 14px; }
-  .info-card { display: none; }
-  .trick-label { top: 6px; }
 }
 @media (max-width: 639px) {
   .hero-media { height: 54vh; min-height: 360px; margin-top: -28px; }
@@ -236,9 +218,7 @@ h1, h2, h3, p { margin: 0; }
   .hero-ctas .btn-text { height: 48px; }
   .hide-sm { display: none; }
   .hero-feats { display: none; }
-  .trick-label { top: 34px; }
   .hero-bar .wrap { flex-wrap: wrap; }
-  .hero-bar .scroll-cue { display: none; }
 }
 
 /* ── categories ──────────────────────────────────── */
@@ -326,9 +306,13 @@ h1, h2, h3, p { margin: 0; }
 /* ── about ───────────────────────────────────────── */
 .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
 .about-pic { position: relative; aspect-ratio: 1; }
-.about-pic .disc { position: absolute; inset: 9%; border-radius: 50%; background: radial-gradient(circle at 40% 35%, #1b6a39, var(--green) 55%, var(--green-2)); box-shadow: inset 0 0 0 1px rgba(255,255,255,.06); }
+.about-pic .disc { position: absolute; inset: 9%; border-radius: 50%;
+  /* dark, warm-lit plate: a green disc swallowed the green carton */
+  background: radial-gradient(circle at 50% 40%, rgba(255, 194, 26, .30), rgba(255, 194, 26, .08) 42%, transparent 68%), radial-gradient(circle at 50% 50%, #1b1f17, #0d0f0b 72%);
+  box-shadow: inset 0 0 0 1.5px rgba(255, 194, 26, .32), inset 0 -50px 90px rgba(15, 74, 38, .45), 0 30px 80px rgba(0, 0, 0, .5); }
+.about-pic .disc::after { content: ""; position: absolute; left: 22%; right: 22%; bottom: 3%; height: 9%; border-radius: 50%; background: radial-gradient(closest-side, rgba(0, 0, 0, .75), transparent); }
 .about-pic .ring { position: absolute; inset: 0; }
-.about-pic img { position: absolute; left: 14%; right: 14%; bottom: 6%; width: 72%; filter: drop-shadow(0 40px 40px rgba(0,0,0,.55)); }
+.about-pic img { position: absolute; left: 14%; right: 14%; bottom: 7%; width: 72%; filter: drop-shadow(0 26px 28px rgba(0,0,0,.6)) drop-shadow(0 0 24px rgba(255, 194, 26, .18)); }
 .about-copy .script { font-size: 38px; }
 .about-copy .h2 { margin-top: 6px; }
 .about-copy .lede { margin-top: 22px; color: var(--muted); max-width: 520px; }
@@ -397,10 +381,16 @@ h1, h2, h3, p { margin: 0; }
 /* reveal start states (JS sets them; without JS everything shows) */
 .js [data-reveal] { opacity: 0; }
 @media (prefers-reduced-motion: reduce) { .js [data-reveal] { opacity: 1; } }
+html.has-visited #preloader { display: none !important; }
 </style>
+<script>
+  document.documentElement.classList.add('js');
+  if (sessionStorage.getItem('holland_visited')) {
+    document.documentElement.classList.add('has-visited');
+  }
+</script>
 </head>
 <body>
-<script>document.documentElement.classList.add('js');</script>
 
 <!-- ═══ SVG sprite ═══ -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -456,13 +446,12 @@ h1, h2, h3, p { margin: 0; }
 <!-- ═══ HEADER ═══ -->
 <header class="site-header" id="header">
   <div class="wrap">
-    <a href="#top" class="logo" aria-label="HOLLAND Fries & Cheese — на главную" data-reveal><svg><use href="#i-logo"/></svg><span><b>HOLLAND</b><i>Fries &amp; Cheese</i></span></a>
+    <a href="index.html" class="logo" aria-label="HOLLAND Fries & Cheese — на главную" data-reveal><svg><use href="#i-logo"/></svg><span><b>HOLLAND</b><i>Fries &amp; Cheese</i></span></a>
     <nav class="nav" aria-label="Основное меню" data-reveal>
-      <a href="#top" class="is-active" data-roll-link>Главная</a>
-      <a href="#menu" data-roll-link>Меню</a>
-      <a href="#offers" data-roll-link>Акции</a>
+      <a href="index.html" class="is-active" data-roll-link>Главная</a>
+      <a href="menu.html" data-roll-link>Меню</a>
+      <a href="offers.html" data-roll-link>Акции</a>
       <a href="#about" data-roll-link>О нас</a>
-      <a href="#contacts" data-roll-link>Контакты</a>
     </nav>
     <div class="hdr-right" data-reveal>
       <button class="cart-btn" aria-label="Корзина" id="cart-btn">
@@ -475,11 +464,10 @@ h1, h2, h3, p { margin: 0; }
   </div>
 </header>
 <nav class="mobile-panel" id="mobile-panel" aria-label="Мобильное меню">
-  <a class="m-link" href="#top">Главная</a>
-  <a class="m-link" href="#menu">Меню</a>
-  <a class="m-link" href="#offers">Акции</a>
+  <a class="m-link" href="index.html">Главная</a>
+  <a class="m-link" href="menu.html">Меню</a>
+  <a class="m-link" href="offers.html">Акции</a>
   <a class="m-link" href="#about">О нас</a>
-  <a class="m-link" href="#contacts">Контакты</a>
   <a class="btn btn-yellow" href="#order">Заказать онлайн</a>
 </nav>
 
@@ -491,7 +479,6 @@ h1, h2, h3, p { margin: 0; }
 
   <div class="hero-inner wrap">
     <div class="hero-copy">
-      <p class="eyebrow" data-reveal><span class="dot" data-pulse></span>Открыто сейчас · всё с картошкой фри</p>
       <h1 class="h-display hero-title" data-lines>
         <span class="ln"><span>Хрустящая</span></span>
         <span class="ln accent"><span>фри</span></span>
@@ -500,7 +487,7 @@ h1, h2, h3, p { margin: 0; }
       <p class="hero-lede" data-words>Всё наше меню — вокруг картошки фри: сырные боксы, loaded-фри, наггетсы и фирменные соусы. Жарим при тебе.</p>
       <div class="hero-ctas" data-reveal>
         <a href="#order" class="btn btn-yellow" data-arrow>Заказать <span class="arw"><svg><use href="#i-arrow"/></svg><svg><use href="#i-arrow"/></svg></span></a>
-        <a href="#menu" class="btn-text"><span class="play"><svg viewBox="0 0 10 12"><path d="M0 0l10 6-10 6z" fill="currentColor"/></svg></span><span><span class="hide-sm">Смотреть </span>меню</span></a>
+        <a href="menu.html" class="btn-text"><span class="play"><svg viewBox="0 0 10 12"><path d="M0 0l10 6-10 6z" fill="currentColor"/></svg></span><span><span class="hide-sm">Смотреть </span>меню</span></a>
       </div>
       <ul class="hero-feats" data-reveal>
         <li><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h3m-1-5h5m-6-5h8"/><circle cx="12" cy="23" r="3"/><circle cx="25" cy="23" r="3"/><path d="M15 23h7m6 0h1v-6l-4-5h-5v11M15 12h5"/></svg>Быстрая<br>доставка</li>
@@ -520,21 +507,12 @@ h1, h2, h3, p { margin: 0; }
         <g transform="translate(60 60) scale(.36) translate(-60 -64)"><use href="#i-logo"/></g>
       </svg>
     </div>
-    <div class="trick-label" id="trick-label" aria-live="polite"></div>
-    <div class="hero-hint" id="hero-hint"><span class="tap"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V3.5a1.25 1.25 0 0 1 2.5 0V8m0-1a1.25 1.25 0 0 1 2.5 0v1.5m0-.5a1.25 1.25 0 0 1 2.5 0V11a4 4 0 0 1-4 4H8.4a3 3 0 0 1-2.3-1.1L3.3 10.4a1.2 1.2 0 0 1 1.8-1.6L6 9.8"/></svg></span>Нажми на картошку · потяни, чтобы покрутить</div>
   </figure>
-
-  <div class="info-card" id="info-card" aria-hidden="true">
-    <p class="eyebrow"><span class="sl">//</span> в стаканчике</p>
-    <div class="row"><p class="nm">Fries &amp; Cheese</p><p class="pr" id="info-price">25 000</p></div>
-    <ul><li>Фри</li><li>Чеддер</li><li>Голландский соус</li></ul>
-  </div>
 
   <div class="hero-bar">
     <div class="wrap" data-reveal>
       <div><span class="k">// адрес</span><span id="bar-address">Ташкент · «уточнить адрес»</span></div>
       <div><span class="k">// ежедневно</span><span data-roll id="bar-hours">10:00 - 23:00</span></div>
-      <div class="scroll-cue"><i id="cue"></i>Листай вниз</div>
     </div>
   </div>
 </section>
@@ -562,44 +540,7 @@ h1, h2, h3, p { margin: 0; }
       <p class="sec-sub" data-words>То, за чем возвращаются: золотистая фри двойной обжарки и соусы, которые мы варим сами.</p>
     </div>
     <div class="hits-grid" id="hits-grid"><!-- filled by script --></div>
-    <div class="center-cta" data-reveal><a href="#menu" class="btn btn-yellow" data-arrow>Всё меню <span class="arw"><svg><use href="#i-arrow"/></svg><svg><use href="#i-arrow"/></svg></span></a></div>
-  </div>
-</section>
-
-<!-- ═══ FULL MENU ═══ -->
-<section class="sec" id="menu" aria-labelledby="menu-title">
-  <div class="wrap">
-    <div class="sec-head">
-      <p class="script" data-reveal>Выбирай</p>
-      <h2 class="h2" id="menu-title" data-lines><span class="ln"><span>Меню</span></span></h2>
-    </div>
-    <div class="menu-tabs" role="tablist" aria-label="Категории" id="menu-tabs"></div>
-    <div class="menu-list" id="menu-list" role="tabpanel"></div>
-  </div>
-</section>
-
-<!-- ═══ OFFER ═══ -->
-<section class="offer" id="offers" aria-label="Акция выходного дня">
-  <div class="wrap">
-    <div class="offer-box" data-reveal>
-      <div class="offer-watch" aria-hidden="true">
-        <svg viewBox="0 0 96 96" fill="none" stroke="#12100a" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><circle cx="48" cy="54" r="34"/><path d="M40 10h16M48 10v10M76 24l6-6"/><path id="watch-hand" d="M48 54V32" style="transform-origin:48px 54px"/><circle cx="48" cy="54" r="3" fill="#12100a"/></svg>
-      </div>
-      <div class="offer-copy">
-        <p class="k">Акция выходного дня!</p>
-        <p class="big">1 + 1 бесплатно</p>
-        <p class="sub">на Fries &amp; Cheese · суббота и воскресенье</p>
-        <div class="offer-actions">
-          <button class="code-chip" id="code-chip" aria-label="Скопировать промокод HOLLAND11">Промокод: <b>HOLLAND11</b><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="5" y="5" width="9" height="9" rx="2"/><path d="M11 5V3.5A1.5 1.5 0 0 0 9.5 2h-6A1.5 1.5 0 0 0 2 3.5v6A1.5 1.5 0 0 0 3.5 11H5"/></svg></button>
-          <a href="#order" class="btn" style="background:var(--ink);color:var(--fg)" data-arrow>Забрать <span class="arw"><svg><use href="#i-arrow"/></svg><svg><use href="#i-arrow"/></svg></span></a>
-        </div>
-      </div>
-      <div class="offer-pics" aria-hidden="true">
-        <div class="bogo" id="bogo"><div>1+1<small>ВЫХОДНЫЕ</small></div></div>
-        <img src="assets/holland-fries-cheese.webp" alt="" loading="lazy">
-        <img src="assets/holland-fries-cheese.webp" alt="" loading="lazy">
-      </div>
-    </div>
+    <div class="center-cta" data-reveal><a href="menu.html" class="btn btn-yellow" data-arrow>Смотреть всё меню <span class="arw"><svg><use href="#i-arrow"/></svg><svg><use href="#i-arrow"/></svg></span></a></div>
   </div>
 </section>
 
@@ -666,7 +607,7 @@ h1, h2, h3, p { margin: 0; }
       </div>
       <div>
         <h5>Разделы</h5>
-        <ul><li><a href="#top">Главная</a></li><li><a href="#menu">Меню</a></li><li><a href="#offers">Акции</a></li><li><a href="#about">О нас</a></li><li><a href="#order">Заказать</a></li></ul>
+        <ul><li><a href="index.html">Главная</a></li><li><a href="menu.html">Меню</a></li><li><a href="offers.html">Акции</a></li><li><a href="#about">О нас</a></li><li><a href="#order">Заказать</a></li></ul>
       </div>
       <div>
         <h5>Гостям</h5>
@@ -696,6 +637,8 @@ h1, h2, h3, p { margin: 0; }
 <div class="toast" id="toast" role="status" aria-live="polite"><i></i><span></span></div>
 
 <script type="module">
+const alreadyVisited = !!sessionStorage.getItem('holland_visited');
+sessionStorage.setItem('holland_visited', '1');
 /* ═══════════════════════════════════════════════════════════════════════
    SITE — every business fact in one place. «» = уточнить у владельца.
    Prices are placeholders: edit them here and the whole page follows.
@@ -855,7 +798,7 @@ function observeOnce(el, fn, rootMargin = "0px 0px -8% 0px", gate = true) {
 function reveal(el, { from = { o: 0, y: 24 }, to = { o: 1, y: 0 }, cfg, delay = 0, duration, easing, rootMargin, gate = true, trigger } = {}) {
   const sp = new Spring(0, cfg || { tension: 90, friction: 26 });
   sp.on((p) => paint(el, mix(from, to, p)));
-  observeOnce(trigger || el, () => sp.to(1, { delay, duration, easing }), rootMargin, gate);
+  observeOnce(trigger || el, () => sp.to(1, { delay: alreadyVisited ? 0 : delay, duration, easing }), rootMargin, gate);
   return sp;
 }
 
@@ -865,7 +808,7 @@ function textLines(h) {
   lines.forEach((ln, i) => {
     const sp = new Spring(0);
     sp.on((p) => paint(ln, { yp: lerp(110, 0, p), o: p }));
-    observeOnce(h, () => sp.to(1, { duration: 900, easing: E.outCubic, delay: i * 90 + (+h.dataset.delay || 0) }), "0px 0px -25% 0px");
+    observeOnce(h, () => sp.to(1, { duration: alreadyVisited ? 400 : 900, easing: E.outCubic, delay: alreadyVisited ? 0 : (i * 90 + (+h.dataset.delay || 0)) }), "0px 0px 50px 0px");
   });
 }
 function textWords(p, { y = 14, dur = 620, stagger = 14, delay = 0 } = {}) {
@@ -881,7 +824,7 @@ function textWords(p, { y = 14, dur = 620, stagger = 14, delay = 0 } = {}) {
   words.forEach((w, i) => {
     const sp = new Spring(0);
     sp.on((v) => paint(w, { y: lerp(y, 0, v), o: v }));
-    observeOnce(p, () => sp.to(1, { duration: dur, easing: E.outQuart, delay: delay + i * stagger }), "0px 0px -15% 0px");
+    observeOnce(p, () => sp.to(1, { duration: alreadyVisited ? 320 : dur, easing: E.outQuart, delay: alreadyVisited ? (i * 8) : (delay + i * stagger) }), "0px 0px 50px 0px");
   });
 }
 
@@ -1000,7 +943,7 @@ const ICONS = {
   sauce: '<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"><path d="M28 4h8v6h-8z"/><path d="M26 10h12l2 8v36a4 4 0 0 1-4 4h-8a4 4 0 0 1-4-4V18z" fill="rgba(227,38,28,.2)"/><path d="M24 30h16M24 44h16"/><path d="M48 36c0 4 6 4 6 0s-3-7-3-7-3 3-3 7z"/></svg>',
   drink: '<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"><path d="M36 4l-4 14"/><path d="M16 18h32l-4 40H20z" fill="rgba(255,194,26,.12)"/><path d="M14 18h36"/><path d="M18 30h28"/><circle cx="28" cy="40" r="2"/><circle cx="36" cy="46" r="1.5"/></svg>',
 };
-$("#cats").innerHTML = SITE.categories.map((c) => `<a class="cat" href="#menu" data-cat="${c.id}"><span class="ic">${ICONS[c.icon]}</span><b>${c.name}</b><span>${c.desc}</span></a>`).join("");
+$("#cats").innerHTML = SITE.categories.map((c) => `<a class="cat" href="menu.html?cat=${c.id}" data-cat="${c.id}"><span class="ic">${ICONS[c.icon]}</span><b>${c.name}</b><span>${c.desc}</span></a>`).join("");
 
 const plusSvg = '<svg><use href="#i-plus"/></svg>';
 $("#hits-grid").innerHTML = SITE.hits.map((h, i) => `
@@ -1021,38 +964,6 @@ $("#hits-grid").innerHTML = SITE.hits.map((h, i) => `
       </div>
     </div>
   </article>`).join("");
-
-const tabs = $("#menu-tabs"), list = $("#menu-list");
-tabs.innerHTML = [{ id: "all", name: "Всё" }, ...SITE.categories].map((c, i) => `<button role="tab" data-tab="${c.id}" aria-selected="${i === 0}">${c.name}</button>`).join("");
-let listSprings = [];
-function renderMenu(cat, animate = true) {
-  const items = SITE.menu.filter((m) => cat === "all" || m[0] === cat);
-  list.innerHTML = items.map((m) => `
-    <div class="mi">
-      <h4>${m[1]}${m[4] ? `<em>${m[4]}</em>` : ""}</h4>
-      <p>${m[2]}</p>
-      <span class="mp">${m[3]} ${SITE.currency}<button class="add" data-add="${m[1]}" aria-label="Добавить ${m[1]} в корзину">${plusSvg}</button></span>
-    </div>`).join("");
-  listSprings.forEach((s) => live.delete(s));
-  listSprings = $$(".mi", list).map((el, i) => {
-    const sp = new Spring(animate ? 0 : 1, { tension: 120, friction: 22 });
-    sp.on((p) => paint(el, { y: lerp(18, 0, p), o: p }));
-    if (animate) sp.to(1, { delay: i * 35 });
-    return sp;
-  });
-}
-renderMenu("all", false);
-let menuRevealed = false;
-$$(".mi", list).forEach((el) => (el.style.opacity = 0));
-observeOnce(list, () => { menuRevealed = true; renderMenu(currentCat); }, "0px 0px -10% 0px");
-let currentCat = "all";
-function selectCat(id) {
-  currentCat = id;
-  $$("button", tabs).forEach((b) => b.setAttribute("aria-selected", b.dataset.tab === id));
-  if (menuRevealed) renderMenu(id);
-}
-tabs.addEventListener("click", (e) => { const b = e.target.closest("[data-tab]"); if (b) selectCat(b.dataset.tab); });
-$("#cats").addEventListener("click", (e) => { const a = e.target.closest("[data-cat]"); if (a) selectCat(a.dataset.cat); });
 
 /* receipt */
 (() => {
@@ -1086,7 +997,6 @@ $("#meta-phone").textContent = SITE.phone.label;
 $("#order-phone").href = SITE.phone.href;
 $("#order-tg").href = SITE.telegram;
 $("#f-mail").textContent = SITE.email;
-$("#info-price").textContent = SITE.hits[0][2] + " " + SITE.currency;
 
 /* ═══ wire the motion ════════════════════════════════════════════════════ */
 $$("[data-lines]").forEach(textLines);
@@ -1100,8 +1010,9 @@ $$("[data-arrow]").forEach(arrowCta);
 // header pieces
 $$(".site-header [data-reveal]").forEach((el, i) => reveal(el, { from: { o: 0, y: -14 }, to: { o: 1, y: 0 }, delay: i * 80, rootMargin: "0px" }));
 // hero
-reveal($(".hero .eyebrow"), { from: { o: 0, y: 12 }, to: { o: 1, y: 0 }, rootMargin: "0px" });
-reveal($(".script-over"), { from: { o: 0, s: 0.6, r: -20 }, to: { o: 1, s: 1, r: -8 }, cfg: { tension: 120, friction: 14 }, delay: 520, rootMargin: "0px" });
+const heroEyebrow = $(".hero .eyebrow");
+if (heroEyebrow) reveal(heroEyebrow, { from: { o: 0, y: 12 }, to: { o: 1, y: 0 }, rootMargin: "0px" });
+reveal($(".script-over"), { from: { o: 0, s: 0.8, r: -12 }, to: { o: 1, s: 1, r: -8 }, cfg: { tension: 80, friction: 22 }, delay: 520, rootMargin: "0px" });
 reveal($(".hero-ctas"), { from: { o: 0, y: 18 }, to: { o: 1, y: 0 }, delay: 420, rootMargin: "0px" });
 reveal($(".hero-feats"), { from: { o: 0, y: 18 }, to: { o: 1, y: 0 }, delay: 560, rootMargin: "0px" });
 reveal($(".hero-bar .wrap"), { from: { o: 0, y: 14 }, to: { o: 1, y: 0 }, delay: 700, rootMargin: "0px" });
@@ -1122,14 +1033,8 @@ $$(".card").forEach((c, i) => {
   pointerLean(c, $(".card-in", c), $("img", c));
 });
 reveal($(".center-cta"), { from: { o: 0, y: 20 }, to: { o: 1, y: 0 } });
-reveal($(".offer-box"), { from: { o: 0, y: 60, s: 0.96 }, to: { o: 1, y: 0, s: 1 }, cfg: { tension: 58, friction: 26 } });
-$$(".offer-pics img").forEach((img, i) => {
-  const base = i ? 7 : -9;
-  reveal(img, { from: { o: 0, y: 120, r: base * 3 }, to: { o: 1, y: 0, r: base }, cfg: { tension: 90, friction: 16 }, delay: 200 + i * 140, trigger: $(".offer-box") });
-});
-reveal($("#bogo"), { from: { o: 0, s: 0.2, r: -90 }, to: { o: 1, s: 1, r: 0 }, cfg: { tension: 170, friction: 12 }, delay: 520, trigger: $(".offer-box") });
 reveal($(".about-pic .disc"), { from: { o: 0, s: 0.6 }, to: { o: 1, s: 1 }, cfg: { tension: 60, friction: 20 } });
-reveal($("#about-img"), { from: { o: 0, y: 80, r: -8 }, to: { o: 1, y: 0, r: 0 }, cfg: { tension: 70, friction: 14 }, delay: 160, trigger: $("#about-pic") });
+reveal($("#about-img"), { from: { o: 0, y: 40 }, to: { o: 1, y: 0 }, cfg: { tension: 60, friction: 24 }, delay: 160, trigger: $("#about-pic") });
 $$(".stat").forEach((s, i) => reveal(s, { from: { o: 0, y: 20 }, to: { o: 1, y: 0 }, delay: i * 80 }));
 $$(".order-copy [data-reveal]").forEach((el, i) => reveal(el, { from: { o: 0, y: 18 }, to: { o: 1, y: 0 }, delay: 100 + i * 90 }));
 
@@ -1151,12 +1056,6 @@ document.addEventListener("click", (e) => {
 });
 cartBtn.addEventListener("click", () => toast(cart ? `В корзине: ${cart} шт. — оформим по телефону` : "Корзина пока пустая"));
 
-// promo code
-$("#code-chip").addEventListener("click", async () => {
-  try { await navigator.clipboard.writeText("HOLLAND11"); toast("Промокод HOLLAND11 скопирован"); }
-  catch { toast("Промокод: HOLLAND11"); }
-});
-
 // header background + scroll-linked bits
 const header = $("#header");
 const swirlPath = $("#swirl-path");
@@ -1168,8 +1067,7 @@ feed.on((p) => (receipt.style.transform = `translateY(${lerp(-100, 0, p)}%)`));
 const bc = new Spring(0.55, { tension: 90, friction: 18 });
 bc.on((s) => (barcode.style.transform = `scaleY(${s})`));
 let lastStep = -1, cleared = false;
-const watchHand = $("#watch-hand"), badgeText = $("#badge-text"), aboutRing = $("#about-ring");
-const cue = $("#cue");
+const badgeText = $("#badge-text"), aboutRing = $("#about-ring");
 onTick((now) => {
   const y = scrollY;
   header.style.setProperty("--hdr-bg", clamp(y / 120, 0, 1));
@@ -1182,19 +1080,22 @@ onTick((now) => {
   if (step < 40 && cleared) { cleared = false; bc.to(0.55); }
   // spinning bits
   if (!RM) {
-    badgeText.setAttribute("transform", `rotate(${(now / 60) % 360} 60 60)`);
-    watchHand.style.transform = `rotate(${(now / 8) % 360}deg)`;
-    aboutRing.style.transform = `rotate(${(-now / 120) % 360}deg)`;
-    cue.style.setProperty("--cue", `${((now / 14) % 52) - 14}px`);
+    if (badgeText) badgeText.setAttribute("transform", `rotate(${(now / 60) % 360} 60 60)`);
+    if (aboutRing) aboutRing.style.transform = `rotate(${(-now / 120) % 360}deg)`;
   }
 }, 10);
 
 // nav: active section
-const sections = ["top", "menu", "offers", "about", "contacts"].map((id) => [id, document.getElementById(id === "top" ? "hero" : id)]);
+const sections = ["top", "about"].map((id) => [id, document.getElementById(id === "top" ? "hero" : id)]);
 onTick(() => {
   let cur = "top";
-  for (const [id, el] of sections) if (el.getBoundingClientRect().top < innerHeight * 0.4) cur = id;
-  $$(".nav a").forEach((a) => a.classList.toggle("is-active", a.getAttribute("href") === "#" + cur));
+  for (const [id, el] of sections) if (el && el.getBoundingClientRect().top < innerHeight * 0.4) cur = id;
+  $$(".nav a").forEach((a) => {
+    const h = a.getAttribute("href");
+    if (h === "index.html" || h === "#top") a.classList.toggle("is-active", cur === "top");
+    else if (h === "#about") a.classList.toggle("is-active", cur === "about");
+    else a.classList.remove("is-active");
+  });
 }, 150);
 
 // anchors through Lenis
@@ -1223,86 +1124,245 @@ toggle.addEventListener("click", () => {
   menuOpen ? lenis?.stop() : lenis?.start();
 });
 
-/* ═══ Opalesce-style film behind the hero ═════════════════════════════ */
-function initOpal() {
+/* ═══ Interactive 3D particle wave background (ref: beaded wave crest) ═══ */
+function initWaveBg() {
   const cv = $("#opal");
-  const gl = cv.getContext("webgl", { premultipliedAlpha: false, antialias: false });
+  const gl = cv.getContext("webgl2") || cv.getContext("webgl", { premultipliedAlpha: false, antialias: false });
   if (!gl) { cv.replaceWith(Object.assign(document.createElement("div"), { className: "hero-fallback-bg" })); return; }
-  const vs = `attribute vec2 p; void main(){ gl_Position = vec4(p, 0., 1.); }`;
-  /* A clean studio backdrop: near-black, deep green pools drifting at the edges, a warm golden
-     halo behind the carton with slow sunburst rays, and a soft light that follows the cursor.
-     Only smooth gaussians — no hashed noise, so nothing turns blocky on any GPU. */
-  const fs = `precision highp float;
-uniform vec2 uRes; uniform float uTime; uniform vec2 uMouse; uniform float uAmt; uniform vec2 uFocus; uniform float uFade;
-float blob(vec2 p, vec2 c, float r){ vec2 d = p - c; return exp(-dot(d, d) / (r * r)); }
-void main(){
-  vec2 p = (gl_FragCoord.xy - .5 * uRes) / uRes.y;
-  float t = uTime;
-  vec3 base = vec3(.039, .047, .035);
-  vec3 col = base;
-  col += vec3(.020, .095, .045) * blob(p, vec2(-.85 + .06 * sin(t * .11), -.55 + .05 * cos(t * .13)), .8);
-  col += vec3(.018, .075, .036) * blob(p, uFocus + vec2(.32 * cos(t * .07), .22 * sin(t * .09)), .95);
-  float halo = blob(p, uFocus + vec2(0., .04), .58);
-  col += vec3(.50, .33, .05) * halo * .34;
-  col += vec3(1., .78, .3) * blob(p, uFocus + vec2(0., .1), .24) * .09;
-  vec2 d = p - uFocus;
-  float a = atan(d.y, d.x), r = length(d);
-  float rays = smoothstep(.55, 1., sin(a * 14. + t * .06)) * smoothstep(1.25, .2, r) * smoothstep(.08, .3, r);
-  col += vec3(.95, .68, .16) * rays * .05;
-  col += vec3(.65, .48, .12) * blob(p, uMouse, .32) * (.05 + .1 * uAmt);
-  col *= 1. - .5 * smoothstep(.45, 1.45, length(p * vec2(.72, 1.)));
-  float n = fract(52.9829189 * fract(dot(gl_FragCoord.xy, vec2(.06711056, .00583715))));
-  col += (n - .5) / 255.;
-  gl_FragColor = vec4(mix(base, col, uFade), 1.);
-}`;
-  const sh = (type, src) => { const s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s); return s; };
+
+  const vs = `
+attribute vec2 aGrid;
+uniform vec2 uRes;
+uniform float uTime;
+uniform vec2 uMouse;
+uniform float uAmt;
+uniform float uAspect;
+uniform float uScroll;
+
+varying float vCrest;
+varying float vSurfLight;
+varying float vDepth;
+varying float vEdgeFade;
+
+void main() {
+  float u = aGrid.x;
+  float v = aGrid.y;
+
+  // World space grid coordinates:
+  float gx = (u - 0.5) * 4.4;
+  float gy = (v - 0.5) * 3.3;
+
+  float t = uTime * 0.28;
+
+  // S-curved vertical wave crest (matching reference photo):
+  float ridgeX = 0.42 + 0.30 * sin(gy * 1.35 + t * 0.8) + 0.12 * cos(gy * 2.8 - t * 0.5);
+  float dx = gx - ridgeX;
+
+  // Asymmetric falloff: steep cliff to the right, sweeping shelf to the left
+  float widthFactor = dx > 0.0 ? 5.2 : 3.6;
+  float ridge = exp(-dx * dx * widthFactor) * 1.65;
+
+  // Secondary harmonic ripples across sheet:
+  float ripples = 0.20 * sin(gx * 2.4 + gy * 1.6 + t * 1.1) + 0.12 * cos(gx * 4.2 - gy * 2.6 + t * 0.7);
+
+  // Interactive mouse ripples & lift:
+  vec2 mPos = uMouse * vec2(2.0 * uAspect, 2.0);
+  vec2 mDiff = vec2(gx, gy) - mPos;
+  float mDist = length(mDiff);
+  float mInfluence = exp(-mDist * mDist * 1.8);
+  float mWave = sin(mDist * 4.2 - uTime * 2.2) * mInfluence * (0.16 + uAmt * 0.24);
+
+  float gz = ridge + ripples + mWave;
+
+  // Perturb x along slope of ridge to cluster dots on crest:
+  float slope = -2.0 * dx * widthFactor * ridge;
+  gx += slope * 0.08;
+
+  // Interactive camera rotation:
+  float rotX = 0.38 - uMouse.y * 0.12 - uScroll * 0.12;
+  float rotY = -0.34 + uMouse.x * 0.14;
+
+  vec3 pos = vec3(gx, gy, gz - 0.4);
+
+  // Rotate around Y:
+  float cy = cos(rotY), sy = sin(rotY);
+  vec3 p1 = vec3(pos.x * cy + pos.z * sy, pos.y, -pos.x * sy + pos.z * cy);
+
+  // Rotate around X:
+  float cx = cos(rotX), sx = sin(rotX);
+  vec3 p2 = vec3(p1.x, p1.y * cx - p1.z * sx, p1.y * sx + p1.z * cx);
+
+  p2.z -= 3.3;
+
+  // Perspective projection:
+  float fov = 1.95;
+  vec2 proj = (p2.xy / -p2.z) * fov;
+  proj.x /= uAspect;
+
+  gl_Position = vec4(proj, (-p2.z - 0.5) / 10.0, 1.0);
+
+  // Point sizing:
+  float depth = clamp(3.3 / (-p2.z), 0.4, 2.2);
+  float crestNorm = clamp(ridge / 1.65, 0.0, 1.0);
+  float baseSize = mix(2.4, 5.8, crestNorm) * depth;
+  gl_PointSize = clamp(baseSize * (uRes.y / 760.0), 1.5, 22.0);
+
+  // Surface normal & directional lighting:
+  vec3 norm = normalize(vec3(-slope * 0.55, -0.22 * cos(gy * 1.35), 1.0));
+  vec3 lightDir = normalize(vec3(0.55, 0.45, 0.75));
+  float surfLight = max(0.0, dot(norm, lightDir));
+
+  vCrest = crestNorm;
+  vSurfLight = surfLight;
+  vDepth = depth;
+  vEdgeFade = smoothstep(0.0, 0.06, u) * smoothstep(1.0, 0.94, u) *
+              smoothstep(0.0, 0.06, v) * smoothstep(1.0, 0.94, v);
+}
+`;
+
+  const fs = `
+precision mediump float;
+uniform float uFade;
+
+varying float vCrest;
+varying float vSurfLight;
+varying float vDepth;
+varying float vEdgeFade;
+
+void main() {
+  vec2 pt = gl_PointCoord * 2.0 - 1.0;
+  float r = length(pt);
+  if (r > 1.0) discard;
+
+  float circleAlpha = smoothstep(1.0, 0.70, r);
+
+  // 3D sphere crescent / micro-pin highlight on each individual dot:
+  vec3 sphereN = vec3(pt.x, -pt.y, sqrt(max(0.0, 1.0 - r * r)));
+  vec3 beadLight = normalize(vec3(0.55, 0.60, 0.70));
+  float diff = max(0.0, dot(sphereN, beadLight));
+  float spec = pow(max(0.0, dot(reflect(-beadLight, sphereN), vec3(0.0, 0.0, 1.0))), 6.0);
+  float beadLit = diff * 0.6 + spec * 0.8;
+
+  // Color palette matching the reference image:
+  // Deep warm shadow:
+  vec3 colShadow = vec3(0.09, 0.07, 0.05);
+  // Warm bronze / amber:
+  vec3 colMid = vec3(0.70, 0.46, 0.20);
+  // Warm golden crest:
+  vec3 colGold = vec3(0.96, 0.74, 0.32);
+  // Specular highlight:
+  vec3 colPeak = vec3(1.0, 0.94, 0.80);
+
+  float litFactor = clamp(vCrest * 0.78 + vSurfLight * 0.45, 0.0, 1.0);
+
+  vec3 col = mix(colShadow, colMid, smoothstep(0.06, 0.48, litFactor));
+  col = mix(col, colGold, smoothstep(0.48, 0.85, litFactor));
+  col = mix(col, colPeak, smoothstep(0.85, 1.0, litFactor) * beadLit);
+  col += colPeak * spec * vCrest * 0.55;
+
+  float alpha = mix(0.24, 0.98, litFactor) * circleAlpha * vEdgeFade * uFade;
+  gl_FragColor = vec4(col, alpha);
+}
+`;
+
+  const sh = (type, src) => {
+    const s = gl.createShader(type);
+    gl.shaderSource(s, src);
+    gl.compileShader(s);
+    if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) {
+      console.warn(gl.getShaderInfoLog(s));
+      return null;
+    }
+    return s;
+  };
+  const vShader = sh(gl.VERTEX_SHADER, vs);
+  const fShader = sh(gl.FRAGMENT_SHADER, fs);
+  if (!vShader || !fShader) return;
+
   const pr = gl.createProgram();
-  gl.attachShader(pr, sh(gl.VERTEX_SHADER, vs)); gl.attachShader(pr, sh(gl.FRAGMENT_SHADER, fs));
+  gl.attachShader(pr, vShader);
+  gl.attachShader(pr, fShader);
   gl.linkProgram(pr);
   if (!gl.getProgramParameter(pr, gl.LINK_STATUS)) return;
   gl.useProgram(pr);
+
+  // Generate grid points back to front
+  const NX = 180, NY = 110;
+  const count = NX * NY;
+  const pts = new Float32Array(count * 2);
+  let idx = 0;
+  for (let j = NY - 1; j >= 0; j--) {
+    const v = j / (NY - 1);
+    for (let i = 0; i < NX; i++) {
+      const u = i / (NX - 1);
+      pts[idx++] = u;
+      pts[idx++] = v;
+    }
+  }
+
   const buf = gl.createBuffer();
   gl.bindBuffer(gl.ARRAY_BUFFER, buf);
-  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
-  const loc = gl.getAttribLocation(pr, "p");
-  gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+  gl.bufferData(gl.ARRAY_BUFFER, pts, gl.STATIC_DRAW);
+
+  const loc = gl.getAttribLocation(pr, "aGrid");
+  gl.enableVertexAttribArray(loc);
+  gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+
+  gl.enable(gl.BLEND);
+  gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+  gl.clearColor(0, 0, 0, 0);
+
   const U = (n) => gl.getUniformLocation(pr, n);
-  const uRes = U("uRes"), uTime = U("uTime"), uMouse = U("uMouse"), uAmt = U("uAmt"), uFocus = U("uFocus"), uFade = U("uFade");
+  const uRes = U("uRes"), uTime = U("uTime"), uMouse = U("uMouse"), uAmt = U("uAmt"),
+        uAspect = U("uAspect"), uScroll = U("uScroll"), uFade = U("uFade");
+
   const hero = $("#hero");
   let W = 0, H = 0, visible = true;
-  const scale = Math.min(devicePixelRatio, 1.5) * 0.6;
-  const resize = () => { W = cv.width = Math.max(1, Math.round(cv.clientWidth * scale)); H = cv.height = Math.max(1, Math.round(cv.clientHeight * scale)); gl.viewport(0, 0, W, H); };
-  resize(); addEventListener("resize", resize);
+  const scale = Math.min(window.devicePixelRatio || 1, 1.5);
+  const resize = () => {
+    W = cv.width = Math.max(1, Math.round(cv.clientWidth * scale));
+    H = cv.height = Math.max(1, Math.round(cv.clientHeight * scale));
+    gl.viewport(0, 0, W, H);
+  };
+  resize();
+  addEventListener("resize", resize);
   new IntersectionObserver(([e]) => (visible = e.isIntersecting)).observe(hero);
-  const mouse = { x: 0.4, y: 0, tx: 0.4, ty: 0, amt: 0 };
+
+  const mouse = { x: 0.15, y: 0.0, tx: 0.15, ty: 0.0, amt: 0 };
   let lastMx = 0, lastMy = 0;
   addEventListener("pointermove", (e) => {
     const r = cv.getBoundingClientRect();
-    mouse.tx = (e.clientX - r.left - r.width / 2) / r.height;
-    mouse.ty = -(e.clientY - r.top - r.height / 2) / r.height;
+    mouse.tx = clamp((e.clientX - r.left - r.width / 2) / (r.width / 2), -1, 1);
+    mouse.ty = clamp(-(e.clientY - r.top - r.height / 2) / (r.height / 2), -1, 1);
     const v = Math.hypot(e.clientX - lastMx, e.clientY - lastMy);
     lastMx = e.clientX; lastMy = e.clientY;
-    mouse.amt = Math.min(1.4, mouse.amt + v * 0.004);
+    mouse.amt = Math.min(1.0, mouse.amt + Math.min(v, 30) * 0.003);
   });
+
   const fade = new Spring(0, { tension: 40, friction: 26 });
   whenReady(() => fade.to(1));
-  if (RM) fade.to(1, { immediate: true });
-  const media = $("#hero-media");
+  if (RM || alreadyVisited) fade.to(1, { immediate: true });
+
   onTick((now) => {
     if (!visible) return;
-    mouse.x += (mouse.tx - mouse.x) * 0.06; mouse.y += (mouse.ty - mouse.y) * 0.06;
-    mouse.amt *= 0.975;
-    const r = cv.getBoundingClientRect(), m = media.getBoundingClientRect();
+    mouse.x += (mouse.tx - mouse.x) * 0.028;
+    mouse.y += (mouse.ty - mouse.y) * 0.028;
+    mouse.amt *= 0.94;
+
+    gl.useProgram(pr);
     gl.uniform2f(uRes, W, H);
     gl.uniform1f(uTime, RM ? 0 : now / 1000);
     gl.uniform2f(uMouse, mouse.x, mouse.y);
     gl.uniform1f(uAmt, mouse.amt);
-    gl.uniform2f(uFocus, (m.left + m.width / 2 - r.left - r.width / 2) / r.height, -(m.top + m.height * 0.55 - r.top - r.height / 2) / r.height);
+    gl.uniform1f(uAspect, W / H);
+    gl.uniform1f(uScroll, clamp(scrollY / Math.max(1, innerHeight), 0, 1));
     gl.uniform1f(uFade, 0.25 + 0.75 * fade.x);
-    gl.drawArrays(gl.TRIANGLES, 0, 3);
+
+    gl.clear(gl.COLOR_BUFFER_BIT);
+    gl.drawArrays(gl.POINTS, 0, count);
   }, 16);
 }
-initOpal();
+initWaveBg();
 
 /* The fry skin cut from the product photo and its bump map, inlined: WebGL refuses images read from
    neighbouring files when the page is opened straight from disk, so these travel inside the page. */
@@ -1327,64 +1387,111 @@ function makeKit(THREE, skins) {
   };
 
   /* fries */
-  const fryMap = tex(64, 256, (g, w, h) => {
+  const fryMap = tex(128, 512, (g, w, h) => {
     const r = mulberry32(3);
+    // deeper golden-brown base gradient matching real fried potatoes
     const gr = g.createLinearGradient(0, 0, 0, h);
-    gr.addColorStop(0, "#9a4710"); gr.addColorStop(0.05, "#c06a1a"); gr.addColorStop(0.15, "#dc922c");
-    gr.addColorStop(0.5, "#e9a63a"); gr.addColorStop(0.86, "#d98a28"); gr.addColorStop(1, "#ad5a16");
+    gr.addColorStop(0, "#7a3508"); gr.addColorStop(0.03, "#8e4210"); gr.addColorStop(0.08, "#a85a15");
+    gr.addColorStop(0.2, "#c47a1e"); gr.addColorStop(0.4, "#d4912a"); gr.addColorStop(0.55, "#cc8422");
+    gr.addColorStop(0.7, "#c07218"); gr.addColorStop(0.85, "#a85a12"); gr.addColorStop(0.95, "#8e420e");
+    gr.addColorStop(1, "#6e3008");
     g.fillStyle = gr; g.fillRect(0, 0, w, h);
-    for (let i = 0; i < 300; i++) {
-      g.fillStyle = `rgba(${(140 + r() * 50) | 0},${(60 + r() * 30) | 0},12,${0.08 + r() * 0.26})`;
-      g.beginPath(); g.ellipse(r() * w, r() * h, 0.6 + r() * 2.2, 1 + r() * 4, 0, 0, 7); g.fill();
+    // large dark crispy patches (burnt/caramelised areas)
+    for (let i = 0; i < 60; i++) {
+      g.fillStyle = `rgba(${(90 + r() * 40) | 0},${(35 + r() * 25) | 0},${(5 + r() * 10) | 0},${0.15 + r() * 0.25})`;
+      g.beginPath(); g.ellipse(r() * w, r() * h, 3 + r() * 10, 5 + r() * 20, r() * Math.PI, 0, 7); g.fill();
     }
-    for (let i = 0; i < 140; i++) { g.fillStyle = `rgba(255,236,190,${r() * 0.3})`; g.fillRect(r() * w, r() * h, 1, 1 + r() * 3); }
+    // medium brown speckles (fry crust bubbles)
+    for (let i = 0; i < 400; i++) {
+      g.fillStyle = `rgba(${(120 + r() * 50) | 0},${(50 + r() * 30) | 0},8,${0.12 + r() * 0.3})`;
+      g.beginPath(); g.ellipse(r() * w, r() * h, 0.8 + r() * 3, 1.5 + r() * 6, r() * Math.PI, 0, 7); g.fill();
+    }
+    // golden highlights from oil sheen
+    for (let i = 0; i < 200; i++) {
+      g.fillStyle = `rgba(${(220 + r() * 35) | 0},${(170 + r() * 50) | 0},${(50 + r() * 40) | 0},${0.06 + r() * 0.18})`;
+      g.beginPath(); g.ellipse(r() * w, r() * h, 0.5 + r() * 2, 1 + r() * 5, r() * Math.PI, 0, 7); g.fill();
+    }
+    // crispy edge highlights (light spots)
+    for (let i = 0; i < 100; i++) {
+      g.fillStyle = `rgba(255,210,120,${r() * 0.15})`;
+      g.fillRect(r() * w, r() * h, 1, 1 + r() * 4);
+    }
+    // dark micro-spots for porous texture
+    for (let i = 0; i < 250; i++) {
+      g.fillStyle = `rgba(${(60 + r() * 40) | 0},${(20 + r() * 20) | 0},5,${0.1 + r() * 0.2})`;
+      g.beginPath(); g.arc(r() * w, r() * h, 0.4 + r() * 1.2, 0, 7); g.fill();
+    }
   });
-  const fryBump = tex(64, 256, (g, w, h) => {
+  const fryBump = tex(128, 512, (g, w, h) => {
     const r = mulberry32(5);
     g.fillStyle = "#808080"; g.fillRect(0, 0, w, h);
-    for (let i = 0; i < 600; i++) { const v = (r() * 255) | 0; g.fillStyle = `rgba(${v},${v},${v},.35)`; g.beginPath(); g.arc(r() * w, r() * h, 0.5 + r() * 1.8, 0, 7); g.fill(); }
+    // larger crispy bubbles
+    for (let i = 0; i < 300; i++) { const v = (100 + r() * 155) | 0; g.fillStyle = `rgba(${v},${v},${v},.45)`; g.beginPath(); g.arc(r() * w, r() * h, 1 + r() * 3, 0, 7); g.fill(); }
+    // fine grain
+    for (let i = 0; i < 800; i++) { const v = (r() * 255) | 0; g.fillStyle = `rgba(${v},${v},${v},.3)`; g.beginPath(); g.arc(r() * w, r() * h, 0.3 + r() * 1.2, 0, 7); g.fill(); }
+    // ridges along the length (vertical lines)
+    for (let x = 0; x < w; x += 8 + r() * 6) {
+      g.strokeStyle = `rgba(${(160 + r() * 60) | 0},${(160 + r() * 60) | 0},${(160 + r() * 60) | 0},.2)`;
+      g.lineWidth = 0.5 + r() * 1.5;
+      g.beginPath(); g.moveTo(x, 0); g.lineTo(x + (r() - 0.5) * 4, h); g.stroke();
+    }
   }, false);
   /* The skin is cut from the product photo (assets/fry-skin.jpg: six fry-wide strips side by side),
      with a matching crisp-bubble bump map. Without it, the drawn texture above stands in. */
   const STRIPS = skins ? 6 : 1;
   const skinMap = skins?.map || fryMap, skinBump = skins?.bump || fryBump;
-  // tints pull the photo skin toward the deep gold of the real fries once tone mapping has had its say
-  const fryMats = (skins ? [0xf2d2ac, 0xecc69c, 0xf6dab8, 0xe4bb8e] : [0xffffff, 0xfff1da, 0xffe3bd, 0xfff9ee]).map((c) => new MSM({
-    color: c, map: skinMap, bumpMap: skinBump, bumpScale: skins ? 2.4 : 0.7, roughness: 0.42, metalness: 0, envMapIntensity: 0.75,
+  // tints pull the photo skin toward the deep rich gold of authentic hot fries
+  const fryMats = (skins ? [0xdca65c, 0xd4964e, 0xe2b46c, 0xca8c42] : [0xe8a442, 0xdf9435, 0xd48729, 0xeda84e]).map((c) => new MPM({
+    color: c,
+    map: skinMap,
+    bumpMap: skinBump,
+    bumpScale: skins ? 3.6 : 1.8,
+    roughness: 0.40,
+    metalness: 0,
+    clearcoat: 0.36,
+    clearcoatRoughness: 0.28,
+    envMapIntensity: 0.85,
   }));
-  /* One fry: a cut potato stick, not a box — chamfered edges, a thickness that wanders along its
-     length, a slight bend and twist, slanted cut ends and a bubbly surface. Every vertex moves as a
-     function of its original position only, so the box's duplicated edge vertices stay together. */
+  /* One fry: a cut potato stick, not a box — chamfered edges, organic thickness variations along its
+     length, slight bend and twist, naturally rounded and crispy cut tips with browned crust. */
   const { BoxGeometry } = THREE;
   const fryGeometry = (L, w, d) => {
-    const g = new BoxGeometry(w, L, d, 2, 18, 2);
+    const g = new BoxGeometry(w, L, d, 4, 20, 4);
     const p = g.attributes.position, uv = g.attributes.uv;
-    const bend = (rnd() - 0.5) * 0.06, bendZ = (rnd() - 0.5) * 0.04, twist = (rnd() - 0.5) * 0.35;
-    const slantA = (rnd() - 0.5) * 0.9, slantB = (rnd() - 0.5) * 0.9, ph = rnd() * 10;
+    const bend = (rnd() - 0.5) * 0.07, bendZ = (rnd() - 0.5) * 0.05, twist = (rnd() - 0.5) * 0.35;
+    const slantA = (rnd() - 0.5) * 0.8, slantB = (rnd() - 0.5) * 0.8, ph = rnd() * 10;
     const strip = (rnd() * STRIPS) | 0;
     for (let i = 0; i < p.count; i++) {
       const x0 = p.getX(i), y0 = p.getY(i), z0 = p.getZ(i);
       const t = y0 / L + 0.5;
       let x = x0, y = y0, z = z0;
-      const edgeX = Math.abs(x0) > w / 2 - 1e-5, edgeZ = Math.abs(z0) > d / 2 - 1e-5;
-      if (edgeX && edgeZ) { x *= 0.84; z *= 0.84; }                       // chamfer
-      const k = 1 + 0.022 * Math.sin(t * 5.1 + ph) + 0.012 * Math.sin(t * 13 + ph * 2.1) - 0.07 * Math.pow(Math.abs(t - 0.5) * 2, 8);
+      const edgeX = Math.abs(x0) > w / 2 - 1e-4, edgeZ = Math.abs(z0) > d / 2 - 1e-4;
+      if (edgeX && edgeZ) { x *= 0.82; z *= 0.82; } // soft chamfered edges
+      const k = 1 + 0.026 * Math.sin(t * 5.1 + ph) + 0.014 * Math.sin(t * 13 + ph * 2.1) - 0.06 * Math.pow(Math.abs(t - 0.5) * 2, 6);
       x *= k; z *= k;
-      const n = 0.002 * (Math.sin(x0 * 140 + y0 * 41 + ph) + Math.sin(z0 * 131 - y0 * 57 + ph * 1.7) + Math.sin(y0 * 93 + ph * 3));
+      const n = 0.003 * (Math.sin(x0 * 140 + y0 * 41 + ph) + Math.sin(z0 * 131 - y0 * 57 + ph * 1.7) + Math.sin(y0 * 93 + ph * 3));
       if (edgeX) x += Math.sign(x0) * n;
       if (edgeZ) z += Math.sign(z0) * n;
-      if (Math.abs(y0) > L / 2 - 1e-5) { x *= 0.9; z *= 0.9; y += (y0 > 0 ? slantA : slantB) * x0 + (y0 > 0 ? -1 : 1) * 0.012; }
+
+      // Realistic cut ends: rounded, slightly domed and beveled, not a flat wooden box cap
+      if (Math.abs(y0) > L / 2 - 1e-4) {
+        const radFrac = Math.hypot(x0 / (w * 0.5), z0 / (d * 0.5));
+        const dome = Math.max(0, 1 - radFrac * 0.45);
+        y += (y0 > 0 ? 1 : -1) * (0.012 * dome - 0.005 * radFrac);
+        y += (y0 > 0 ? slantA : slantB) * x0 * 0.6;
+        x *= 0.88; z *= 0.88;
+      }
       const a = twist * (t - 0.5), c = Math.cos(a), s = Math.sin(a);
       const xr = x * c - z * s, zr = x * s + z * c;
       const bt = (t - 0.5) * 2;
       p.setXYZ(i, xr + bend * L * bt * bt, y, zr + bendZ * L * bt * bt);
     }
-    // the side faces read one fry-wide strip of the atlas; the cut ends read its dark browned end
-    const capStart = 2 * 3 * 19, capEnd = capStart + 2 * 9;
+    // UV mapping: sample rich crispy browned crust for both the body and cut tips
     for (let i = 0; i < uv.count; i++) {
       const u = uv.getX(i), v = uv.getY(i);
-      if (i >= capStart && i < capEnd) uv.setXY(i, (strip + 0.2 + u * 0.6) / STRIPS, 0.015 + v * 0.02);
-      else uv.setXY(i, (strip + 0.03 + u * 0.94) / STRIPS, v);
+      const uSample = (strip + 0.05 + u * 0.90) / STRIPS;
+      const vSample = clamp(0.08 + v * 0.84, 0.02, 0.98);
+      uv.setXY(i, uSample, vSample);
     }
     g.computeVertexNormals();
     return g;
@@ -1394,7 +1501,7 @@ function makeKit(THREE, skins) {
     return new Mesh(fryGeometry(L, w, w * (0.88 + rnd() * 0.22)), fryMats[(rnd() * fryMats.length) | 0]);
   };
 
-  /* print: green carton with the HOLLAND mark */
+  /* print: green carton with the HOLLAND mark (identical on front and back) */
   const drawMark = (g, cx, top, s) => {
     g.save(); g.translate(cx, top); g.scale(s, s);
     g.fillStyle = "#f7c21b";
@@ -1417,7 +1524,8 @@ function makeKit(THREE, skins) {
       g.fillStyle = "#f7c21b"; g.font = `800 ${Math.round((small ? 60 : 84) * k)}px Manrope, Arial, sans-serif`;
       g.fillText("Fries & Cheese", cx, h * (small ? 0.9 : 0.88));
     };
-    block(0, 1); block(w, 1); block(w / 2, 0.85);
+    // Front and back both have the full-size iconic logo
+    block(0, 1); block(w, 1); block(w / 2, 1);
   };
   const label = tex(2048, 680, (g, w, h) => printCarton(g, w, h));
   const traySide = tex(2048, 300, (g, w, h) => {
@@ -1427,8 +1535,6 @@ function makeKit(THREE, skins) {
     for (const cx of [256, 768, 1280, 1792]) g.fillText("HOLLAND", cx, h * 0.62);
   });
   document.fonts?.ready.then(() => { label.userData.redraw(); traySide.userData.redraw(); });
-
-  const paper = new MSM({ color: 0xf3eee4, roughness: 0.9, side: DoubleSide });
 
   function cup({ H = 1.3, rb = 0.56, rt = 0.8 } = {}) {
     const g = new Group();
@@ -1440,22 +1546,8 @@ function makeKit(THREE, skins) {
     rim.rotation.x = Math.PI / 2; rim.position.y = H;
     const bottom = new Mesh(new CircleGeometry(rb, 48), new MSM({ color: 0x0b3a1d, roughness: 0.8 }));
     bottom.rotation.x = Math.PI / 2; bottom.position.y = 0.002;
-    // the paper liner peeking up at the back
-    const pg = new CylinderGeometry(rt - 0.03, rt - 0.03, 0.6, 48, 6, true, Math.PI - 0.95, 1.9);
-    const pp = pg.attributes.position;
-    for (let i = 0; i < pp.count; i++) {
-      const x = pp.getX(i), y = pp.getY(i), z = pp.getZ(i);
-      const th = Math.atan2(x, z), d = Math.abs(Math.abs(th) - Math.PI);
-      const t = clamp(1 - d / 0.95, 0, 1);
-      const hy = (y + 0.3) / 0.6;
-      pp.setY(i, -0.3 + hy * (0.16 + 0.5 * Math.pow(t, 1.3)));
-      const out = 1 + hy * 0.06;
-      pp.setX(i, x * out); pp.setZ(i, z * out);
-    }
-    pg.computeVertexNormals();
-    const liner = new Mesh(pg, paper);
-    liner.position.y = H - 0.2;
-    g.add(outer, inner, rim, bottom, liner);
+    // White paper liner removed: carton has identical logo on front and back
+    g.add(outer, inner, rim, bottom);
     g.userData = { H, rb, rt };
     return g;
   }
@@ -1466,7 +1558,8 @@ function makeKit(THREE, skins) {
   function fillCup(group, { H, rb, rt }, N = 54) {
     const list = [];
     // every fry's corner (half-diagonal ≈ 0.095) plus its sway stays clear of the carton wall
-    const wall = (y) => lerp(rb, rt, y / H) - 0.16, rimMax = wall(H);
+    const wall = (y) => lerp(rb, rt, clamp(y / H, 0, 1)) - 0.16, rimMax = wall(H);
+    const wallOuter = (y) => lerp(rb, rt, clamp(y / H, 0, 1));  // outer wall for clipping
     for (let k = 0; k < N; k++) {
       const u = Math.sqrt((k + 0.5) / N);
       const rimR = rimMax * Math.min(1, u * (0.96 + rnd() * 0.08));
@@ -1498,8 +1591,8 @@ function makeKit(THREE, skins) {
     return list;
   }
 
-  const cheeseMat = new MPM({ color: 0xd8640a, roughness: 0.2, clearcoat: 1, clearcoatRoughness: 0.12 });
-  const mayoMat = new MPM({ color: 0xf6ecd2, roughness: 0.28, clearcoat: 0.8, clearcoatRoughness: 0.18 });
+  const cheeseMat = new MPM({ color: 0xee720a, roughness: 0.12, clearcoat: 1.0, clearcoatRoughness: 0.05, reflectivity: 0.9, envMapIntensity: 1.25 });
+  const mayoMat = new MPM({ color: 0xfbf4e2, roughness: 0.15, clearcoat: 0.95, clearcoatRoughness: 0.07, reflectivity: 0.88, envMapIntensity: 1.15 });
   const blob = (mat, rx, ry, rz, seed) => {
     const geo = new SphereGeometry(1, 56, 28);
     const p = geo.attributes.position, v = new Vector3();
@@ -1515,23 +1608,100 @@ function makeKit(THREE, skins) {
     const m = new Mesh(geo, mat); m.scale.set(rx, ry, rz);
     return m;
   };
-  const tube = (mat, pts, r) => {
+  /* Organic melted puddle / blanket of sauce with drips flowing between fries */
+  const meltedPuddle = (mat, rx, ry, rz, seed = 1) => {
+    const geo = new SphereGeometry(1, 64, 32);
+    const p = geo.attributes.position, v = new Vector3();
+    const r = mulberry32(seed);
+    const ph = r() * 10;
+    for (let i = 0; i < p.count; i++) {
+      v.fromBufferAttribute(p, i);
+      const a = Math.atan2(v.z, v.x);
+      const hDist = Math.hypot(v.x, v.z);
+      const lobes = 1 + 0.18 * Math.sin(a * 4 + ph) + 0.12 * Math.cos(a * 7 - ph * 1.6) + 0.06 * Math.sin(a * 11 + ph * 2);
+      v.x *= lobes; v.z *= lobes;
+      if (hDist > 0.45 && v.y < 0.2) {
+        const drip = Math.max(0, Math.sin(a * 5 + 0.8)) * 0.42 + Math.max(0, Math.cos(a * 4 - 0.4)) * 0.32;
+        v.y -= drip * (1 - v.y * 2);
+      }
+      if (v.y < -0.3) v.y = -0.3 + (v.y + 0.3) * 0.35;
+      p.setXYZ(i, v.x, v.y, v.z);
+    }
+    geo.computeVertexNormals();
+    const m = new Mesh(geo, mat);
+    m.scale.set(rx, ry, rz);
+    return m;
+  };
+  const tube = (mat, pts, r, scaleY = 1) => {
     const curve = new CatmullRomCurve3(pts.map(([x, y, z]) => new Vector3(x, y, z)));
     const g = new Group();
-    g.add(new Mesh(new TubeGeometry(curve, 90, r, 14), mat));
-    for (const t of [0, 1]) { const s = new Mesh(new SphereGeometry(r, 16, 12), mat); s.position.copy(curve.getPoint(t)); g.add(s); }
+    const mesh = new Mesh(new TubeGeometry(curve, 90, r, 16), mat);
+    mesh.scale.y = scaleY;
+    g.add(mesh);
+    for (const t of [0, 1]) {
+      const s = new Mesh(new SphereGeometry(r, 16, 12), mat);
+      s.scale.y = scaleY;
+      s.position.copy(curve.getPoint(t));
+      g.add(s);
+    }
     return g;
   };
   function sauce() {
     const g = new Group();
-    const c1 = blob(cheeseMat, 0.5, 0.14, 0.42, 1);
-    const c2 = blob(cheeseMat, 0.3, 0.12, 0.28, 3); c2.position.set(0.22, 0.03, 0.12);
-    const c3 = blob(cheeseMat, 0.26, 0.1, 0.24, 5); c3.position.set(-0.24, 0.02, -0.08);
-    // a thick ribbon of mayo folded over the cheese, as in the photo
-    const mayo = tube(mayoMat, [[-0.46, 0.1, 0.02], [-0.3, 0.2, 0.22], [-0.08, 0.22, 0.02], [-0.22, 0.24, -0.2], [0.04, 0.26, -0.24], [0.2, 0.24, 0.0], [0.04, 0.24, 0.2], [0.3, 0.2, 0.24], [0.46, 0.12, 0.06]], 0.105);
-    mayo.scale.y = 0.62;
-    const drizzle = tube(cheeseMat, [[-0.3, 0.2, 0.2], [-0.1, 0.24, -0.02], [0.1, 0.23, 0.2], [0.3, 0.2, 0.0]], 0.042);
-    g.add(c1, c2, c3, mayo, drizzle);
+    // 1. Melted cheddar pool drapes over fries with fluid lobes
+    const cheeseBase = meltedPuddle(cheeseMat, 0.58, 0.16, 0.48, 2);
+    cheeseBase.position.set(0, 0, 0);
+
+    // 2. Extra molten cheddar lobes flowing over the sides
+    const cheeseLobe1 = meltedPuddle(cheeseMat, 0.36, 0.14, 0.32, 5);
+    cheeseLobe1.position.set(0.18, -0.02, 0.16);
+    const cheeseLobe2 = meltedPuddle(cheeseMat, 0.32, 0.12, 0.28, 7);
+    cheeseLobe2.position.set(-0.20, -0.01, -0.10);
+    const cheeseLobe3 = meltedPuddle(cheeseMat, 0.28, 0.15, 0.26, 9);
+    cheeseLobe3.position.set(0.04, -0.03, -0.22);
+
+    // 3. Realistic drips of hot cheddar sliding down between the fries
+    const drip1 = tube(cheeseMat, [[0.28, 0.04, 0.22], [0.32, -0.10, 0.26], [0.30, -0.25, 0.27]], 0.046, 0.8);
+    const drip2 = tube(cheeseMat, [[-0.24, 0.05, 0.20], [-0.28, -0.08, 0.24], [-0.26, -0.22, 0.25]], 0.042, 0.8);
+    const drip3 = tube(cheeseMat, [[0.06, 0.06, 0.30], [0.08, -0.07, 0.34], [0.07, -0.18, 0.33]], 0.044, 0.8);
+    const drip4 = tube(cheeseMat, [[-0.12, 0.04, -0.24], [-0.14, -0.08, -0.27], [-0.13, -0.19, -0.26]], 0.038, 0.8);
+
+    // 4. Creamy Dutch mayonnaise: thick, luscious, melted wave flowing across the cheese (scaled flat and broad)
+    const mayoWave1 = tube(mayoMat, [
+      [-0.42, 0.10, 0.05],
+      [-0.26, 0.17, 0.20],
+      [-0.06, 0.19, 0.08],
+      [0.10, 0.20, -0.08],
+      [0.26, 0.17, 0.06],
+      [0.42, 0.11, 0.14]
+    ], 0.115, 0.55);
+
+    const mayoWave2 = tube(mayoMat, [
+      [-0.32, 0.13, -0.10],
+      [-0.12, 0.18, 0.06],
+      [0.08, 0.18, 0.16],
+      [0.28, 0.13, -0.02]
+    ], 0.105, 0.58);
+
+    // Smooth soft mayo puddle core to blend the waves seamlessly into the cheese
+    const mayoCore = meltedPuddle(mayoMat, 0.38, 0.11, 0.26, 4);
+    mayoCore.position.set(0.02, 0.12, 0.05);
+
+    // 5. Streams of melted cheddar poured over the mayonnaise, hugging its ripples
+    const drizzle1 = tube(cheeseMat, [
+      [-0.28, 0.21, 0.16],
+      [-0.12, 0.24, 0.12],
+      [0.06, 0.25, 0.06],
+      [0.24, 0.22, 0.12]
+    ], 0.036, 0.65);
+
+    const drizzle2 = tube(cheeseMat, [
+      [-0.18, 0.22, -0.02],
+      [0.00, 0.24, -0.04],
+      [0.18, 0.21, 0.02]
+    ], 0.030, 0.65);
+
+    g.add(cheeseBase, cheeseLobe1, cheeseLobe2, cheeseLobe3, drip1, drip2, drip3, drip4, mayoWave1, mayoWave2, mayoCore, drizzle1, drizzle2);
     return g;
   }
 
@@ -1617,7 +1787,6 @@ function heroPhotoFallback() {
   img.className = "photo-fallback";
   mediaEl.append(img);
   reveal(img, { from: { o: 0, y: 60 }, to: { o: 1, y: 0 }, cfg: { tension: 70, friction: 16 }, rootMargin: "0px" });
-  $("#hero-hint").style.display = "none";
   $$(".card-pic img").forEach((i) => i.classList.remove("is-loading"));
 }
 
@@ -1724,7 +1893,7 @@ async function initHero3D() {
   /* state */
   const lean = { x: 0, y: 0, tx: 0, ty: 0 };
   let spin = 0, spinV = 0, dragging = false, downX = 0, downY = 0, lastX = 0, moved = 0, pointerId = null;
-  let hovered = false, intro = RM ? 1 : 0, introDone = RM, sink = 0;
+  let hovered = false, intro = (RM || alreadyVisited) ? 1 : 0, introDone = (RM || alreadyVisited), sink = 0;
   const lift = new Spring(0, { tension: 120, friction: 18 });
   const sq = new Spring(0, { tension: 320, friction: 14 });     // squash (−) / stretch (+)
   const jump = new Spring(0, { tension: 180, friction: 16 });   // body hop
@@ -1740,17 +1909,10 @@ async function initHero3D() {
     return ray.intersectObject(hit, false).length > 0;
   };
 
-  /* info card + hint */
-  const card = $("#info-card"), hint = $("#hero-hint"), trickLabel = $("#trick-label");
-  const cardSp = new Spring(0, { tension: 210, friction: 26 });
-  cardSp.on((p) => paint(card, { o: p, y: lerp(18, 0, p) }));
-  const hintSp = new Spring(1, { tension: 120, friction: 20 });
-  hintSp.on((p) => { hint.style.opacity = p; hint.style.translate = `-50% ${lerp(10, 0, p)}px`; });
   const setHover = (h) => {
     if (h === hovered) return;
     hovered = h;
     lift.to(h ? 1 : 0);
-    if (innerWidth >= 1024) cardSp.to(h ? 1 : 0);
     renderer.domElement.style.cursor = h ? (dragging ? "grabbing" : "grab") : "";
   };
 
@@ -1780,36 +1942,18 @@ async function initHero3D() {
     dragging = false;
     cv.style.cursor = hovered ? "grab" : "";
     if (moved <= 6) doTrick(e.clientX, e.clientY);
-    else hideHint();
   };
   addEventListener("pointerup", up);
   addEventListener("pointercancel", (e) => { if (e.pointerId === pointerId) dragging = false; });
   cv.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); const r = cv.getBoundingClientRect(); doTrick(r.left + r.width / 2, r.top + r.height / 2); } });
   cv.tabIndex = 0;
   cv.setAttribute("role", "img");
-  cv.setAttribute("aria-label", "Стаканчик картошки фри HOLLAND с сырным и голландским соусом. Нажмите Enter, чтобы подбросить картошку");
-
-  let hinted = false;
-  function hideHint() { if (hinted) return; hinted = true; hintSp.to(0); }
-
-  /* comic word at the pointer */
-  function burstWord(word, x, y) {
-    const el = document.createElement("div");
-    el.className = "burst"; el.textContent = word; el.setAttribute("aria-hidden", "true");
-    document.body.append(el);
-    const rot = (Math.random() - 0.5) * 24;
-    const sp = new Spring(0, { tension: 260, friction: 14 });
-    const fade = new Spring(1, { tension: 120, friction: 26 });
-    const draw = () => { el.style.transform = `translate(${x}px, ${y - 30 - sp.x * 40}px) translate(-50%, -50%) scale(${0.3 + sp.x * 0.9}) rotate(${rot}deg)`; el.style.opacity = fade.x; };
-    sp.on(draw); fade.on(draw);
-    sp.to(1);
-    fade.to(0, { delay: 520, onRest: () => el.remove() });
-  }
+  cv.setAttribute("aria-label", "Стаканчик картошки фри HOLLAND с сырным и голландским соусом");
 
   function doTrick(x, y, opts = {}) {
     if (trick && performance.now() - trick.t0 < 900) return; // let the fries land
     const t = TRICKS[trickIdx % TRICKS.length];
-    if (!opts.quiet) { trickIdx++; hideHint(); burstWord(t.word, x, y); trickLabel.innerHTML = `трюк <b>${String(trickIdx).padStart(2, "0")}</b> · ${t.name}`; }
+    if (!opts.quiet) { trickIdx++; }
     tossPower = opts.power ?? 1;
     trick = { id: opts.id || t.id, t0: performance.now(), landed: false };
     // anticipation squash, then release
@@ -1841,8 +1985,10 @@ async function initHero3D() {
       const h = (0.85 + f.rnd * 0.6) * P;
       const oy = 4 * h * s * (1 - s);
       outward.set(Math.cos(f.a), 0, Math.sin(f.a));
-      // drift outward only once the fry has cleared the carton
-      out.off.set(0, oy, 0).addScaledVector(outward, clamp((oy - 0.75) / 0.5, 0, 1) * (0.15 + f.r * 0.3) * P);
+      // drift outward only once the fry has cleared the carton, but limit the max spread
+      const driftClearance = clamp((oy - 0.75) / 0.5, 0, 1);
+      const driftAmt = driftClearance * (0.08 + f.r * 0.15) * P;
+      out.off.set(0, oy, 0).addScaledVector(outward, driftAmt);
       const spins = P > 0.7 ? (f.rnd2 > 0.5 ? 1 : -1) : 0;
       const k = clamp((s - 0.22) / 0.56, 0, 1);
       out.q.setFromAxisAngle(f.axis, Math.PI * 2 * spins * E.inOutSine(k));
@@ -1854,10 +2000,10 @@ async function initHero3D() {
       const env = s < 0.45 ? E.outBack(s / 0.45) : s < 0.85 ? 1 : 1 - E.inOutCubic((s - 0.85) / 0.65);
       outward.set(Math.cos(f.a), 0, Math.sin(f.a));
       tmpV.crossVectors(up3, outward).normalize();
-      // tilt outward about the point where the fry crosses the rim, so nothing goes through the carton
-      out.q.setFromAxisAngle(tmpV, -env * (0.3 + f.r * 0.55));
+      // tilt outward about the point where the fry crosses the rim, limit so fries stay inside carton
+      out.q.setFromAxisAngle(tmpV, -env * (0.15 + f.r * 0.35));
       out.pivot = f.rimPt;
-      out.off.set(0, env * (0.12 + (1 - f.r) * 0.3), 0);
+      out.off.set(0, env * (0.08 + (1 - f.r) * 0.18), 0);
     } else if (trick.id === "flip") {
       const s = (e - (0.13 + f.rnd * 0.04)) / 1.12;
       if (s <= 0) return;
@@ -1869,9 +2015,14 @@ async function initHero3D() {
   }
 
   /* intro: rises up from below when the preloader pours away */
-  const introSp = new Spring(RM ? 1 : 0);
+  const introSp = new Spring((RM || alreadyVisited) ? 1 : 0);
   introSp.on((p) => (intro = p));
   whenRevealing(() => {
+    if (alreadyVisited || RM) {
+      intro = 1;
+      introDone = true;
+      return;
+    }
     introSp.to(1, { duration: 1400, easing: E.outCubic, onRest: () => { introDone = true; setTimeout(() => doTrick(0, 0, { quiet: true, power: 0.45, id: "toss" }), 120); } });
   });
 
@@ -1898,7 +2049,7 @@ async function initHero3D() {
 
     // scroll sink
     const p = clamp(scrollY / Math.max(1, heroEl.offsetHeight), 0, 1);
-    sink += (-p * 1.0 - sink) * ease(0.14);
+    sink += (-p * 1.4 - sink) * ease(0.14);
 
     const introY = (1 - intro) * -2.6, introRot = (1 - intro) * -1.3;
     const idleBob = RM ? 0 : Math.sin(t * 1.3) * 0.03;
@@ -1944,6 +2095,17 @@ async function initHero3D() {
       tmpV.copy(f.home).sub(f.rimPt).applyQuaternion(jq).add(f.rimPt);
       if (pose.pivot) tmpV.sub(pose.pivot).applyQuaternion(pose.q).add(pose.pivot);
       tmpV.add(pose.off);
+      // clamp fries below the rim so they don't poke through the carton wall
+      const fryY = tmpV.y;
+      if (fryY < cupG.userData.H + 0.05) {
+        const cartonR = lerp(cupG.userData.rb, cupG.userData.rt, clamp(fryY / cupG.userData.H, 0, 1)) - 0.04;
+        const horizR = Math.hypot(tmpV.x, tmpV.z);
+        if (horizR > cartonR && cartonR > 0) {
+          const scale = cartonR / horizR;
+          tmpV.x *= scale;
+          tmpV.z *= scale;
+        }
+      }
       f.mesh.position.copy(tmpV);
       f.mesh.quaternion.copy(pose.q).multiply(jq).multiply(f.homeQ);
     }
@@ -2018,8 +2180,8 @@ async function initHero3D() {
 /* ═══ preloader ═════════════════════════════════════════════════════════ */
 const pre = $("#preloader");
 const heroReady = initHero3D();
-if (RM) {
-  pre.remove();
+if (RM || alreadyVisited) {
+  pre?.remove();
   setReady();
   revealSubs.splice(0).forEach((f) => f());
 } else {
