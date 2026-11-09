@@ -1,0 +1,1998 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>HOLLAND — Fries &amp; Cheese · картошка фри с сыром</title>
+<meta name="description" content="HOLLAND Fries & Cheese — кафе, где всё с картошкой фри: сырные боксы, loaded-фри, наггетсы и фирменные соусы. Закажи заранее и забери без очереди.">
+<meta name="theme-color" content="#0b0d0a">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230f4a26'/%3E%3Cg fill='%23f7c21b'%3E%3Crect x='29' y='8' width='6' height='22' rx='2'/%3E%3Crect x='29' y='8' width='6' height='22' rx='2' transform='rotate(-22 32 40)'/%3E%3Crect x='29' y='8' width='6' height='22' rx='2' transform='rotate(22 32 40)'/%3E%3C/g%3E%3Cpath d='M18 30h28L32 56z' fill='%23e3261c'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Manrope:wght@400;500;600;700;800&family=Marck+Script&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/",
+    "lenis": "https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.mjs"
+  }
+}
+</script>
+<style>
+:root {
+  --bg: #0b0d0a;
+  --bg-2: #10130e;
+  --card: #141811;
+  --card-2: #1a1f16;
+  --line: rgba(246, 241, 230, .1);
+  --line-2: rgba(246, 241, 230, .18);
+  --fg: #f6f1e6;
+  --muted: rgba(246, 241, 230, .64);
+  --dim: rgba(246, 241, 230, .42);
+  --yellow: #ffc21a;
+  --yellow-2: #ffd75a;
+  --green: #0f4a26;
+  --green-2: #0a361c;
+  --red: #e3261c;
+  --ink: #12100a;
+  --f-display: "Oswald", "Arial Narrow", Arial, sans-serif;
+  --f-sans: "Manrope", system-ui, sans-serif;
+  --f-mono: "JetBrains Mono", ui-monospace, monospace;
+  --f-script: "Marck Script", cursive;
+  --ease: cubic-bezier(.2, 0, 0, 1);
+  --pad: clamp(20px, 4vw, 40px);
+  --maxw: 1280px;
+  --header-h: 76px;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
+html.is-locked { overflow: hidden; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font: 500 16px/1.55 var(--f-sans);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+img, svg, canvas { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+ul { list-style: none; margin: 0; padding: 0; }
+h1, h2, h3, p { margin: 0; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.wrap { width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 0 var(--pad); }
+:focus-visible { outline: 2px solid var(--yellow); outline-offset: 3px; border-radius: 6px; }
+
+/* ── type ─────────────────────────────────────────── */
+.eyebrow {
+  font: 500 12px/1.3 var(--f-mono);
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--dim);
+  display: inline-flex; align-items: center; gap: 10px;
+}
+.eyebrow .sl { letter-spacing: -.05em; }
+.script { font-family: var(--f-script); color: var(--yellow); font-weight: 400; text-transform: none; letter-spacing: 0; }
+.h-display {
+  font: 700 clamp(52px, 7.6vw, 118px)/.92 var(--f-display);
+  text-transform: uppercase;
+  letter-spacing: -.005em;
+}
+.h2 {
+  font: 700 clamp(40px, 5.4vw, 76px)/.95 var(--f-display);
+  text-transform: uppercase;
+  letter-spacing: -.005em;
+}
+.accent { color: var(--yellow); }
+.ln { display: block; overflow: hidden; padding: .08em 0 .04em; margin: -.08em 0 -.04em; }
+.ln > span { display: inline-block; will-change: transform; }
+[data-words] { display: flex; flex-wrap: wrap; column-gap: .26em; }
+[data-words] > span { display: inline-block; will-change: transform; }
+.mono { font-family: var(--f-mono); }
+
+/* digit roll */
+.roll { position: relative; display: inline-block; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.roll-ghost { color: transparent; }
+.roll-wrap { position: absolute; left: 0; right: 0; top: -.35em; bottom: -.35em; display: flex; }
+.roll-col { position: relative; display: block; height: 100%; clip-path: inset(0); }
+.roll-stack { display: flex; flex-direction: column; height: 1000%; }
+.roll-stack > span { display: flex; height: 10%; align-items: center; justify-content: center; }
+.roll-ch { align-self: center; white-space: pre; flex: none; }
+
+/* buttons */
+.btn {
+  position: relative; display: inline-flex; align-items: center; gap: 12px;
+  height: 52px; padding: 0 24px; border-radius: 999px;
+  font: 700 14px/1 var(--f-sans); letter-spacing: .08em; text-transform: uppercase;
+  white-space: nowrap; overflow: hidden; isolation: isolate;
+  transition: background-color .2s var(--ease), color .2s var(--ease), border-color .2s var(--ease);
+}
+.btn-yellow { background: var(--yellow); color: var(--ink); }
+.btn-yellow:hover { background: var(--yellow-2); }
+.btn-ghost { border: 1px solid var(--line-2); }
+.btn-ghost:hover { border-color: var(--yellow); }
+.arw { position: relative; width: 14px; height: 14px; flex: none; overflow: hidden; }
+.arw svg { position: absolute; inset: 0; width: 14px; height: 14px; }
+.play { width: 34px; height: 34px; border-radius: 50%; background: var(--fg); color: var(--ink); display: grid; place-items: center; margin-left: -12px; flex: none; }
+.play svg { width: 11px; height: 11px; margin-left: 2px; }
+.dot { width: 6px; height: 6px; border-radius: 50%; background: var(--yellow); flex: none; box-shadow: 0 0 12px var(--yellow); }
+
+/* ── preloader ───────────────────────────────────── */
+#preloader {
+  position: fixed; inset: 0; z-index: 100; background: var(--bg); color: var(--fg);
+  padding: var(--pad); overflow: hidden; clip-path: inset(0% 0 0 0);
+}
+#preloader .count { margin-top: 12px; font: 700 clamp(88px, 16vw, 220px)/.9 var(--f-display); font-variant-numeric: tabular-nums; letter-spacing: -.01em; }
+#preloader .pre-logo { position: absolute; left: var(--pad); bottom: var(--pad); }
+#preloader .pre-cup { position: absolute; right: var(--pad); bottom: var(--pad); height: min(52vh, 480px); width: auto; overflow: visible; }
+@media (max-width: 639px) { #preloader .pre-cup { height: 34vh; } }
+
+/* ── logo ────────────────────────────────────────── */
+.logo { display: inline-flex; align-items: center; gap: 10px; line-height: 1; }
+.logo svg { width: 40px; height: 40px; flex: none; }
+.logo b { display: block; font: 700 24px/.9 var(--f-display); letter-spacing: .02em; color: var(--fg); }
+.logo i { display: block; font: 800 11px/1 var(--f-sans); font-style: normal; color: var(--yellow); margin-top: 4px; letter-spacing: .02em; }
+
+/* ── header ──────────────────────────────────────── */
+.site-header { position: fixed; inset: 0 0 auto 0; z-index: 50; height: var(--header-h); }
+.site-header::before {
+  content: ""; position: absolute; inset: 0; background: rgba(11, 13, 10, .72);
+  -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--line); opacity: var(--hdr-bg, 0);
+}
+.site-header .wrap { position: relative; height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+.nav { display: flex; gap: 34px; }
+.nav a { font: 600 13px/1 var(--f-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); padding: 8px 0; position: relative; transition: color .2s var(--ease); }
+.nav a:hover, .nav a.is-active { color: var(--fg); }
+.nav a.is-active::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: var(--yellow); }
+.u-roll { position: relative; display: block; overflow: hidden; clip-path: inset(0); }
+.u-roll > span { display: block; }
+.u-roll > span + span { position: absolute; inset: 0; }
+.hdr-right { display: flex; align-items: center; gap: 14px; }
+.cart-btn { position: relative; width: 46px; height: 46px; border-radius: 50%; border: 1px solid var(--line-2); display: grid; place-items: center; transition: border-color .2s var(--ease); }
+.cart-btn:hover { border-color: var(--yellow); }
+.cart-btn svg { width: 19px; height: 19px; }
+.cart-count { position: absolute; top: -4px; right: -4px; min-width: 20px; height: 20px; border-radius: 10px; background: var(--yellow); color: var(--ink); font: 800 11px/20px var(--f-sans); text-align: center; padding: 0 5px; }
+.hdr-order { height: 46px; padding: 0 20px; font-size: 13px; }
+.menu-toggle { display: none; width: 46px; height: 46px; border-radius: 50%; border: 1px solid var(--line-2); place-items: center; }
+.menu-toggle span { display: block; width: 18px; height: 2px; background: var(--fg); position: relative; }
+.menu-toggle span::before, .menu-toggle span::after { content: ""; position: absolute; left: 0; width: 18px; height: 2px; background: var(--fg); }
+.menu-toggle span::before { top: -6px; } .menu-toggle span::after { top: 6px; }
+.mobile-panel { position: fixed; inset: 0; z-index: 49; background: var(--bg); padding: calc(var(--header-h) + 30px) var(--pad) var(--pad); display: flex; flex-direction: column; gap: 6px; visibility: hidden; clip-path: inset(0 0 100% 0); }
+.mobile-panel a.m-link { font: 700 44px/1.15 var(--f-display); text-transform: uppercase; border-bottom: 1px solid var(--line); padding: 8px 0; }
+.mobile-panel .btn { margin-top: 24px; justify-content: center; }
+@media (max-width: 1023px) {
+  .nav, .hdr-order { display: none; }
+  .menu-toggle { display: grid; }
+}
+
+/* ── hero ────────────────────────────────────────── */
+.hero { position: relative; min-height: 100svh; min-height: max(100svh, 720px); overflow: hidden; background: var(--bg); }
+#opal { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; }
+.hero-fallback-bg { position: absolute; inset: 0; z-index: 0; background: radial-gradient(60% 70% at 72% 52%, rgba(255, 194, 26, .16), transparent 60%), radial-gradient(80% 80% at 80% 40%, #12361d, transparent 70%), var(--bg); }
+.hero-scrim { position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(90deg, rgba(11, 13, 10, .82) 0%, rgba(11, 13, 10, .45) 38%, rgba(11, 13, 10, 0) 62%), linear-gradient(0deg, rgba(11, 13, 10, .9) 0%, rgba(11, 13, 10, 0) 22%); }
+.hero-media { margin: 0; position: absolute; z-index: 5; top: 0; right: 0; bottom: 0; width: 58%; }
+.hero-media canvas { width: 100% !important; height: 100% !important; touch-action: pan-y; }
+.hero-media .photo-fallback { position: absolute; left: 50%; bottom: 12%; width: min(78%, 620px); transform: translateX(-50%); filter: drop-shadow(0 40px 60px rgba(0,0,0,.6)); }
+.hero-inner { position: relative; z-index: 10; min-height: inherit; display: flex; flex-direction: column; justify-content: center; padding-top: calc(var(--header-h) + 40px); padding-bottom: 120px; pointer-events: none; }
+.hero-inner > * { pointer-events: auto; }
+.hero-copy { max-width: 680px; }
+.hero-copy .eyebrow { margin-bottom: 26px; }
+.hero-title { position: relative; }
+.hero-title .script-over { position: absolute; font-size: .62em; left: 3.15em; top: 1.62em; line-height: 1; white-space: nowrap; transform: rotate(-8deg); pointer-events: none; text-shadow: 0 6px 30px rgba(0,0,0,.5); }
+.hero-lede { margin-top: 26px; max-width: 470px; font-size: clamp(17px, 1.4vw, 20px); line-height: 1.5; color: var(--muted); font-weight: 500; }
+.hero-ctas { margin-top: 34px; display: flex; flex-wrap: wrap; gap: 14px 22px; align-items: center; }
+.hero-ctas .btn-text { display: inline-flex; align-items: center; gap: 14px; font: 700 14px/1 var(--f-sans); letter-spacing: .08em; text-transform: uppercase; height: 52px; padding: 0 0 0 12px; }
+.hero-feats { margin-top: 46px; display: flex; flex-wrap: wrap; gap: 18px 34px; }
+.hero-feats li { display: flex; align-items: center; gap: 12px; font: 600 12px/1.3 var(--f-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.hero-feats svg { width: 30px; height: 30px; color: var(--yellow); flex: none; }
+.hero-bar { position: absolute; z-index: 10; left: 0; right: 0; bottom: 0; }
+.hero-bar .wrap { display: flex; justify-content: space-between; align-items: flex-end; gap: 20px; padding-bottom: 28px; font: 500 12px/1.5 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.hero-bar .k { color: var(--dim); display: block; }
+.scroll-cue { display: flex; align-items: center; gap: 10px; }
+.scroll-cue i { display: block; width: 1px; height: 38px; background: var(--line-2); position: relative; overflow: hidden; }
+.scroll-cue i::after { content: ""; position: absolute; left: 0; top: 0; width: 1px; height: 14px; background: var(--yellow); transform: translateY(var(--cue, -14px)); }
+
+.badge-rot { position: absolute; z-index: 6; width: 128px; height: 128px; left: 14%; bottom: 24%; pointer-events: none; }
+.badge-rot svg { width: 100%; height: 100%; }
+.hero-hint { position: absolute; z-index: 7; left: 50%; translate: -50% 0; bottom: 108px; display: flex; align-items: center; gap: 10px; font: 600 12px/1.3 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--fg); background: rgba(11, 13, 10, .55); border: 1px solid var(--line-2); padding: 10px 14px 10px 10px; border-radius: 999px; -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); pointer-events: none; }
+.hero-hint .tap { width: 26px; height: 26px; border-radius: 50%; background: var(--yellow); color: var(--ink); display: grid; place-items: center; }
+.hero-hint .tap svg { width: 14px; height: 14px; }
+.info-card { position: absolute; z-index: 8; right: var(--pad); top: calc(var(--header-h) + 40px); width: max-content; pointer-events: none; opacity: 0; border: 1px solid var(--line-2); background: rgba(11, 13, 10, .7); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); padding: 16px 20px; border-radius: 16px; }
+.info-card .row { margin-top: 10px; display: flex; align-items: baseline; justify-content: space-between; gap: 40px; }
+.info-card .nm { font: 700 28px/1 var(--f-display); text-transform: uppercase; }
+.info-card .pr { font: 600 16px/1 var(--f-mono); color: var(--yellow); }
+.info-card ul { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--line); display: flex; gap: 10px; font: 500 11px/1 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.info-card li + li::before { content: "·"; margin-right: 10px; color: var(--dim); }
+.burst { position: fixed; z-index: 60; left: 0; top: 0; pointer-events: none; font: 700 34px/1 var(--f-display); color: var(--yellow); text-transform: uppercase; letter-spacing: .02em; text-shadow: 0 4px 0 var(--red), 0 10px 30px rgba(0,0,0,.6); white-space: nowrap; }
+.trick-label { position: absolute; z-index: 7; left: 50%; top: calc(var(--header-h) + 18px); transform: translateX(-50%); font: 600 12px/1 var(--f-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--dim); pointer-events: none; white-space: nowrap; }
+.trick-label b { color: var(--yellow); font-weight: 600; }
+
+@media (max-width: 1023px) {
+  .hero-inner { justify-content: flex-start; padding-top: calc(var(--header-h) + 28px); padding-bottom: 0; min-height: 0; }
+  .hero { min-height: 0; display: flex; flex-direction: column; }
+  .hero-media { position: relative; width: auto; height: 62vh; min-height: 440px; margin: -40px calc(var(--pad) * -1) 0; order: 2; }
+  .hero > .hero-inner { order: 1; }
+  .hero-media-wrap { position: relative; z-index: 5; order: 2; }
+  .hero-bar { position: relative; order: 3; }
+  .hero-scrim { background: linear-gradient(180deg, rgba(11,13,10,.75) 0%, rgba(11,13,10,0) 45%), linear-gradient(0deg, rgba(11,13,10,.9) 0%, rgba(11,13,10,0) 22%); }
+  .hero-feats { margin-top: 30px; }
+  .badge-rot { width: 96px; height: 96px; left: auto; right: 6%; top: 8%; bottom: auto; }
+  .hero-hint { bottom: 14px; }
+  .info-card { display: none; }
+  .trick-label { top: 6px; }
+}
+@media (max-width: 639px) {
+  .hero-media { height: 54vh; min-height: 360px; margin-top: -28px; }
+  .hero-copy .eyebrow { margin-bottom: 16px; font-size: 11px; letter-spacing: .1em; }
+  .hero-lede { margin-top: 16px; font-size: 16px; }
+  .hero-ctas { margin-top: 22px; gap: 10px 16px; }
+  .hero-ctas .btn { height: 48px; padding: 0 20px; }
+  .hero-ctas .btn-text { height: 48px; }
+  .hide-sm { display: none; }
+  .hero-feats { display: none; }
+  .trick-label { top: 34px; }
+  .hero-bar .wrap { flex-wrap: wrap; }
+  .hero-bar .scroll-cue { display: none; }
+}
+
+/* ── categories ──────────────────────────────────── */
+.cats { position: relative; z-index: 12; margin-top: -10px; }
+.cats-box { display: grid; grid-template-columns: repeat(6, 1fr); border: 1px solid var(--line-2); border-radius: 22px; background: linear-gradient(180deg, rgba(26, 31, 22, .9), rgba(16, 19, 14, .9)); overflow: hidden; }
+.cat { position: relative; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 8px; padding: 26px 14px 24px; transition: background-color .25s var(--ease); }
+.cat + .cat::before { content: ""; position: absolute; left: 0; top: 22%; bottom: 22%; width: 1px; background: var(--line-2); }
+.cat:hover { background: rgba(255, 194, 26, .06); }
+.cat .ic { width: 64px; height: 64px; color: var(--yellow); }
+.cat .ic svg { width: 100%; height: 100%; overflow: visible; }
+.cat b { font: 700 18px/1 var(--f-display); text-transform: uppercase; letter-spacing: .03em; margin-top: 6px; }
+.cat span { font-size: 13px; line-height: 1.35; color: var(--dim); max-width: 150px; }
+@media (max-width: 1023px) { .cats-box { grid-template-columns: repeat(3, 1fr); } .cat:nth-child(4)::before { display: none; } .cat:nth-child(n+4) { border-top: 1px solid var(--line); } }
+@media (max-width: 639px) { .cats-box { grid-template-columns: repeat(2, 1fr); } .cat::before { display: none; } .cat:nth-child(even) { border-left: 1px solid var(--line); } .cat:nth-child(n+3) { border-top: 1px solid var(--line); } .cat { padding: 20px 10px; } .cat .ic { width: 52px; height: 52px; } }
+
+/* ── section head ────────────────────────────────── */
+.sec { position: relative; padding: clamp(90px, 11vw, 150px) 0 0; }
+.sec-head { text-align: center; display: flex; flex-direction: column; align-items: center; }
+.sec-head .script { font-size: clamp(30px, 3vw, 40px); line-height: 1; display: flex; align-items: center; gap: 14px; margin-bottom: 8px; }
+.sec-head .script::before, .sec-head .script::after { content: ""; width: 44px; height: 1px; background: currentColor; opacity: .6; }
+.sec-head .h2 { text-align: center; }
+.sec-head .h2 .ln { display: inline-block; }
+.sec-sub { margin-top: 18px; color: var(--muted); max-width: 520px; text-align: center; justify-content: center; }
+
+/* ── hits cards ──────────────────────────────────── */
+.swirl { position: absolute; left: 0; right: 0; top: 140px; height: 640px; z-index: 0; pointer-events: none; opacity: .9; }
+.swirl svg { width: 100%; height: 100%; }
+.hits-grid { position: relative; z-index: 1; margin-top: 56px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+.card { perspective: 900px; }
+.card-in { position: relative; height: 100%; border: 1px solid var(--line-2); border-radius: 22px; background: linear-gradient(180deg, var(--card-2), var(--card)); transform-style: preserve-3d; display: flex; flex-direction: column; overflow: hidden; }
+.card-pic { position: relative; aspect-ratio: 1 / .92; overflow: hidden; background: radial-gradient(60% 55% at 50% 60%, rgba(255, 194, 26, .2), transparent 70%), radial-gradient(90% 80% at 50% 100%, #173d22, transparent 70%); }
+.card-pic img { position: absolute; inset: 6% 6% 2%; width: 88%; height: 92%; object-fit: contain; filter: drop-shadow(0 22px 26px rgba(0,0,0,.55)); will-change: transform; transition: opacity .5s var(--ease); }
+.card-pic img.is-loading { opacity: 0; }
+.card-pic .tag { position: absolute; left: 14px; top: 14px; font: 700 10px/1 var(--f-mono); letter-spacing: .12em; text-transform: uppercase; background: var(--red); color: #fff; padding: 6px 9px; border-radius: 999px; }
+.card-pic .idx { position: absolute; right: 16px; top: 14px; font: 500 12px/1 var(--f-mono); color: var(--dim); }
+.card-body { padding: 18px 20px 20px; display: flex; flex-direction: column; flex: 1; }
+.card-body h3 { font: 700 21px/1.05 var(--f-display); text-transform: uppercase; letter-spacing: .02em; }
+.card-body p { margin-top: 8px; font-size: 14px; line-height: 1.45; color: var(--dim); flex: 1; }
+.card-foot { margin-top: 16px; display: flex; align-items: center; justify-content: space-between; }
+.price { font: 700 24px/1 var(--f-display); color: var(--yellow); letter-spacing: .01em; }
+.price small { font: 600 12px/1 var(--f-mono); color: var(--dim); margin-left: 6px; letter-spacing: .06em; }
+.add { width: 40px; height: 40px; border-radius: 50%; background: var(--yellow); color: var(--ink); display: grid; place-items: center; transition: background-color .2s var(--ease); flex: none; }
+.add:hover { background: var(--yellow-2); }
+.add svg { width: 16px; height: 16px; }
+.center-cta { display: flex; justify-content: center; margin-top: 44px; position: relative; z-index: 1; }
+@media (max-width: 1023px) { .hits-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 559px) { .hits-grid { grid-template-columns: 1fr; } }
+
+/* ── full menu ───────────────────────────────────── */
+.menu-tabs { margin: 40px auto 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+.menu-tabs button { height: 42px; padding: 0 18px; border-radius: 999px; border: 1px solid var(--line-2); font: 600 12px/1 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); transition: all .2s var(--ease); }
+.menu-tabs button:hover { color: var(--fg); border-color: var(--fg); }
+.menu-tabs button[aria-selected="true"] { background: var(--yellow); border-color: var(--yellow); color: var(--ink); }
+.menu-list { margin-top: 36px; display: grid; grid-template-columns: 1fr 1fr; gap: 0 56px; min-height: 280px; }
+.mi { display: grid; grid-template-columns: 1fr auto; gap: 4px 16px; padding: 20px 0; border-bottom: 1px solid var(--line); align-items: baseline; }
+.mi h4 { margin: 0; font: 600 20px/1.15 var(--f-display); text-transform: uppercase; letter-spacing: .02em; display: flex; align-items: center; gap: 10px; }
+.mi h4 em { font: 700 10px/1 var(--f-mono); font-style: normal; letter-spacing: .1em; background: var(--yellow); color: var(--ink); padding: 4px 7px; border-radius: 999px; }
+.mi p { grid-column: 1; font-size: 14px; color: var(--dim); }
+.mi .mp { grid-row: 1 / span 2; grid-column: 2; align-self: center; display: flex; align-items: center; gap: 14px; font: 600 17px/1 var(--f-mono); color: var(--yellow); white-space: nowrap; }
+.mi .add { width: 34px; height: 34px; }
+@media (max-width: 767px) { .menu-list { grid-template-columns: 1fr; } }
+
+/* ── offer banner ────────────────────────────────── */
+.offer { position: relative; margin-top: clamp(90px, 10vw, 140px); }
+.offer-box { position: relative; overflow: hidden; border-radius: 28px; background: var(--yellow); color: var(--ink); min-height: 300px; display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 36px; padding: 40px 56px; }
+.offer-box::before { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(-55deg, rgba(0,0,0,.035) 0 18px, transparent 18px 36px); pointer-events: none; }
+.offer-watch { position: relative; width: 96px; height: 96px; }
+.offer-watch svg { width: 100%; height: 100%; }
+.offer-copy { position: relative; }
+.offer-copy .k { font: 700 22px/1 var(--f-display); text-transform: uppercase; letter-spacing: .03em; }
+.offer-copy .big { margin-top: 6px; font: 700 clamp(46px, 6vw, 86px)/.92 var(--f-display); text-transform: uppercase; }
+.offer-copy .sub { margin-top: 10px; font: 700 18px/1.2 var(--f-display); text-transform: uppercase; letter-spacing: .04em; }
+.offer-actions { margin-top: 20px; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.code-chip { display: inline-flex; align-items: center; gap: 10px; height: 46px; padding: 0 18px; border-radius: 999px; background: var(--ink); color: var(--fg); font: 600 14px/1 var(--f-mono); letter-spacing: .08em; }
+.code-chip b { color: var(--yellow); font-weight: 600; }
+.code-chip svg { width: 15px; height: 15px; opacity: .7; }
+.offer-pics { position: relative; width: clamp(300px, 34vw, 470px); height: 330px; align-self: end; margin-bottom: -40px; }
+.offer-pics img { position: absolute; bottom: -10px; filter: drop-shadow(0 20px 26px rgba(0,0,0,.35)); transform-origin: bottom center; }
+.offer-pics img:nth-of-type(1) { left: -2%; width: 50%; }
+.offer-pics img:nth-of-type(2) { right: 4%; width: 56%; }
+.bogo { position: absolute; right: 0; top: 10px; width: 92px; height: 92px; border-radius: 50%; background: var(--ink); color: var(--yellow); display: grid; place-items: center; text-align: center; font: 700 26px/.9 var(--f-display); z-index: 2; }
+.bogo small { display: block; font: 600 9px/1 var(--f-mono); letter-spacing: .14em; color: var(--fg); margin-top: 4px; }
+@media (max-width: 1023px) { .offer-box { grid-template-columns: 1fr; padding: 36px 28px 0; gap: 18px; } .offer-watch { width: 64px; height: 64px; } .offer-pics { justify-self: center; margin-bottom: 0; height: 260px; } }
+
+/* ── about ───────────────────────────────────────── */
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+.about-pic { position: relative; aspect-ratio: 1; }
+.about-pic .disc { position: absolute; inset: 9%; border-radius: 50%; background: radial-gradient(circle at 40% 35%, #1b6a39, var(--green) 55%, var(--green-2)); box-shadow: inset 0 0 0 1px rgba(255,255,255,.06); }
+.about-pic .ring { position: absolute; inset: 0; }
+.about-pic img { position: absolute; left: 14%; right: 14%; bottom: 6%; width: 72%; filter: drop-shadow(0 40px 40px rgba(0,0,0,.55)); }
+.about-copy .script { font-size: 38px; }
+.about-copy .h2 { margin-top: 6px; }
+.about-copy .lede { margin-top: 22px; color: var(--muted); max-width: 520px; }
+.stats { margin-top: 40px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 0; border-top: 1px solid var(--line); }
+.stat { padding: 22px 0; border-bottom: 1px solid var(--line); }
+.stat:nth-child(odd) { padding-right: 20px; border-right: 1px solid var(--line); }
+.stat:nth-child(even) { padding-left: 24px; }
+.stat .n { font: 700 54px/1 var(--f-display); color: var(--yellow); }
+.stat .l { margin-top: 8px; font: 500 12px/1.4 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+@media (max-width: 1023px) { .about-grid { grid-template-columns: 1fr; gap: 30px; } .about-pic { max-width: 520px; margin: 0 auto; width: 100%; } }
+
+/* ── order / printer ─────────────────────────────── */
+.order-box { position: relative; border-radius: 28px; overflow: hidden; border: 1px solid var(--line-2); background: radial-gradient(70% 90% at 80% 10%, rgba(255,194,26,.12), transparent 60%), linear-gradient(160deg, #15301d, #0c1a10 60%, #0b0d0a); display: grid; grid-template-columns: 1.05fr 1fr; gap: 40px; padding: 64px 64px 0; min-height: 640px; }
+.order-copy { padding-bottom: 64px; align-self: center; }
+.order-copy .lede { margin-top: 20px; color: var(--muted); max-width: 460px; }
+.order-copy .btns { margin-top: 30px; display: flex; flex-wrap: wrap; gap: 12px; }
+.order-copy .meta { margin-top: 34px; display: grid; grid-template-columns: auto auto; gap: 6px 30px; justify-content: start; font: 500 12px/1.5 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.order-copy .meta .k { color: var(--dim); }
+.printer { position: relative; align-self: start; justify-self: center; width: min(360px, 100%); }
+.printer-bar { position: relative; z-index: 2; height: 74px; border-radius: 18px; background: linear-gradient(180deg, #2a2f26, #171a14); box-shadow: 0 20px 40px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.08); display: flex; align-items: center; justify-content: space-between; padding: 0 20px; }
+.printer-bar .led { width: 8px; height: 8px; border-radius: 50%; background: var(--yellow); box-shadow: 0 0 10px var(--yellow); }
+.printer-bar .brand { font: 700 15px/1 var(--f-display); letter-spacing: .1em; color: rgba(246,241,230,.5); }
+.printer-slot { position: absolute; left: 22px; right: 22px; bottom: 12px; height: 6px; border-radius: 3px; background: #050604; }
+.receipt-clip { position: relative; z-index: 1; margin: -16px 30px 0; overflow: hidden; padding-bottom: 30px; }
+.receipt { position: relative; background: #f7f3ea; color: #1b1a16; font: 400 12.5px/1.55 var(--f-mono); padding: 30px 22px 26px; transform: translateY(-100%); box-shadow: 0 20px 30px rgba(0,0,0,.35); }
+.receipt::after { content: ""; position: absolute; left: 0; right: 0; bottom: -10px; height: 10px; background: linear-gradient(-45deg, transparent 6px, #f7f3ea 6px) 0 0 / 12px 10px repeat-x, linear-gradient(45deg, transparent 6px, #f7f3ea 6px) 0 0 / 12px 10px repeat-x; }
+.receipt .c { text-align: center; }
+.receipt .t { font-weight: 600; letter-spacing: .1em; }
+.receipt hr { border: 0; border-top: 1px dashed #9a958a; margin: 12px 0; }
+.receipt .r { display: flex; justify-content: space-between; gap: 10px; }
+.receipt .tot { font-weight: 600; font-size: 15px; }
+.receipt .logo-r { display: flex; justify-content: center; margin-bottom: 8px; }
+.receipt .logo-r svg { width: 44px; height: 44px; }
+.barcode { display: flex; justify-content: center; margin-top: 14px; height: 54px; transform-origin: top center; }
+.barcode svg { height: 100%; width: 100%; }
+@media (max-width: 1023px) { .order-box { grid-template-columns: 1fr; padding: 44px 28px 0; } .order-copy { padding-bottom: 10px; } }
+
+/* ── footer ──────────────────────────────────────── */
+.site-footer { margin-top: clamp(90px, 10vw, 140px); border-top: 1px solid var(--line); background: #080a07; }
+.foot-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1.3fr 1.2fr; gap: 40px; padding: 64px 0 50px; }
+.foot-grid h5 { margin: 0 0 18px; font: 600 12px/1 var(--f-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--fg); }
+.foot-grid li { margin-bottom: 10px; }
+.foot-grid li a, .foot-grid li span { font-size: 14px; color: var(--muted); transition: color .2s var(--ease); }
+.foot-grid li a:hover { color: var(--yellow); }
+.foot-about p { margin-top: 18px; font-size: 14px; color: var(--dim); max-width: 280px; }
+.socials { margin-top: 20px; display: flex; gap: 10px; }
+.socials a { width: 38px; height: 38px; border-radius: 50%; background: var(--yellow); color: var(--ink); display: grid; place-items: center; transition: transform .2s var(--ease); }
+.socials a:hover { transform: translateY(-3px); }
+.socials svg { width: 17px; height: 17px; }
+.contact-li { display: flex; gap: 10px; align-items: flex-start; }
+.contact-li svg { width: 16px; height: 16px; color: var(--yellow); flex: none; margin-top: 3px; }
+.store { display: flex; align-items: center; gap: 10px; height: 46px; padding: 0 14px; border: 1px solid var(--line-2); border-radius: 12px; margin-bottom: 10px; width: max-content; transition: border-color .2s var(--ease); }
+.store:hover { border-color: var(--yellow); }
+.store svg { width: 20px; height: 20px; }
+.store span { display: block; font-size: 10px; line-height: 1.1; color: var(--dim); }
+.store b { display: block; font: 700 14px/1.1 var(--f-sans); }
+.foot-bottom { border-top: 1px solid var(--line); padding: 22px 0 28px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; font: 500 12px/1.4 var(--f-mono); letter-spacing: .08em; color: var(--dim); text-transform: uppercase; }
+.foot-bottom .dot { width: 5px; height: 5px; display: inline-block; vertical-align: middle; margin-right: 8px; }
+@media (max-width: 1023px) { .foot-grid { grid-template-columns: 1fr 1fr; } .foot-about { grid-column: 1 / -1; } }
+@media (max-width: 479px) { .foot-grid { grid-template-columns: 1fr; } }
+
+/* toast */
+.toast { position: fixed; z-index: 70; left: 50%; bottom: 24px; transform: translate(-50%, calc(100% + 40px)); background: var(--fg); color: var(--ink); font: 700 14px/1 var(--f-sans); padding: 14px 20px; border-radius: 999px; box-shadow: 0 10px 30px rgba(0,0,0,.4); display: flex; align-items: center; gap: 10px; white-space: nowrap; pointer-events: none; }
+.toast i { width: 8px; height: 8px; border-radius: 50%; background: var(--green); }
+
+/* reveal start states (JS sets them; without JS everything shows) */
+.js [data-reveal] { opacity: 0; }
+@media (prefers-reduced-motion: reduce) { .js [data-reveal] { opacity: 1; } }
+</style>
+</head>
+<body>
+<script>document.documentElement.classList.add('js');</script>
+
+<!-- ═══ SVG sprite ═══ -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-logo" viewBox="0 0 120 120">
+      <g fill="#f7c21b">
+        <rect x="53" y="8" width="14" height="50" rx="4" transform="rotate(-40 60 100)"/>
+        <rect x="53" y="2" width="14" height="50" rx="4" transform="rotate(-20 60 100)"/>
+        <rect x="53" y="0" width="14" height="52" rx="4"/>
+        <rect x="53" y="2" width="14" height="50" rx="4" transform="rotate(20 60 100)"/>
+        <rect x="53" y="8" width="14" height="50" rx="4" transform="rotate(40 60 100)"/>
+      </g>
+      <path d="M22 54h76L60 116z" fill="#e3261c"/>
+    </symbol>
+    <symbol id="i-arrow" viewBox="0 0 14 14"><path d="M1 7h11M7.5 2.5 12 7l-4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 16 16"><path d="M8 2v12M2 8h12" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
+  </defs>
+</svg>
+
+<!-- ═══ PRELOADER ═══ -->
+<div id="preloader" aria-hidden="true">
+  <p class="eyebrow"><span class="sl">//</span> жарим картошку</p>
+  <p class="count" id="pre-count">000</p>
+  <span class="logo pre-logo"><svg><use href="#i-logo"/></svg><span><b>HOLLAND</b><i>Fries &amp; Cheese</i></span></span>
+  <svg class="pre-cup" viewBox="0 0 120 170" fill="none">
+    <defs>
+      <clipPath id="pre-fries-clip"><rect x="0" y="-80" width="120" height="160"/></clipPath>
+    </defs>
+    <g clip-path="url(#pre-fries-clip)">
+      <g id="pre-fries" fill="#f5b53f" stroke="#c9792a" stroke-width="1.2">
+        <rect x="24" y="22" width="10" height="70" rx="2" transform="rotate(-14 29 90)"/>
+        <rect x="36" y="10" width="10" height="80" rx="2" transform="rotate(-6 41 90)"/>
+        <rect x="48" y="2" width="10" height="88" rx="2" transform="rotate(-2 53 90)"/>
+        <rect x="60" y="6" width="10" height="84" rx="2" transform="rotate(4 65 90)"/>
+        <rect x="72" y="12" width="10" height="78" rx="2" transform="rotate(9 77 90)"/>
+        <rect x="84" y="24" width="10" height="66" rx="2" transform="rotate(15 89 90)"/>
+        <rect x="42" y="18" width="10" height="72" rx="2" transform="rotate(10 47 90)"/>
+        <rect x="66" y="20" width="10" height="70" rx="2" transform="rotate(-9 71 90)"/>
+      </g>
+    </g>
+    <g id="pre-sauce" style="transform-origin:60px 40px;transform:scale(0)">
+      <path d="M34 42c4-12 18-16 28-13 10-4 24 0 26 12 2 9-9 12-27 12S31 51 34 42z" fill="#f29a1d"/>
+      <path d="M40 40c6-6 12 2 18-3s12 3 18-2 9 2 10 3" stroke="#fbf0d6" stroke-width="5" stroke-linecap="round"/>
+    </g>
+    <path d="M16 62h88l-10 100a6 6 0 0 1-6 5H32a6 6 0 0 1-6-5z" fill="#0f4a26" stroke="currentColor" stroke-width="2"/>
+    <g transform="translate(60 92) scale(.32) translate(-60 -60)"><use href="#i-logo"/></g>
+    <text x="60" y="140" text-anchor="middle" font-family="Oswald, Arial Narrow, sans-serif" font-weight="700" font-size="17" fill="#fff">HOLLAND</text>
+    <text x="60" y="153" text-anchor="middle" font-family="Manrope, Arial, sans-serif" font-weight="800" font-size="7.5" fill="#f7c21b">Fries &amp; Cheese</text>
+    <path d="M12 62h96" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+  </svg>
+</div>
+
+<!-- ═══ HEADER ═══ -->
+<header class="site-header" id="header">
+  <div class="wrap">
+    <a href="#top" class="logo" aria-label="HOLLAND Fries & Cheese — на главную" data-reveal><svg><use href="#i-logo"/></svg><span><b>HOLLAND</b><i>Fries &amp; Cheese</i></span></a>
+    <nav class="nav" aria-label="Основное меню" data-reveal>
+      <a href="#top" class="is-active" data-roll-link>Главная</a>
+      <a href="#menu" data-roll-link>Меню</a>
+      <a href="#offers" data-roll-link>Акции</a>
+      <a href="#about" data-roll-link>О нас</a>
+      <a href="#contacts" data-roll-link>Контакты</a>
+    </nav>
+    <div class="hdr-right" data-reveal>
+      <button class="cart-btn" aria-label="Корзина" id="cart-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg>
+        <span class="cart-count" id="cart-count">0</span>
+      </button>
+      <a href="#order" class="btn btn-yellow hdr-order" data-arrow><span class="dot" style="background:var(--ink);box-shadow:none" data-pulse></span>Заказать онлайн</a>
+      <button class="menu-toggle" id="menu-toggle" aria-label="Открыть меню" aria-expanded="false"><span></span></button>
+    </div>
+  </div>
+</header>
+<nav class="mobile-panel" id="mobile-panel" aria-label="Мобильное меню">
+  <a class="m-link" href="#top">Главная</a>
+  <a class="m-link" href="#menu">Меню</a>
+  <a class="m-link" href="#offers">Акции</a>
+  <a class="m-link" href="#about">О нас</a>
+  <a class="m-link" href="#contacts">Контакты</a>
+  <a class="btn btn-yellow" href="#order">Заказать онлайн</a>
+</nav>
+
+<main id="top">
+<!-- ═══ HERO ═══ -->
+<section class="hero" id="hero" aria-label="Главный экран">
+  <canvas id="opal" aria-hidden="true"></canvas>
+  <div class="hero-scrim" aria-hidden="true"></div>
+
+  <div class="hero-inner wrap">
+    <div class="hero-copy">
+      <p class="eyebrow" data-reveal><span class="dot" data-pulse></span>Открыто сейчас · всё с картошкой фри</p>
+      <h1 class="h-display hero-title" data-lines>
+        <span class="ln"><span>Хрустящая</span></span>
+        <span class="ln accent"><span>фри</span></span>
+        <span class="script script-over" data-reveal>с сыром!</span>
+      </h1>
+      <p class="hero-lede" data-words>Всё наше меню — вокруг картошки фри: сырные боксы, loaded-фри, наггетсы и фирменные соусы. Жарим при тебе.</p>
+      <div class="hero-ctas" data-reveal>
+        <a href="#order" class="btn btn-yellow" data-arrow>Заказать <span class="arw"><svg><use href="#i-arrow"/></svg><svg><use href="#i-arrow"/></svg></span></a>
+        <a href="#menu" class="btn-text"><span class="play"><svg viewBox="0 0 10 12"><path d="M0 0l10 6-10 6z" fill="currentColor"/></svg></span><span><span class="hide-sm">Смотреть </span>меню</span></a>
+      </div>
+      <ul class="hero-feats" data-reveal>
+        <li><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h3m-1-5h5m-6-5h8"/><circle cx="12" cy="23" r="3"/><circle cx="25" cy="23" r="3"/><path d="M15 23h7m6 0h1v-6l-4-5h-5v11M15 12h5"/></svg>Быстрая<br>доставка</li>
+        <li><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="16" cy="17" rx="10" ry="12" transform="rotate(-25 16 17)"/><circle cx="12" cy="13" r=".8" fill="currentColor"/><circle cx="19" cy="18" r=".8" fill="currentColor"/><circle cx="14" cy="22" r=".8" fill="currentColor"/></svg>Свежий<br>картофель</li>
+        <li><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4h8v4l2 3v16a2 2 0 0 1-2 2h-8a2 2 0 0 1-2-2V11l2-3z"/><path d="M10 16h12M10 22h12"/></svg>Соусы своего<br>рецепта</li>
+      </ul>
+    </div>
+  </div>
+
+  <figure class="hero-media" id="hero-media" data-reveal>
+    <div class="badge-rot" aria-hidden="true">
+      <svg viewBox="0 0 120 120" id="badge-svg">
+        <defs><path id="badge-circle" d="M60 60m-46 0a46 46 0 1 1 92 0a46 46 0 1 1-92 0"/></defs>
+        <circle cx="60" cy="60" r="58" fill="#0b0d0a" stroke="#ffc21a" stroke-width="1.5"/>
+        <circle cx="60" cy="60" r="33" fill="none" stroke="rgba(255,194,26,.35)"/>
+        <g id="badge-text"><text font-family="JetBrains Mono, monospace" font-size="9.4" font-weight="600" letter-spacing="2.2" fill="#ffc21a"><textPath href="#badge-circle">100% СВЕЖИЙ КАРТОФЕЛЬ · ЖАРИМ ПРИ ТЕБЕ · </textPath></text></g>
+        <g transform="translate(60 60) scale(.36) translate(-60 -64)"><use href="#i-logo"/></g>
+      </svg>
+    </div>
+    <div class="trick-label" id="trick-label" aria-live="polite"></div>
+    <div class="hero-hint" id="hero-hint"><span class="tap"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V3.5a1.25 1.25 0 0 1 2.5 0V8m0-1a1.25 1.25 0 0 1 2.5 0v1.5m0-.5a1.25 1.25 0 0 1 2.5 0V11a4 4 0 0 1-4 4H8.4a3 3 0 0 1-2.3-1.1L3.3 10.4a1.2 1.2 0 0 1 1.8-1.6L6 9.8"/></svg></span>Нажми на картошку · потяни, чтобы покрутить</div>
+  </figure>
+
+  <div class="info-card" id="info-card" aria-hidden="true">
+    <p class="eyebrow"><span class="sl">//</span> в стаканчике</p>
+    <div class="row"><p class="nm">Fries &amp; Cheese</p><p class="pr" id="info-price">25 000</p></div>
+    <ul><li>Фри</li><li>Чеддер</li><li>Голландский соус</li></ul>
+  </div>
+
+  <div class="hero-bar">
+    <div class="wrap" data-reveal>
+      <div><span class="k">// адрес</span><span id="bar-address">Ташкент · «уточнить адрес»</span></div>
+      <div><span class="k">// ежедневно</span><span data-roll id="bar-hours">10:00 - 23:00</span></div>
+      <div class="scroll-cue"><i id="cue"></i>Листай вниз</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CATEGORIES ═══ -->
+<section class="cats" aria-label="Категории меню">
+  <div class="wrap">
+    <div class="cats-box" data-reveal id="cats">
+      <!-- filled by script -->
+    </div>
+  </div>
+</section>
+
+<!-- ═══ HITS ═══ -->
+<section class="sec" id="hits" aria-labelledby="hits-title">
+  <div class="swirl" aria-hidden="true">
+    <svg viewBox="0 0 1440 640" preserveAspectRatio="none" fill="none">
+      <path id="swirl-path" d="M-60 520 C 200 160 470 90 700 300 C 920 500 1120 600 1330 380 C 1420 290 1470 230 1520 210" stroke="#ffc21a" stroke-opacity=".065" stroke-width="120" stroke-linecap="round"/>
+    </svg>
+  </div>
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="script" data-reveal>Фирменные</p>
+      <h2 class="h2" id="hits-title" data-lines><span class="ln"><span>Хиты <span class="accent">HOLLAND</span></span></span></h2>
+      <p class="sec-sub" data-words>То, за чем возвращаются: золотистая фри двойной обжарки и соусы, которые мы варим сами.</p>
+    </div>
+    <div class="hits-grid" id="hits-grid"><!-- filled by script --></div>
+    <div class="center-cta" data-reveal><a href="#menu" class="btn btn-yellow" data-arrow>Всё меню <span class="arw"><svg><use href="#i-arrow"/></svg><svg><use href="#i-arrow"/></svg></span></a></div>
+  </div>
+</section>
+
+<!-- ═══ FULL MENU ═══ -->
+<section class="sec" id="menu" aria-labelledby="menu-title">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="script" data-reveal>Выбирай</p>
+      <h2 class="h2" id="menu-title" data-lines><span class="ln"><span>Меню</span></span></h2>
+    </div>
+    <div class="menu-tabs" role="tablist" aria-label="Категории" id="menu-tabs"></div>
+    <div class="menu-list" id="menu-list" role="tabpanel"></div>
+  </div>
+</section>
+
+<!-- ═══ OFFER ═══ -->
+<section class="offer" id="offers" aria-label="Акция выходного дня">
+  <div class="wrap">
+    <div class="offer-box" data-reveal>
+      <div class="offer-watch" aria-hidden="true">
+        <svg viewBox="0 0 96 96" fill="none" stroke="#12100a" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><circle cx="48" cy="54" r="34"/><path d="M40 10h16M48 10v10M76 24l6-6"/><path id="watch-hand" d="M48 54V32" style="transform-origin:48px 54px"/><circle cx="48" cy="54" r="3" fill="#12100a"/></svg>
+      </div>
+      <div class="offer-copy">
+        <p class="k">Акция выходного дня!</p>
+        <p class="big">1 + 1 бесплатно</p>
+        <p class="sub">на Fries &amp; Cheese · суббота и воскресенье</p>
+        <div class="offer-actions">
+          <button class="code-chip" id="code-chip" aria-label="Скопировать промокод HOLLAND11">Промокод: <b>HOLLAND11</b><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="5" y="5" width="9" height="9" rx="2"/><path d="M11 5V3.5A1.5 1.5 0 0 0 9.5 2h-6A1.5 1.5 0 0 0 2 3.5v6A1.5 1.5 0 0 0 3.5 11H5"/></svg></button>
+          <a href="#order" class="btn" style="background:var(--ink);color:var(--fg)" data-arrow>Забрать <span class="arw"><svg><use href="#i-arrow"/></svg><svg><use href="#i-arrow"/></svg></span></a>
+        </div>
+      </div>
+      <div class="offer-pics" aria-hidden="true">
+        <div class="bogo" id="bogo"><div>1+1<small>ВЫХОДНЫЕ</small></div></div>
+        <img src="assets/holland-fries-cheese.webp" alt="" loading="lazy">
+        <img src="assets/holland-fries-cheese.webp" alt="" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ ABOUT ═══ -->
+<section class="sec" id="about" aria-labelledby="about-title">
+  <div class="wrap about-grid">
+    <div class="about-pic" id="about-pic">
+      <div class="disc" data-reveal></div>
+      <svg class="ring" viewBox="0 0 400 400" aria-hidden="true" id="about-ring"><circle cx="200" cy="200" r="196" fill="none" stroke="rgba(255,194,26,.4)" stroke-dasharray="2 10"/></svg>
+      <img src="assets/holland-fries-cheese.webp" alt="Стаканчик HOLLAND Fries & Cheese — картошка фри с сырным соусом и голландским майонезом" loading="lazy" data-reveal id="about-img">
+    </div>
+    <div class="about-copy">
+      <p class="script" data-reveal>Наша история</p>
+      <h2 class="h2" id="about-title" data-lines><span class="ln"><span>Картошка —</span></span><span class="ln accent"><span>это серьёзно</span></span></h2>
+      <p class="lede" data-words>Мы взяли голландскую традицию: толстая нарезка, две обжарки и щедрый соус сверху. Режем картофель каждое утро, сырный соус варим на чеддере, а голландский майонез — по своему рецепту.</p>
+      <div class="stats">
+        <div class="stat" data-reveal><p class="n"><span data-roll>2</span>×</p><p class="l">обжарка — снаружи хруст,<br>внутри мягко</p></div>
+        <div class="stat" data-reveal><p class="n"><span data-roll>100</span>%</p><p class="l">свежий картофель,<br>без заморозки</p></div>
+        <div class="stat" data-reveal><p class="n"><span data-roll>7</span> мин</p><p class="l">от заказа<br>до стаканчика</p></div>
+        <div class="stat" data-reveal><p class="n"><span data-roll>12</span></p><p class="l">соусов<br>на выбор</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ ORDER ═══ -->
+<section class="sec" id="order" aria-labelledby="order-title">
+  <div class="wrap">
+    <div class="order-box" id="order-box">
+      <div class="order-copy">
+        <p class="eyebrow" data-reveal><span class="dot" data-pulse></span>Заказ без очереди</p>
+        <h2 class="h2" id="order-title" style="margin-top:18px" data-lines><span class="ln"><span>Закажи заранее —</span></span><span class="ln accent"><span>забери горячей</span></span></h2>
+        <p class="lede" data-words>Позвони или напиши в Telegram — к твоему приходу картошка будет только из фритюра. Доставка по городу тоже есть.</p>
+        <div class="btns" data-reveal>
+          <a class="btn btn-yellow" id="order-phone" href="tel:+998000000000" data-arrow>Позвонить <span class="arw"><svg><use href="#i-arrow"/></svg><svg><use href="#i-arrow"/></svg></span></a>
+          <a class="btn btn-ghost" id="order-tg" href="https://t.me/" target="_blank" rel="noopener">Telegram</a>
+        </div>
+        <div class="meta" data-reveal>
+          <span class="k">// телефон</span><span class="k">// часы</span>
+          <span id="meta-phone">«+998 00 000 00 00»</span><span>10:00 - 23:00</span>
+        </div>
+      </div>
+      <div class="printer" aria-hidden="true">
+        <div class="printer-bar"><span class="brand">HOLLAND</span><span class="led" data-pulse></span><span class="printer-slot"></span></div>
+        <div class="receipt-clip"><div class="receipt" id="receipt"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="site-footer" id="contacts">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-about">
+        <a href="#top" class="logo"><svg><use href="#i-logo"/></svg><span><b>HOLLAND</b><i>Fries &amp; Cheese</i></span></a>
+        <p>Свежо. Горячо. Хрустит. Всё с картошкой фри — от классики до сырных боксов.</p>
+        <div class="socials">
+          <a href="https://instagram.com/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+          <a href="https://t.me/" target="_blank" rel="noopener" aria-label="Telegram"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.5 4.2 2.9 11.4c-1 .4-1 1.7.1 2l4.6 1.4 1.8 5.6c.3.8 1.3 1 1.9.4l2.6-2.5 4.9 3.6c.8.5 1.8.1 2-.8l3-14.6c.2-1.1-.8-1.9-1.8-1.5zM9.8 14.4l-.4 3.6-1.4-4.4 9.6-6.1-7.8 6.9z"/></svg></a>
+          <a href="https://tiktok.com/" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.6 3c.4 2.2 1.8 3.6 4 3.8v3.1a7.4 7.4 0 0 1-4-1.2v6.6A5.7 5.7 0 1 1 11 9.7v3.2a2.6 2.6 0 1 0 2.4 2.6V3z"/></svg></a>
+        </div>
+      </div>
+      <div>
+        <h5>Разделы</h5>
+        <ul><li><a href="#top">Главная</a></li><li><a href="#menu">Меню</a></li><li><a href="#offers">Акции</a></li><li><a href="#about">О нас</a></li><li><a href="#order">Заказать</a></li></ul>
+      </div>
+      <div>
+        <h5>Гостям</h5>
+        <ul><li><a href="#order">Мои заказы</a></li><li><a href="#order">Доставка</a></li><li><a href="#menu">Аллергены</a></li><li><a href="#contacts">Вакансии</a></li></ul>
+      </div>
+      <div>
+        <h5>Контакты</h5>
+        <ul>
+          <li class="contact-li"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 2h3l1.5 3.5L6 7a8 8 0 0 0 3 3l1.5-1.5L14 10v3a1 1 0 0 1-1 1A11 11 0 0 1 2 3a1 1 0 0 1 1-1z"/></svg><a href="tel:+998000000000" id="f-phone">«+998 00 000 00 00»</a></li>
+          <li class="contact-li"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3.5" width="12" height="9" rx="1.5"/><path d="m2.5 4.5 5.5 4 5.5-4"/></svg><a href="mailto:hello@holland.uz" id="f-mail">«hello@holland.uz»</a></li>
+          <li class="contact-li"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 14.5s5-4.6 5-8.5a5 5 0 0 0-10 0c0 3.9 5 8.5 5 8.5z"/><circle cx="8" cy="6" r="1.8"/></svg><span id="f-addr">Ташкент, «уточнить адрес»</span></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Наше приложение</h5>
+        <a class="store" href="#contacts"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.4 12.6c0-2.4 2-3.5 2-3.6-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.2-2.8.9-3.5.9s-1.8-.8-3-.8c-1.5 0-3 .9-3.8 2.3-1.6 2.8-.4 7 1.2 9.3.8 1.1 1.7 2.4 2.9 2.3 1.2 0 1.6-.7 3-.7s1.8.7 3 .7c1.3 0 2.1-1.1 2.8-2.3.9-1.3 1.3-2.6 1.3-2.6s-2.5-1-2.5-3.7zM14.2 5.7c.6-.8 1.1-1.8 1-2.9-.9 0-2.1.6-2.7 1.4-.6.7-1.1 1.8-1 2.8 1 .1 2.1-.5 2.7-1.3z"/></svg><div><span>Скоро в</span><b>App Store</b></div></a>
+        <a class="store" href="#contacts"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 2.8v18.4c0 .4.4.6.7.4l10.5-9.6L4.7 2.4c-.3-.2-.7 0-.7.4zM16.4 13.2l2.7 2.5 2.6-1.5c.8-.5.8-1.7 0-2.2l-2.6-1.5-2.7 2.7zM15.3 12.1 6 3.5l10.6 6.1zM6 20.5l9.3-8.4 1.3 1.6z"/></svg><div><span>Скоро в</span><b>Google Play</b></div></a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span><span class="dot" data-pulse></span>© 2026 HOLLAND Fries &amp; Cheese</span>
+      <span>Свежо · Горячо · Хрустит</span>
+    </div>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"><i></i><span></span></div>
+
+<script type="module">
+/* ═══════════════════════════════════════════════════════════════════════
+   SITE — every business fact in one place. «» = уточнить у владельца.
+   Prices are placeholders: edit them here and the whole page follows.
+   ═══════════════════════════════════════════════════════════════════════ */
+const SITE = {
+  name: "HOLLAND Fries & Cheese",
+  address: "Ташкент, «уточнить адрес»",
+  hours: "10:00 - 23:00",
+  phone: { label: "«+998 00 000 00 00»", href: "tel:+998000000000" },
+  telegram: "https://t.me/",
+  email: "«hello@holland.uz»",
+  currency: "сум",
+  categories: [
+    { id: "classic", name: "Классика", desc: "Фри двойной обжарки", icon: "fries" },
+    { id: "cheese", name: "Сырные", desc: "Чеддер, моцарелла, пармезан", icon: "cheese" },
+    { id: "loaded", name: "Loaded", desc: "Фри с мясом и топпингами", icon: "loaded" },
+    { id: "chicken", name: "С курицей", desc: "Наггетсы, стрипсы, крылья", icon: "chicken" },
+    { id: "sauces", name: "Соусы", desc: "12 соусов своего рецепта", icon: "sauce" },
+    { id: "drinks", name: "Напитки", desc: "Лимонады и коктейли", icon: "drink" },
+  ],
+  // [category, name, description, price, badge?]
+  menu: [
+    ["classic", "Фри классическая", "Толстая нарезка, двойная обжарка, морская соль", "15 000"],
+    ["classic", "Фри по-деревенски", "Дольки с кожурой, паприка и чеснок", "18 000"],
+    ["classic", "Батат фри", "Сладкий картофель, соус на выбор", "24 000"],
+    ["cheese", "Fries & Cheese", "Фри, сырный соус на чеддере и голландский майонез", "25 000", "хит"],
+    ["cheese", "Тройной сыр", "Чеддер, тянущаяся моцарелла и пармезан", "32 000"],
+    ["cheese", "Трюфельная фри", "Трюфельное масло, пармезан, петрушка", "35 000"],
+    ["loaded", "Loaded Beef", "Говяжий фарш, сырный соус, халапеньо, красный лук", "39 000", "new"],
+    ["loaded", "Loaded Chicken BBQ", "Курица, соус BBQ, чеддер, зелёный лук", "36 000"],
+    ["loaded", "Фри по-мексикански", "Чили кон карне, сметана, начос", "38 000"],
+    ["chicken", "Наггетсы + фри", "6 наггетсов, фри M и соус на выбор", "34 000"],
+    ["chicken", "Стрипсы + фри", "4 куриных стрипса в хрустящей панировке и фри", "38 000"],
+    ["chicken", "Крылья + фри", "6 острых крыльев, фри M, соус ранч", "42 000"],
+    ["sauces", "Голландский", "Фирменный майонез HOLLAND", "4 000"],
+    ["sauces", "Сырный", "Горячий соус на чеддере", "4 000"],
+    ["sauces", "Чесночный", "Сливочный с зеленью", "4 000"],
+    ["sauces", "Барбекю · Кетчуп · Чили", "Классика к любой картошке", "3 000"],
+    ["drinks", "Кола 0,5", "Ледяная, со льдом", "8 000"],
+    ["drinks", "Домашний лимонад", "Лимон, мята, тархун или манго", "14 000"],
+    ["drinks", "Молочный коктейль", "Ваниль, клубника или шоколад", "22 000"],
+  ],
+  // the four cards in «Хиты» — [name, description, price, render variant, tag]
+  hits: [
+    ["Fries & Cheese", "Фри, сырный соус на чеддере и голландский майонез", "25 000", "cheese", "Хит"],
+    ["Классика", "Толстая нарезка, двойная обжарка и морская соль", "15 000", "classic", ""],
+    ["Loaded Beef", "Говяжий фарш, сыр, халапеньо и зелёный лук", "39 000", "loaded", "New"],
+    ["Наггетсы + фри", "6 наггетсов, фри M и кетчуп", "34 000", "chicken", ""],
+  ],
+};
+
+/* ═══ motion engine ═════════════════════════════════════════════════════ */
+const RM = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const canHover = () => innerWidth >= 768 && matchMedia("(hover: hover)").matches;
+const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+const lerp = (a, b, t) => a + (b - a) * t;
+const E = {
+  outCubic: (t) => 1 - (1 - t) ** 3,
+  outQuart: (t) => 1 - (1 - t) ** 4,
+  inOutSine: (t) => -(Math.cos(Math.PI * t) - 1) / 2,
+  inOutCubic: (t) => (t < 0.5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2),
+  outBack: (t) => { const c1 = 1.70158, c3 = c1 + 1; return 1 + c3 * (t - 1) ** 3 + c1 * (t - 1) ** 2; },
+};
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+
+/* the shared ticker — one rAF for the whole page; Lenis runs first */
+let lenis = null;
+const subs = new Set();
+let lastT = performance.now();
+function tick(now) {
+  const dt = Math.min(64, Math.max(1, now - lastT));
+  lastT = now;
+  lenis?.raf(now);
+  for (const s of subs) if (now - s.last >= s.gap) { s.last = now; s.fn(now, dt); }
+  requestAnimationFrame(tick);
+}
+requestAnimationFrame(tick);
+const onTick = (fn, gap = 0) => { const s = { fn, gap, last: -1e9 }; subs.add(s); return () => subs.delete(s); };
+
+/* the spring solver — react-spring's integrator, 1ms sub-steps */
+const live = new Set();
+class Spring {
+  constructor(x = 0, cfg = { tension: 90, friction: 26 }) {
+    this.x = x; this.v = 0; this.target = x; this.cfg = cfg; this.cbs = []; this.prec = 1e-3;
+  }
+  on(fn) { this.cbs.push(fn); fn(this.x); return this; }
+  emit() { for (const f of this.cbs) f(this.x); }
+  to(target, o = {}) {
+    clearTimeout(this.tm);
+    const go = () => {
+      if (o.cfg) this.cfg = o.cfg;
+      this.prec = Math.max(1e-4, Math.abs(target - this.x) * 5e-4);
+      this.target = target;
+      this.dur = o.duration || 0;
+      if (this.dur) { this.from = this.x; this.t0 = performance.now(); this.ease = o.easing || E.outCubic; }
+      if (o.velocity != null) this.v = o.velocity;
+      this.onRest = o.onRest;
+      if (o.immediate || RM) { this.x = target; this.v = 0; this.emit(); live.delete(this); this.onRest?.(); return; }
+      live.add(this);
+    };
+    if (o.delay > 0) this.tm = setTimeout(go, o.delay); else go();
+    return this;
+  }
+  kick(v) { this.v += v; this.prec = 1e-4; live.add(this); }
+  step(now, dt) {
+    if (this.dur) {
+      const p = Math.min(1, (now - this.t0) / this.dur);
+      this.x = this.from + (this.target - this.from) * this.ease(p);
+      this.emit();
+      if (p >= 1) { this.dur = 0; live.delete(this); this.onRest?.(); }
+      return;
+    }
+    const { tension, friction } = this.cfg;
+    let x = this.x, v = this.v;
+    const to = this.target, n = Math.round(dt);
+    for (let i = 0; i < n; i++) { v += -tension * 1e-6 * (x - to) - friction * 1e-3 * v; x += v; }
+    this.x = x; this.v = v;
+    if (Math.abs(v) < this.prec * 0.01 && Math.abs(x - to) < this.prec) {
+      this.x = to; this.v = 0; live.delete(this); this.emit(); this.onRest?.(); return;
+    }
+    this.emit();
+  }
+}
+onTick((now, dt) => { for (const s of [...live]) s.step(now, dt); });
+
+/* page-ready store */
+const page = { revealing: false, ready: false, subs: [] };
+const whenReady = (fn) => (page.ready ? fn() : page.subs.push(fn));
+const setReady = () => { if (page.ready) return; page.revealing = page.ready = true; page.subs.splice(0).forEach((f) => f()); };
+const revealSubs = [];
+const whenRevealing = (fn) => (page.revealing ? fn() : revealSubs.push(fn));
+
+/* style writer: x/y px, xp/yp %, s scale, r deg, o opacity */
+const mix = (a, b, p) => { const o = {}; for (const k in a) o[k] = lerp(a[k], b[k], p); return o; };
+function paint(el, st) {
+  const x = st.x ?? 0, y = st.y ?? 0, xp = st.xp ?? 0, yp = st.yp ?? 0, s = st.s ?? 1, r = st.r ?? 0;
+  el.style.transform = `translate3d(calc(${x}px + ${xp}%), calc(${y}px + ${yp}%), 0) scale(${s}) rotate(${r}deg)`;
+  if (st.o != null) el.style.opacity = clamp(st.o, 0, 1);
+}
+
+/* Inview — once, optionally gated on page-ready */
+function observeOnce(el, fn, rootMargin = "0px 0px -8% 0px", gate = true) {
+  const start = () => {
+    const io = new IntersectionObserver((es) => {
+      for (const e of es) if (e.isIntersecting) { io.disconnect(); fn(); }
+    }, { rootMargin });
+    io.observe(el);
+  };
+  gate ? whenReady(start) : start();
+}
+function reveal(el, { from = { o: 0, y: 24 }, to = { o: 1, y: 0 }, cfg, delay = 0, duration, easing, rootMargin, gate = true, trigger } = {}) {
+  const sp = new Spring(0, cfg || { tension: 90, friction: 26 });
+  sp.on((p) => paint(el, mix(from, to, p)));
+  observeOnce(trigger || el, () => sp.to(1, { delay, duration, easing }), rootMargin, gate);
+  return sp;
+}
+
+/* TextEngine — lines and words */
+function textLines(h) {
+  const lines = $$(".ln > span", h);
+  lines.forEach((ln, i) => {
+    const sp = new Spring(0);
+    sp.on((p) => paint(ln, { yp: lerp(110, 0, p), o: p }));
+    observeOnce(h, () => sp.to(1, { duration: 900, easing: E.outCubic, delay: i * 90 + (+h.dataset.delay || 0) }), "0px 0px -25% 0px");
+  });
+}
+function textWords(p, { y = 14, dur = 620, stagger = 14, delay = 0 } = {}) {
+  const text = p.textContent.trim();
+  p.setAttribute("aria-label", text);
+  p.textContent = "";
+  const words = text.split(/\s+/).map((w) => {
+    const s = document.createElement("span");
+    s.textContent = w; s.setAttribute("aria-hidden", "true");
+    p.append(s);
+    return s;
+  });
+  words.forEach((w, i) => {
+    const sp = new Spring(0);
+    sp.on((v) => paint(w, { y: lerp(y, 0, v), o: v }));
+    observeOnce(p, () => sp.to(1, { duration: dur, easing: E.outQuart, delay: delay + i * stagger }), "0px 0px -15% 0px");
+  });
+}
+
+/* DigitRoll */
+function digitRoll(el, delayIn = 0) {
+  const txt = el.textContent;
+  el.textContent = "";
+  el.classList.add("roll");
+  el.setAttribute("aria-label", txt);
+  const ghost = document.createElement("span"); ghost.className = "roll-ghost"; ghost.textContent = txt; ghost.setAttribute("aria-hidden", "true");
+  const wrap = document.createElement("span"); wrap.className = "roll-wrap"; wrap.setAttribute("aria-hidden", "true");
+  el.append(ghost, wrap);
+  const cols = [];
+  let order = 0;
+  for (const ch of txt) {
+    if (/\d/.test(ch)) {
+      const col = document.createElement("span"); col.className = "roll-col";
+      const st = document.createElement("span"); st.className = "roll-stack";
+      for (let d = 0; d < 10; d++) { const c = document.createElement("span"); c.textContent = d; st.append(c); }
+      col.append(st); wrap.append(col);
+      cols.push([st, +ch, order++]);
+    } else {
+      const s = document.createElement("span"); s.className = "roll-ch"; s.textContent = ch; wrap.append(s);
+    }
+  }
+  observeOnce(el, () => cols.forEach(([st, n, i]) => {
+    const sp = new Spring(0);
+    sp.on((v) => (st.style.transform = `translateY(${v}%)`));
+    sp.to(-n * 10, { delay: delayIn + i * 70 });
+  }), "0px 0px -5% 0px");
+}
+
+/* PulseDot */
+function pulse(el) {
+  if (RM) return;
+  const ph = Math.random() * 1000;
+  onTick((now) => { el.style.opacity = 0.15 + 0.85 * (0.5 + 0.5 * Math.cos(((now + ph) / 700) * Math.PI)); }, 30);
+}
+
+/* UnderlineLink roll on nav */
+function rollLink(a) {
+  const label = a.textContent;
+  a.textContent = "";
+  const box = document.createElement("span"); box.className = "u-roll";
+  const s1 = document.createElement("span"); s1.textContent = label;
+  const s2 = document.createElement("span"); s2.textContent = label; s2.setAttribute("aria-hidden", "true");
+  box.append(s1, s2); a.append(box);
+  const sp = new Spring(0, { tension: 260, friction: 30 });
+  sp.on((p) => { s1.style.transform = `translateY(${-100 * p}%)`; s2.style.transform = `translateY(${100 - 100 * p}%)`; });
+  a.addEventListener("mouseenter", () => canHover() && sp.to(1));
+  a.addEventListener("mouseleave", () => sp.to(0));
+}
+
+/* arrow CTA: arrow A slides out right, B comes in from the left */
+function arrowCta(btn) {
+  const [a, b] = $$(".arw svg", btn);
+  if (!a || !b) return;
+  const sa = new Spring(0, { tension: 200, friction: 28 }), sb = new Spring(0, { tension: 200, friction: 28 });
+  sa.on((p) => paint(a, { xp: 190 * p, o: 1 - p }));
+  sb.on((p) => paint(b, { xp: -190 + 190 * p, o: p }));
+  btn.addEventListener("mouseenter", () => { if (!canHover()) return; sa.to(1); sb.to(1, { delay: 70 }); });
+  btn.addEventListener("mouseleave", () => { sa.to(0, { immediate: true }); sb.to(0, { immediate: true }); });
+}
+
+/* PointerLean for cards */
+function pointerLean(card, inner, img) {
+  if (RM) return;
+  const c = { tension: 90, friction: 22 }, lag = { tension: 60, friction: 26 };
+  const rx = new Spring(0, c), ry = new Spring(0, c), ix = new Spring(0, lag), iy = new Spring(0, lag);
+  const apply = () => {
+    inner.style.transform = `rotateX(${rx.x}deg) rotateY(${ry.x}deg)`;
+    if (img) img.style.transform = `translate3d(${ix.x}px, ${iy.x}px, 0) scale(1.04)`;
+  };
+  [rx, ry, ix, iy].forEach((s) => s.on(apply));
+  card.addEventListener("pointermove", (e) => {
+    if (!canHover()) return;
+    const b = card.getBoundingClientRect();
+    const dx = clamp(((e.clientX - b.left) / b.width) * 2 - 1, -1, 1);
+    const dy = clamp(((e.clientY - b.top) / b.height) * 2 - 1, -1, 1);
+    ry.to(dx * 12); rx.to(-dy * 12); ix.to(dx * 14); iy.to(dy * 10);
+  });
+  card.addEventListener("pointerleave", () => [rx, ry, ix, iy].forEach((s) => s.to(0)));
+}
+
+/* scroll scrub: progress of el between two positions */
+function scrubProgress(el, start = "top bottom", end = "bottom top") {
+  const bb = el.getBoundingClientRect(), H = innerHeight;
+  const poses = {
+    top_top: bb.top, center_top: bb.top + bb.height / 2, bottom_top: bb.bottom,
+    top_bottom: bb.top - H, center_bottom: bb.top + bb.height / 2 - H, bottom_bottom: bb.bottom - H,
+    top_center: bb.top - H / 2, center_center: bb.top + bb.height / 2 - H / 2, bottom_center: bb.bottom - H / 2,
+  };
+  const s = poses[start.replace(" ", "_")], e = poses[end.replace(" ", "_")];
+  const len = Math.abs(s - e) || 1;
+  return clamp(1 - (s + len) / len, 0, 1);
+}
+
+/* toast */
+const toastEl = $("#toast");
+const toastSp = new Spring(0, { tension: 210, friction: 22 });
+toastSp.on((p) => (toastEl.style.transform = `translate(-50%, calc(${1 - p} * (100% + 40px)))`));
+let toastT;
+function toast(msg) {
+  $("span", toastEl).textContent = msg;
+  toastSp.to(1);
+  clearTimeout(toastT);
+  toastT = setTimeout(() => toastSp.to(0), 2200);
+}
+
+/* ═══ content from SITE ═════════════════════════════════════════════════ */
+const ICONS = {
+  fries: '<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"><path d="M22 26 18 8l5-1 4 19M30 26V5h5v21M38 26l4-17 5 1-4 16"/><path d="M14 26h36l-5 32H19z" fill="rgba(227,38,28,.25)"/><path d="M24 40l8 10 8-10"/></svg>',
+  cheese: '<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"><path d="M8 40 46 18l12 10v20H8z" fill="rgba(255,194,26,.18)"/><path d="M8 40h50"/><circle cx="22" cy="46" r="2.5"/><circle cx="40" cy="31" r="2.5"/><circle cx="46" cy="44" r="3"/><path d="M30 48v6M50 48v4"/></svg>',
+  loaded: '<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"><path d="M8 32h48l-6 22H14z" fill="rgba(255,194,26,.12)"/><path d="M14 32l4-16M22 32l2-20M32 32V12M40 32l-1-18M48 32l-4-15"/><path d="M12 30c6-6 12 2 20-3s14 4 20-1" stroke-width="3"/><circle cx="26" cy="24" r="2" fill="currentColor"/><circle cx="40" cy="22" r="2" fill="currentColor"/></svg>',
+  chicken: '<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"><path d="M40 10c9 0 15 7 14 15s-9 12-16 11l-10 10c1 3-1 7-5 7a4 4 0 0 1-2-1 4 4 0 0 1-6-5 4 4 0 0 1 5-5l9-10c-2-7 2-22 11-22z" fill="rgba(255,194,26,.15)"/><path d="M42 18c3 0 6 2 6 6"/></svg>',
+  sauce: '<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"><path d="M28 4h8v6h-8z"/><path d="M26 10h12l2 8v36a4 4 0 0 1-4 4h-8a4 4 0 0 1-4-4V18z" fill="rgba(227,38,28,.2)"/><path d="M24 30h16M24 44h16"/><path d="M48 36c0 4 6 4 6 0s-3-7-3-7-3 3-3 7z"/></svg>',
+  drink: '<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"><path d="M36 4l-4 14"/><path d="M16 18h32l-4 40H20z" fill="rgba(255,194,26,.12)"/><path d="M14 18h36"/><path d="M18 30h28"/><circle cx="28" cy="40" r="2"/><circle cx="36" cy="46" r="1.5"/></svg>',
+};
+$("#cats").innerHTML = SITE.categories.map((c) => `<a class="cat" href="#menu" data-cat="${c.id}"><span class="ic">${ICONS[c.icon]}</span><b>${c.name}</b><span>${c.desc}</span></a>`).join("");
+
+const plusSvg = '<svg><use href="#i-plus"/></svg>';
+$("#hits-grid").innerHTML = SITE.hits.map((h, i) => `
+  <article class="card" data-reveal>
+    <div class="card-in">
+      <div class="card-pic">
+        <img class="is-loading" data-variant="${h[3]}" alt="${h[0]} — ${h[1]}" src="assets/holland-fries-cheese.webp">
+        ${h[4] ? `<span class="tag">${h[4]}</span>` : ""}
+        <span class="idx">0${i + 1}</span>
+      </div>
+      <div class="card-body">
+        <h3>${h[0]}</h3>
+        <p>${h[1]}</p>
+        <div class="card-foot">
+          <span class="price"><span data-roll>${h[2]}</span><small>${SITE.currency}</small></span>
+          <button class="add" data-add="${h[0]}" aria-label="Добавить ${h[0]} в корзину">${plusSvg}</button>
+        </div>
+      </div>
+    </div>
+  </article>`).join("");
+
+const tabs = $("#menu-tabs"), list = $("#menu-list");
+tabs.innerHTML = [{ id: "all", name: "Всё" }, ...SITE.categories].map((c, i) => `<button role="tab" data-tab="${c.id}" aria-selected="${i === 0}">${c.name}</button>`).join("");
+let listSprings = [];
+function renderMenu(cat, animate = true) {
+  const items = SITE.menu.filter((m) => cat === "all" || m[0] === cat);
+  list.innerHTML = items.map((m) => `
+    <div class="mi">
+      <h4>${m[1]}${m[4] ? `<em>${m[4]}</em>` : ""}</h4>
+      <p>${m[2]}</p>
+      <span class="mp">${m[3]} ${SITE.currency}<button class="add" data-add="${m[1]}" aria-label="Добавить ${m[1]} в корзину">${plusSvg}</button></span>
+    </div>`).join("");
+  listSprings.forEach((s) => live.delete(s));
+  listSprings = $$(".mi", list).map((el, i) => {
+    const sp = new Spring(animate ? 0 : 1, { tension: 120, friction: 22 });
+    sp.on((p) => paint(el, { y: lerp(18, 0, p), o: p }));
+    if (animate) sp.to(1, { delay: i * 35 });
+    return sp;
+  });
+}
+renderMenu("all", false);
+let menuRevealed = false;
+$$(".mi", list).forEach((el) => (el.style.opacity = 0));
+observeOnce(list, () => { menuRevealed = true; renderMenu(currentCat); }, "0px 0px -10% 0px");
+let currentCat = "all";
+function selectCat(id) {
+  currentCat = id;
+  $$("button", tabs).forEach((b) => b.setAttribute("aria-selected", b.dataset.tab === id));
+  if (menuRevealed) renderMenu(id);
+}
+tabs.addEventListener("click", (e) => { const b = e.target.closest("[data-tab]"); if (b) selectCat(b.dataset.tab); });
+$("#cats").addEventListener("click", (e) => { const a = e.target.closest("[data-cat]"); if (a) selectCat(a.dataset.cat); });
+
+/* receipt */
+(() => {
+  const d = new Date();
+  const pad = (n) => String(n).padStart(2, "0");
+  const items = [["Fries & Cheese x2", "50 000"], ["Loaded Beef", "39 000"], ["Соус голландский", "4 000"], ["Домашний лимонад", "14 000"]];
+  let bars = "", x = 0;
+  for (let i = 0; i < 46; i++) { const w = 1 + ((i * 7 + 3) % 4); if (i % 2 === 0) bars += `<rect x="${x}" y="0" width="${w}" height="54"/>`; x += w + 1; }
+  $("#receipt").innerHTML = `
+    <div class="logo-r"><svg><use href="#i-logo"/></svg></div>
+    <div class="c t">HOLLAND · FRIES &amp; CHEESE</div>
+    <div class="c">${pad(d.getDate())}.${pad(d.getMonth() + 1)}.${d.getFullYear()} · ${pad(d.getHours())}:${pad(d.getMinutes())}</div>
+    <div class="c">ЗАКАЗ № 0${(d.getDate() * 37) % 900 + 100}</div>
+    <hr>
+    ${items.map(([n, p]) => `<div class="r"><span>${n}</span><span>${p}</span></div>`).join("")}
+    <hr>
+    <div class="r tot"><span>ИТОГО</span><span>107 000</span></div>
+    <div class="r"><span>Промокод HOLLAND11</span><span>−25 000</span></div>
+    <hr>
+    <div class="c t">ГОТОВО ЧЕРЕЗ 7 МИН</div>
+    <div class="c">СПАСИБО! ХРУСТИ НА ЗДОРОВЬЕ</div>
+    <div class="barcode" id="barcode"><svg viewBox="0 0 ${x} 54" preserveAspectRatio="none" fill="#1b1a16">${bars}</svg></div>
+    <div class="c" style="margin-top:6px;font-size:11px">«HOLLAND.UZ»</div>`;
+})();
+
+/* SITE → static text */
+$("#bar-address").textContent = SITE.address;
+$("#f-addr").textContent = SITE.address;
+$("#f-phone").textContent = SITE.phone.label; $("#f-phone").href = SITE.phone.href;
+$("#meta-phone").textContent = SITE.phone.label;
+$("#order-phone").href = SITE.phone.href;
+$("#order-tg").href = SITE.telegram;
+$("#f-mail").textContent = SITE.email;
+$("#info-price").textContent = SITE.hits[0][2] + " " + SITE.currency;
+
+/* ═══ wire the motion ════════════════════════════════════════════════════ */
+$$("[data-lines]").forEach(textLines);
+$$(".hero [data-words]").forEach((p) => textWords(p, { y: 16, dur: 650, stagger: 18, delay: 260 }));
+$$("[data-words]").forEach((p) => { if (!p.closest(".hero")) textWords(p); });
+$$("[data-roll]").forEach((el, i) => digitRoll(el, el.closest(".hero") ? 500 : 0));
+$$("[data-pulse]").forEach(pulse);
+$$("[data-roll-link]").forEach(rollLink);
+$$("[data-arrow]").forEach(arrowCta);
+
+// header pieces
+$$(".site-header [data-reveal]").forEach((el, i) => reveal(el, { from: { o: 0, y: -14 }, to: { o: 1, y: 0 }, delay: i * 80, rootMargin: "0px" }));
+// hero
+reveal($(".hero .eyebrow"), { from: { o: 0, y: 12 }, to: { o: 1, y: 0 }, rootMargin: "0px" });
+reveal($(".script-over"), { from: { o: 0, s: 0.6, r: -20 }, to: { o: 1, s: 1, r: -8 }, cfg: { tension: 120, friction: 14 }, delay: 520, rootMargin: "0px" });
+reveal($(".hero-ctas"), { from: { o: 0, y: 18 }, to: { o: 1, y: 0 }, delay: 420, rootMargin: "0px" });
+reveal($(".hero-feats"), { from: { o: 0, y: 18 }, to: { o: 1, y: 0 }, delay: 560, rootMargin: "0px" });
+reveal($(".hero-bar .wrap"), { from: { o: 0, y: 14 }, to: { o: 1, y: 0 }, delay: 700, rootMargin: "0px" });
+reveal($("#hero-media"), { from: { o: 0, s: 1.06 }, to: { o: 1, s: 1 }, cfg: { tension: 45, friction: 24 }, gate: false, rootMargin: "0px" });
+// sections
+reveal($("#cats"), { from: { o: 0, y: 30 }, to: { o: 1, y: 0 }, cfg: { tension: 70, friction: 26 } });
+$$(".cat").forEach((c, i) => {
+  const ic = $(".ic", c);
+  reveal(ic, { from: { o: 0, s: 0.5, y: 10 }, to: { o: 1, s: 1, y: 0 }, cfg: { tension: 170, friction: 14 }, delay: 120 + i * 70, trigger: $("#cats") });
+  const hs = new Spring(0, { tension: 220, friction: 12 });
+  hs.on((p) => { ic.style.translate = `0 ${-6 * p}px`; ic.style.rotate = `${p * -6}deg`; });
+  c.addEventListener("mouseenter", () => canHover() && hs.to(1));
+  c.addEventListener("mouseleave", () => hs.to(0));
+});
+$$(".sec-head .script, .about-copy .script").forEach((el) => reveal(el, { from: { o: 0, y: 16 }, to: { o: 1, y: 0 } }));
+$$(".card").forEach((c, i) => {
+  reveal(c, { from: { o: 0, y: 60 }, to: { o: 1, y: 0 }, cfg: { tension: 60, friction: 26 }, delay: i * 90 });
+  pointerLean(c, $(".card-in", c), $("img", c));
+});
+reveal($(".center-cta"), { from: { o: 0, y: 20 }, to: { o: 1, y: 0 } });
+reveal($(".offer-box"), { from: { o: 0, y: 60, s: 0.96 }, to: { o: 1, y: 0, s: 1 }, cfg: { tension: 58, friction: 26 } });
+$$(".offer-pics img").forEach((img, i) => {
+  const base = i ? 7 : -9;
+  reveal(img, { from: { o: 0, y: 120, r: base * 3 }, to: { o: 1, y: 0, r: base }, cfg: { tension: 90, friction: 16 }, delay: 200 + i * 140, trigger: $(".offer-box") });
+});
+reveal($("#bogo"), { from: { o: 0, s: 0.2, r: -90 }, to: { o: 1, s: 1, r: 0 }, cfg: { tension: 170, friction: 12 }, delay: 520, trigger: $(".offer-box") });
+reveal($(".about-pic .disc"), { from: { o: 0, s: 0.6 }, to: { o: 1, s: 1 }, cfg: { tension: 60, friction: 20 } });
+reveal($("#about-img"), { from: { o: 0, y: 80, r: -8 }, to: { o: 1, y: 0, r: 0 }, cfg: { tension: 70, friction: 14 }, delay: 160, trigger: $("#about-pic") });
+$$(".stat").forEach((s, i) => reveal(s, { from: { o: 0, y: 20 }, to: { o: 1, y: 0 }, delay: i * 80 }));
+$$(".order-copy [data-reveal]").forEach((el, i) => reveal(el, { from: { o: 0, y: 18 }, to: { o: 1, y: 0 }, delay: 100 + i * 90 }));
+
+// cart
+let cart = 0;
+const cartCount = $("#cart-count"), cartBtn = $("#cart-btn");
+const bump = new Spring(0, { tension: 400, friction: 10 });
+bump.on((p) => (cartBtn.style.transform = `scale(${1 + p})`));
+document.addEventListener("click", (e) => {
+  const b = e.target.closest("[data-add]");
+  if (!b) return;
+  cart++;
+  cartCount.textContent = cart;
+  bump.to(0); bump.kick(0.003);
+  const s = new Spring(0, { tension: 300, friction: 12 });
+  s.on((p) => (b.style.transform = `scale(${1 - p * 0.18}) rotate(${p * 90}deg)`));
+  s.kick(0.012); s.to(0);
+  toast(`Добавлено: ${b.dataset.add}`);
+});
+cartBtn.addEventListener("click", () => toast(cart ? `В корзине: ${cart} шт. — оформим по телефону` : "Корзина пока пустая"));
+
+// promo code
+$("#code-chip").addEventListener("click", async () => {
+  try { await navigator.clipboard.writeText("HOLLAND11"); toast("Промокод HOLLAND11 скопирован"); }
+  catch { toast("Промокод: HOLLAND11"); }
+});
+
+// header background + scroll-linked bits
+const header = $("#header");
+const swirlPath = $("#swirl-path");
+const swirlLen = swirlPath.getTotalLength();
+swirlPath.style.strokeDasharray = swirlLen;
+const receipt = $("#receipt"), barcode = $("#barcode");
+const feed = new Spring(0, { tension: 220, friction: 28 });
+feed.on((p) => (receipt.style.transform = `translateY(${lerp(-100, 0, p)}%)`));
+const bc = new Spring(0.55, { tension: 90, friction: 18 });
+bc.on((s) => (barcode.style.transform = `scaleY(${s})`));
+let lastStep = -1, cleared = false;
+const watchHand = $("#watch-hand"), badgeText = $("#badge-text"), aboutRing = $("#about-ring");
+const cue = $("#cue");
+onTick((now) => {
+  const y = scrollY;
+  header.style.setProperty("--hdr-bg", clamp(y / 120, 0, 1));
+  swirlPath.style.strokeDashoffset = swirlLen * (1 - scrubProgress($("#hits"), "top bottom", "center center"));
+  // receipt: 46 jerks as the block rises
+  const p = scrubProgress($("#order-box"), "top bottom", "center center");
+  const step = Math.round(p * 46);
+  if (step !== lastStep) { lastStep = step; feed.to(step / 46); }
+  if (step >= 46 && !cleared) { cleared = true; bc.to(1, { delay: 160 }); }
+  if (step < 40 && cleared) { cleared = false; bc.to(0.55); }
+  // spinning bits
+  if (!RM) {
+    badgeText.setAttribute("transform", `rotate(${(now / 60) % 360} 60 60)`);
+    watchHand.style.transform = `rotate(${(now / 8) % 360}deg)`;
+    aboutRing.style.transform = `rotate(${(-now / 120) % 360}deg)`;
+    cue.style.setProperty("--cue", `${((now / 14) % 52) - 14}px`);
+  }
+}, 10);
+
+// nav: active section
+const sections = ["top", "menu", "offers", "about", "contacts"].map((id) => [id, document.getElementById(id === "top" ? "hero" : id)]);
+onTick(() => {
+  let cur = "top";
+  for (const [id, el] of sections) if (el.getBoundingClientRect().top < innerHeight * 0.4) cur = id;
+  $$(".nav a").forEach((a) => a.classList.toggle("is-active", a.getAttribute("href") === "#" + cur));
+}, 150);
+
+// anchors through Lenis
+document.addEventListener("click", (e) => {
+  const a = e.target.closest('a[href^="#"]');
+  if (!a) return;
+  const id = a.getAttribute("href");
+  const target = id === "#top" ? 0 : document.querySelector(id);
+  if (target == null) return;
+  e.preventDefault();
+  closeMenu();
+  if (lenis) lenis.scrollTo(target, { offset: id === "#top" ? 0 : -70, duration: 1.4 });
+  else (target === 0 ? scrollTo({ top: 0, behavior: "smooth" }) : target.scrollIntoView({ behavior: "smooth" }));
+});
+
+// mobile menu
+const panel = $("#mobile-panel"), toggle = $("#menu-toggle");
+const panelSp = new Spring(0, { tension: 120, friction: 22 });
+panelSp.on((p) => { panel.style.clipPath = `inset(0 0 ${100 - p * 100}% 0)`; panel.style.visibility = p > 0.001 ? "visible" : "hidden"; });
+let menuOpen = false;
+function closeMenu() { if (!menuOpen) return; menuOpen = false; panelSp.to(0); toggle.setAttribute("aria-expanded", "false"); lenis?.start(); }
+toggle.addEventListener("click", () => {
+  menuOpen = !menuOpen;
+  toggle.setAttribute("aria-expanded", String(menuOpen));
+  panelSp.to(menuOpen ? 1 : 0);
+  menuOpen ? lenis?.stop() : lenis?.start();
+});
+
+/* ═══ Opalesce-style film behind the hero ═════════════════════════════ */
+function initOpal() {
+  const cv = $("#opal");
+  const gl = cv.getContext("webgl", { premultipliedAlpha: false, antialias: false });
+  if (!gl) { cv.replaceWith(Object.assign(document.createElement("div"), { className: "hero-fallback-bg" })); return; }
+  const vs = `attribute vec2 p; void main(){ gl_Position = vec4(p, 0., 1.); }`;
+  const fs = `precision highp float;
+uniform vec2 uRes; uniform float uTime; uniform vec2 uMouse; uniform float uAmt; uniform vec2 uFocus; uniform float uFade;
+float h(vec2 p){ return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
+float n(vec2 p){ vec2 i = floor(p), f = fract(p); f = f*f*(3.-2.*f);
+  return mix(mix(h(i), h(i+vec2(1,0)), f.x), mix(h(i+vec2(0,1)), h(i+vec2(1,1)), f.x), f.y); }
+float fbm(vec2 p){ float a = .5, s = 0.; for(int i = 0; i < 5; i++){ s += a*n(p); p = p*2.03 + vec2(1.7, 9.2); a *= .5; } return s; }
+void main(){
+  vec2 p = (gl_FragCoord.xy - .5*uRes) / uRes.y;
+  float t = uTime * .045;
+  vec2 q = vec2(fbm(p*1.3 + t), fbm(p*1.3 - t + 4.1));
+  vec2 m = p - uMouse;
+  float mouse = exp(-dot(m, m) * 7.) * uAmt;
+  float f = fbm(p*1.7 + 2.2*q + vec2(t*.7, -t*.5) + m*mouse*.8);
+  vec2 g = p - uFocus;
+  float glow = exp(-dot(g, g) * 2.4);
+  float th = f*1.05 + mouse*.55 + glow*.3;
+  vec3 bg = vec3(.043, .051, .039);
+  vec3 c1 = vec3(.05, .16, .08);
+  vec3 c2 = vec3(.20, .30, .07);
+  vec3 c3 = vec3(.95, .66, .10);
+  vec3 col = mix(bg, c1, smoothstep(.25, .75, f));
+  col = mix(col, c2, smoothstep(.55, .95, th) * .55);
+  float band = .5 + .5*sin(th*15. - uTime*.25);
+  col += c3 * pow(band, 7.) * smoothstep(.5, 1.1, th) * .22;
+  col += c3 * glow * .16 + c3 * mouse * .1;
+  col *= 1. - .35*length(p*vec2(.6, .9));
+  gl_FragColor = vec4(mix(bg, col, uFade), 1.);
+}`;
+  const sh = (type, src) => { const s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s); return s; };
+  const pr = gl.createProgram();
+  gl.attachShader(pr, sh(gl.VERTEX_SHADER, vs)); gl.attachShader(pr, sh(gl.FRAGMENT_SHADER, fs));
+  gl.linkProgram(pr);
+  if (!gl.getProgramParameter(pr, gl.LINK_STATUS)) return;
+  gl.useProgram(pr);
+  const buf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
+  const loc = gl.getAttribLocation(pr, "p");
+  gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+  const U = (n) => gl.getUniformLocation(pr, n);
+  const uRes = U("uRes"), uTime = U("uTime"), uMouse = U("uMouse"), uAmt = U("uAmt"), uFocus = U("uFocus"), uFade = U("uFade");
+  const hero = $("#hero");
+  let W = 0, H = 0, visible = true;
+  const scale = 0.5;
+  const resize = () => { W = cv.width = Math.max(1, Math.round(cv.clientWidth * scale)); H = cv.height = Math.max(1, Math.round(cv.clientHeight * scale)); gl.viewport(0, 0, W, H); };
+  resize(); addEventListener("resize", resize);
+  new IntersectionObserver(([e]) => (visible = e.isIntersecting)).observe(hero);
+  const mouse = { x: 0.4, y: 0, tx: 0.4, ty: 0, amt: 0 };
+  let lastMx = 0, lastMy = 0;
+  addEventListener("pointermove", (e) => {
+    const r = cv.getBoundingClientRect();
+    mouse.tx = (e.clientX - r.left - r.width / 2) / r.height;
+    mouse.ty = -(e.clientY - r.top - r.height / 2) / r.height;
+    const v = Math.hypot(e.clientX - lastMx, e.clientY - lastMy);
+    lastMx = e.clientX; lastMy = e.clientY;
+    mouse.amt = Math.min(1.4, mouse.amt + v * 0.004);
+  });
+  const fade = new Spring(0, { tension: 40, friction: 26 });
+  whenReady(() => fade.to(1));
+  if (RM) fade.to(1, { immediate: true });
+  const media = $("#hero-media");
+  onTick((now) => {
+    if (!visible) return;
+    mouse.x += (mouse.tx - mouse.x) * 0.06; mouse.y += (mouse.ty - mouse.y) * 0.06;
+    mouse.amt *= 0.975;
+    const r = cv.getBoundingClientRect(), m = media.getBoundingClientRect();
+    gl.uniform2f(uRes, W, H);
+    gl.uniform1f(uTime, RM ? 0 : now / 1000);
+    gl.uniform2f(uMouse, mouse.x, mouse.y);
+    gl.uniform1f(uAmt, mouse.amt);
+    gl.uniform2f(uFocus, (m.left + m.width / 2 - r.left - r.width / 2) / r.height, -(m.top + m.height * 0.55 - r.top - r.height / 2) / r.height);
+    gl.uniform1f(uFade, 0.25 + 0.75 * fade.x);
+    gl.drawArrays(gl.TRIANGLES, 0, 3);
+  }, 16);
+}
+initOpal();
+
+/* ═══ the 3D fries kit ═══════════════════════════════════════════════════ */
+function mulberry32(a) { return () => { a |= 0; a = (a + 0x6d2b79f5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+
+function makeKit(THREE, RoundedBoxGeometry) {
+  const { Group, Mesh, MeshStandardMaterial: MSM, MeshPhysicalMaterial: MPM, CanvasTexture, SRGBColorSpace, Vector2, Vector3, Quaternion,
+    LatheGeometry, CylinderGeometry, SphereGeometry, CircleGeometry, TorusGeometry, TubeGeometry, CatmullRomCurve3, DoubleSide, BackSide, DodecahedronGeometry } = THREE;
+  const rnd = mulberry32(11);
+  const tex = (w, h, draw, srgb = true) => {
+    const c = document.createElement("canvas"); c.width = w; c.height = h;
+    const g = c.getContext("2d"); draw(g, w, h);
+    const t = new CanvasTexture(c);
+    if (srgb) t.colorSpace = SRGBColorSpace;
+    t.anisotropy = 8;
+    t.userData.redraw = () => { draw(g, w, h); t.needsUpdate = true; };
+    return t;
+  };
+
+  /* fries */
+  const fryMap = tex(64, 256, (g, w, h) => {
+    const r = mulberry32(3);
+    const gr = g.createLinearGradient(0, 0, 0, h);
+    gr.addColorStop(0, "#9a4710"); gr.addColorStop(0.05, "#c06a1a"); gr.addColorStop(0.15, "#dc922c");
+    gr.addColorStop(0.5, "#e9a63a"); gr.addColorStop(0.86, "#d98a28"); gr.addColorStop(1, "#ad5a16");
+    g.fillStyle = gr; g.fillRect(0, 0, w, h);
+    for (let i = 0; i < 300; i++) {
+      g.fillStyle = `rgba(${(140 + r() * 50) | 0},${(60 + r() * 30) | 0},12,${0.08 + r() * 0.26})`;
+      g.beginPath(); g.ellipse(r() * w, r() * h, 0.6 + r() * 2.2, 1 + r() * 4, 0, 0, 7); g.fill();
+    }
+    for (let i = 0; i < 140; i++) { g.fillStyle = `rgba(255,236,190,${r() * 0.3})`; g.fillRect(r() * w, r() * h, 1, 1 + r() * 3); }
+  });
+  const fryBump = tex(64, 256, (g, w, h) => {
+    const r = mulberry32(5);
+    g.fillStyle = "#808080"; g.fillRect(0, 0, w, h);
+    for (let i = 0; i < 600; i++) { const v = (r() * 255) | 0; g.fillStyle = `rgba(${v},${v},${v},.35)`; g.beginPath(); g.arc(r() * w, r() * h, 0.5 + r() * 1.8, 0, 7); g.fill(); }
+  }, false);
+  const fryMats = [0xffffff, 0xfff1da, 0xffe3bd, 0xfff9ee].map((c) => new MSM({ color: c, map: fryMap, bumpMap: fryBump, bumpScale: 0.7, roughness: 0.55, metalness: 0 }));
+  const fryGeo = new RoundedBoxGeometry(0.13, 1, 0.13, 2, 0.028);
+  const fry = (L) => {
+    const m = new Mesh(fryGeo, fryMats[(rnd() * fryMats.length) | 0]);
+    const w = 0.88 + rnd() * 0.24;
+    m.scale.set(w, L, w * (0.9 + rnd() * 0.2));
+    return m;
+  };
+
+  /* print: green carton with the HOLLAND mark */
+  const drawMark = (g, cx, top, s) => {
+    g.save(); g.translate(cx, top); g.scale(s, s);
+    g.fillStyle = "#f7c21b";
+    const bar = (a, y0, h) => { g.save(); g.translate(0, 100); g.rotate((a * Math.PI) / 180); g.beginPath(); g.roundRect(-7, y0 - 100, 14, h, 4); g.fill(); g.restore(); };
+    bar(-40, 8, 50); bar(-20, 2, 50); bar(0, 0, 52); bar(20, 2, 50); bar(40, 8, 50);
+    g.fillStyle = "#e3261c"; g.beginPath(); g.moveTo(-38, 54); g.lineTo(38, 54); g.lineTo(0, 116); g.closePath(); g.fill();
+    g.restore();
+  };
+  const printCarton = (g, w, h, small = false) => {
+    const gr = g.createLinearGradient(0, 0, 0, h);
+    gr.addColorStop(0, "#15592f"); gr.addColorStop(1, "#0b3a1d");
+    g.fillStyle = gr; g.fillRect(0, 0, w, h);
+    g.fillStyle = "rgba(255,255,255,.04)";
+    for (let x = -h; x < w; x += 46) { g.beginPath(); g.moveTo(x, h); g.lineTo(x + h, 0); g.lineTo(x + h + 14, 0); g.lineTo(x + 14, h); g.fill(); }
+    const block = (cx, k) => {
+      drawMark(g, cx, h * (small ? 0.16 : 0.08), (small ? 1.25 : 1.6) * k);
+      g.textAlign = "center"; g.textBaseline = "alphabetic";
+      g.fillStyle = "#ffffff"; g.font = `700 ${Math.round((small ? 150 : 210) * k)}px Oswald, "Arial Narrow", Arial, sans-serif`;
+      g.fillText("HOLLAND", cx, h * (small ? 0.74 : 0.72));
+      g.fillStyle = "#f7c21b"; g.font = `800 ${Math.round((small ? 60 : 84) * k)}px Manrope, Arial, sans-serif`;
+      g.fillText("Fries & Cheese", cx, h * (small ? 0.9 : 0.88));
+    };
+    block(0, 1); block(w, 1); block(w / 2, 0.85);
+  };
+  const label = tex(2048, 680, (g, w, h) => printCarton(g, w, h));
+  const traySide = tex(2048, 300, (g, w, h) => {
+    g.fillStyle = "#11502a"; g.fillRect(0, 0, w, h);
+    g.fillStyle = "#f7c21b"; g.fillRect(0, h * 0.78, w, h * 0.08);
+    g.textAlign = "center"; g.fillStyle = "#fff"; g.font = '700 120px Oswald, "Arial Narrow", Arial, sans-serif';
+    for (const cx of [256, 768, 1280, 1792]) g.fillText("HOLLAND", cx, h * 0.62);
+  });
+  document.fonts?.ready.then(() => { label.userData.redraw(); traySide.userData.redraw(); });
+
+  const paper = new MSM({ color: 0xf3eee4, roughness: 0.9, side: DoubleSide });
+
+  function cup({ H = 1.3, rb = 0.56, rt = 0.8 } = {}) {
+    const g = new Group();
+    const pts = [];
+    for (let i = 0; i <= 24; i++) { const t = i / 24; pts.push(new Vector2(lerp(rb, rt, t), t * H)); }
+    const outer = new Mesh(new LatheGeometry(pts, 96), new MSM({ map: label, roughness: 0.5, metalness: 0 }));
+    const inner = new Mesh(new LatheGeometry(pts.map((p) => new Vector2(p.x - 0.014, p.y)), 96), new MSM({ color: 0xece5d8, roughness: 0.95, side: BackSide }));
+    const rim = new Mesh(new TorusGeometry(rt - 0.007, 0.014, 8, 96), new MSM({ color: 0xf6f2ea, roughness: 0.7 }));
+    rim.rotation.x = Math.PI / 2; rim.position.y = H;
+    const bottom = new Mesh(new CircleGeometry(rb, 48), new MSM({ color: 0x0b3a1d, roughness: 0.8 }));
+    bottom.rotation.x = Math.PI / 2; bottom.position.y = 0.002;
+    // the paper liner peeking up at the back
+    const pg = new CylinderGeometry(rt - 0.03, rt - 0.03, 0.6, 48, 6, true, Math.PI - 0.95, 1.9);
+    const pp = pg.attributes.position;
+    for (let i = 0; i < pp.count; i++) {
+      const x = pp.getX(i), y = pp.getY(i), z = pp.getZ(i);
+      const th = Math.atan2(x, z), d = Math.abs(Math.abs(th) - Math.PI);
+      const t = clamp(1 - d / 0.95, 0, 1);
+      const hy = (y + 0.3) / 0.6;
+      pp.setY(i, -0.3 + hy * (0.16 + 0.5 * Math.pow(t, 1.3)));
+      const out = 1 + hy * 0.06;
+      pp.setX(i, x * out); pp.setZ(i, z * out);
+    }
+    pg.computeVertexNormals();
+    const liner = new Mesh(pg, paper);
+    liner.position.y = H - 0.2;
+    g.add(outer, inner, rim, bottom, liner);
+    g.userData = { H, rb, rt };
+    return g;
+  }
+
+  function fillCup(group, { H, rb, rt }, N = 46, opts = {}) {
+    const list = [];
+    // keep every fry's corner (half-diagonal ≈ 0.095) plus its sway clear of the carton wall
+    const rMax = 0.56, wall = (y) => lerp(rb, rt, y / H) - 0.135;
+    for (let k = 0; k < N; k++) {
+      let r = rMax * Math.sqrt((k + 0.5) / N);
+      const a = k * 2.399963 + rnd() * 0.3;
+      const yb = 0.32 + rnd() * 0.3;
+      const L = (opts.Lmin ?? 1.0) + rnd() * (opts.Lvar ?? 0.5) + (1 - r / rMax) * 0.18;
+      r = Math.min(r, wall(yb));
+      let th = 0.05 + (r / rMax) * 0.42 + rnd() * 0.08;
+      const maxTan = (wall(H) - r) / (H - yb);
+      if (Math.tan(th) > maxTan) th = Math.atan(Math.max(0.03, maxTan));
+      const da = a + (rnd() - 0.5) * 0.45;
+      const dir = new Vector3(Math.sin(th) * Math.cos(da), Math.cos(th), Math.sin(th) * Math.sin(da));
+      const base = new Vector3(r * Math.cos(a), yb, r * Math.sin(a));
+      const center = base.clone().addScaledVector(dir, L / 2);
+      const q = new Quaternion().setFromUnitVectors(new Vector3(0, 1, 0), dir).multiply(new Quaternion().setFromAxisAngle(new Vector3(0, 1, 0), rnd() * Math.PI));
+      const m = fry(L);
+      m.position.copy(center); m.quaternion.copy(q);
+      group.add(m);
+      const ax = new Vector3(rnd() - 0.5, 0, rnd() - 0.5).normalize();
+      const rimPt = base.clone().addScaledVector(dir, (H - yb) / dir.y);
+      list.push({ mesh: m, home: center.clone(), homeQ: q.clone(), base, dir, L, r: r / rMax, a, rimPt,
+        top: yb + L * Math.cos(th), phase: rnd() * 6.28, rnd: rnd(), rnd2: rnd(), axis: ax,
+        jx: 0, jz: 0, vx: 0, vz: 0 });
+    }
+    return list;
+  }
+
+  const cheeseMat = new MPM({ color: 0xe57c0c, roughness: 0.2, clearcoat: 1, clearcoatRoughness: 0.12 });
+  const mayoMat = new MPM({ color: 0xfbf0d8, roughness: 0.28, clearcoat: 0.8, clearcoatRoughness: 0.18 });
+  const blob = (mat, rx, ry, rz, seed) => {
+    const geo = new SphereGeometry(1, 56, 28);
+    const p = geo.attributes.position, v = new Vector3();
+    for (let i = 0; i < p.count; i++) {
+      v.fromBufferAttribute(p, i);
+      const a = Math.atan2(v.z, v.x);
+      const k = 1 + 0.13 * Math.sin(a * 3 + seed) + 0.07 * Math.sin(a * 5 + seed * 2.3) + 0.04 * Math.sin(a * 9 + seed);
+      v.x *= k; v.z *= k;
+      if (v.y < 0) v.y *= 0.35;
+      p.setXYZ(i, v.x, v.y, v.z);
+    }
+    geo.computeVertexNormals();
+    const m = new Mesh(geo, mat); m.scale.set(rx, ry, rz);
+    return m;
+  };
+  const tube = (mat, pts, r) => {
+    const curve = new CatmullRomCurve3(pts.map(([x, y, z]) => new Vector3(x, y, z)));
+    const g = new Group();
+    g.add(new Mesh(new TubeGeometry(curve, 90, r, 14), mat));
+    for (const t of [0, 1]) { const s = new Mesh(new SphereGeometry(r, 16, 12), mat); s.position.copy(curve.getPoint(t)); g.add(s); }
+    return g;
+  };
+  function sauce() {
+    const g = new Group();
+    const c1 = blob(cheeseMat, 0.5, 0.14, 0.42, 1);
+    const c2 = blob(cheeseMat, 0.3, 0.12, 0.28, 3); c2.position.set(0.22, 0.03, 0.12);
+    const c3 = blob(cheeseMat, 0.26, 0.1, 0.24, 5); c3.position.set(-0.24, 0.02, -0.08);
+    const mayo = tube(mayoMat, [[-0.42, 0.1, -0.06], [-0.24, 0.17, 0.16], [-0.04, 0.17, -0.1], [0.14, 0.18, 0.15], [0.34, 0.15, -0.04], [0.44, 0.08, 0.1]], 0.075);
+    mayo.scale.y = 0.75;
+    const drizzle = tube(cheeseMat, [[-0.3, 0.2, 0.2], [-0.1, 0.24, -0.02], [0.1, 0.23, 0.2], [0.3, 0.2, 0.0]], 0.042);
+    g.add(c1, c2, c3, mayo, drizzle);
+    return g;
+  }
+
+  /* for the cards: a square paper tray, beef, nuggets, a ketchup pot */
+  function tray() {
+    const g = new Group();
+    const pts = []; for (let i = 0; i <= 8; i++) pts.push(new Vector2(lerp(0.78, 1.1, i / 8), (i / 8) * 0.5));
+    const og = new LatheGeometry(pts, 4, Math.PI / 4).toNonIndexed(); og.computeVertexNormals();
+    const outer = new Mesh(og, new MSM({ map: traySide, roughness: 0.6 }));
+    const ig = new LatheGeometry(pts.map((p) => new Vector2(p.x - 0.02, p.y)), 4, Math.PI / 4).toNonIndexed(); ig.computeVertexNormals();
+    const inner = new Mesh(ig, new MSM({ color: 0xf1ebe0, roughness: 0.95, side: BackSide }));
+    const floor = new Mesh(new CircleGeometry(0.78, 4, Math.PI / 4), new MSM({ color: 0xf1ebe0, roughness: 0.95 }));
+    floor.rotation.x = -Math.PI / 2; floor.position.y = 0.01;
+    g.add(outer, inner, floor);
+    return g;
+  }
+  function pile(group, N, spread, yMin, yVar) {
+    for (let k = 0; k < N; k++) {
+      const m = fry(0.75 + rnd() * 0.45);
+      const a = rnd() * Math.PI * 2, r = Math.sqrt(rnd()) * spread;
+      m.position.set(Math.cos(a) * r, yMin + rnd() * yVar + (1 - r / spread) * 0.18, Math.sin(a) * r * 0.85);
+      m.rotation.set(Math.PI / 2 + (rnd() - 0.5) * 0.7, rnd() * Math.PI, (rnd() - 0.5) * 0.5);
+      group.add(m);
+    }
+  }
+  const beefMat = new MSM({ color: 0x5b2c16, roughness: 0.85, bumpMap: fryBump, bumpScale: 2 });
+  const greenMat = new MSM({ color: 0x4f9e2c, roughness: 0.5 });
+  const jalMat = new MSM({ color: 0x3b8a2a, roughness: 0.35 });
+  const nuggetMat = new MSM({ color: 0xd08a34, roughness: 0.75, bumpMap: fryBump, bumpScale: 3 });
+
+  function variant(type) {
+    const root = new Group();
+    if (type === "classic" || type === "cheese") {
+      const c = cup(); root.add(c);
+      const fill = new Group(); root.add(fill);
+      fillCup(fill, c.userData, 46);
+      if (type === "cheese") { const s = sauce(); s.position.set(0, 1.78, 0.05); s.rotation.x = 0.22; root.add(s); }
+      root.rotation.y = 0.0;
+    } else {
+      const t = tray(); root.add(t);
+      if (type === "loaded") {
+        pile(root, 46, 0.8, 0.12, 0.38);
+        const s = blob(cheeseMat, 0.62, 0.12, 0.5, 2); s.position.set(0, 0.62, 0); root.add(s);
+        for (let i = 0; i < 26; i++) { const b = new Mesh(new DodecahedronGeometry(0.06 + rnd() * 0.04), beefMat); const a = rnd() * 6.28, r = rnd() * 0.55; b.position.set(Math.cos(a) * r, 0.7 + rnd() * 0.05, Math.sin(a) * r * 0.85); b.rotation.set(rnd() * 3, rnd() * 3, 0); root.add(b); }
+        for (let i = 0; i < 7; i++) { const j = new Mesh(new TorusGeometry(0.07, 0.025, 8, 20), jalMat); const a = rnd() * 6.28, r = rnd() * 0.5; j.position.set(Math.cos(a) * r, 0.76, Math.sin(a) * r * 0.85); j.rotation.x = Math.PI / 2 + (rnd() - 0.5) * 0.6; root.add(j); }
+        for (let i = 0; i < 30; i++) { const o = new Mesh(new CylinderGeometry(0.018, 0.018, 0.05, 8), greenMat); const a = rnd() * 6.28, r = rnd() * 0.6; o.position.set(Math.cos(a) * r, 0.78, Math.sin(a) * r * 0.85); o.rotation.set(rnd() * 3, rnd() * 3, rnd() * 3); root.add(o); }
+        root.add(tube(mayoMat, [[-0.5, 0.78, 0.1], [-0.25, 0.82, -0.15], [0, 0.82, 0.15], [0.25, 0.82, -0.12], [0.5, 0.77, 0.08]], 0.045));
+      } else {
+        const fr = new Group(); pile(fr, 26, 0.45, 0.12, 0.3); fr.position.set(-0.35, 0, -0.1); root.add(fr);
+        for (let i = 0; i < 3; i++) {
+          const n = blob(nuggetMat, 0.26, 0.42, 0.2, i * 2 + 1);
+          n.position.set(0.38 + (i - 1) * 0.08, 0.36 + i * 0.02, -0.25 + i * 0.27);
+          n.rotation.set(0.3, i * 0.9, 0.2 - i * 0.15);
+          root.add(n);
+        }
+        const pot = new Mesh(new CylinderGeometry(0.24, 0.2, 0.2, 40), new MSM({ color: 0xf3efe7, roughness: 0.6 }));
+        pot.position.set(0.95, 0.1, 0.62); root.add(pot);
+        const ketchup = new Mesh(new CylinderGeometry(0.215, 0.215, 0.02, 40), new MPM({ color: 0xb3150f, roughness: 0.15, clearcoat: 1 }));
+        ketchup.position.set(0.95, 0.19, 0.62); root.add(ketchup);
+      }
+      root.rotation.set(0.0, 0.0, 0);
+    }
+    return root;
+  }
+
+  return { cup, fillCup, sauce, variant, rnd };
+}
+
+/* ═══ HERO 3D ═══════════════════════════════════════════════════════════ */
+const mediaEl = $("#hero-media");
+function heroPhotoFallback() {
+  const img = new Image();
+  img.src = "assets/holland-fries-cheese.webp";
+  img.alt = "";
+  img.className = "photo-fallback";
+  mediaEl.append(img);
+  reveal(img, { from: { o: 0, y: 60 }, to: { o: 1, y: 0 }, cfg: { tension: 70, friction: 16 }, rootMargin: "0px" });
+  $("#hero-hint").style.display = "none";
+  $$(".card-pic img").forEach((i) => i.classList.remove("is-loading"));
+}
+
+const TRICKS = [
+  { id: "toss", name: "Подброс", word: "ХРУСЬ!" },
+  { id: "bloom", name: "Веер", word: "ОП-ПА!" },
+  { id: "flip", name: "Сальто", word: "ВАУ!" },
+];
+
+async function initHero3D() {
+  let THREE, RoundedBoxGeometry, RoomEnvironment;
+  try {
+    THREE = await import("three");
+    ({ RoundedBoxGeometry } = await import("three/addons/geometries/RoundedBoxGeometry.js"));
+    ({ RoomEnvironment } = await import("three/addons/environments/RoomEnvironment.js"));
+  } catch (e) { heroPhotoFallback(); return false; }
+
+  let renderer;
+  try { renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: "high-performance" }); }
+  catch (e) { heroPhotoFallback(); return false; }
+  const { Group, Mesh, Vector3, Quaternion, Euler, PerspectiveCamera, Scene, Raycaster, Vector2 } = THREE;
+  renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+  renderer.outputColorSpace = THREE.SRGBColorSpace;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.05;
+  renderer.setClearColor(0x000000, 0);
+  mediaEl.prepend(renderer.domElement);
+
+  const scene = new Scene();
+  const pmrem = new THREE.PMREMGenerator(renderer);
+  const envTex = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+  scene.environment = envTex;
+  scene.environmentIntensity = 0.85;
+  const key = new THREE.DirectionalLight(0xfff0d4, 2.4); key.position.set(3, 5, 4);
+  const rim = new THREE.DirectionalLight(0xffc04a, 3.2); rim.position.set(-4, 3, -3);
+  const rim2 = new THREE.DirectionalLight(0x9cffb8, 0.8); rim2.position.set(4, 1.5, -3);
+  const fill = new THREE.DirectionalLight(0xffffff, 0.5); fill.position.set(-3, 1, 5);
+  scene.add(key, rim, rim2, fill);
+
+  const camera = new PerspectiveCamera(26, 1, 0.1, 100);
+  const kit = makeKit(THREE, RoundedBoxGeometry);
+
+  /* rig → body → (cupPivot → cup) + filling(fries + sauce) */
+  const rig = new Group(); scene.add(rig);
+  const body = new Group(); rig.add(body);
+  const cupPivot = new Group(); cupPivot.position.y = 0.65; body.add(cupPivot);
+  const cupG = kit.cup(); cupG.position.y = -0.65; cupPivot.add(cupG);
+  const filling = new Group(); body.add(filling);
+  const fries = kit.fillCup(filling, cupG.userData, 48);
+  const sauceG = kit.sauce(); filling.add(sauceG);
+  const sauceHome = new Vector3(0, 1.8, 0.06);
+  sauceG.position.copy(sauceHome); sauceG.rotation.x = 0.24;
+  rig.rotation.x = 0.05;
+
+  // soft ground shadow
+  const shCanvas = document.createElement("canvas"); shCanvas.width = shCanvas.height = 128;
+  const sg = shCanvas.getContext("2d"); const grd = sg.createRadialGradient(64, 64, 0, 64, 64, 64);
+  grd.addColorStop(0, "rgba(0,0,0,.75)"); grd.addColorStop(0.55, "rgba(0,0,0,.35)"); grd.addColorStop(1, "rgba(0,0,0,0)");
+  sg.fillStyle = grd; sg.fillRect(0, 0, 128, 128);
+  const shadow = new Mesh(new THREE.PlaneGeometry(2.6, 2.6).rotateX(-Math.PI / 2), new THREE.MeshBasicMaterial({ map: new THREE.CanvasTexture(shCanvas), transparent: true, depthWrite: false }));
+  shadow.position.y = 0.003; rig.add(shadow);
+
+  // steam
+  const stCanvas = document.createElement("canvas"); stCanvas.width = stCanvas.height = 64;
+  const stg = stCanvas.getContext("2d"); const sgr = stg.createRadialGradient(32, 32, 0, 32, 32, 32);
+  sgr.addColorStop(0, "rgba(255,255,255,1)"); sgr.addColorStop(1, "rgba(255,255,255,0)");
+  stg.fillStyle = sgr; stg.fillRect(0, 0, 64, 64);
+  const stTex = new THREE.CanvasTexture(stCanvas);
+  const steam = [];
+  for (let i = 0; i < 12; i++) {
+    const s = new THREE.Sprite(new THREE.SpriteMaterial({ map: stTex, transparent: true, depthWrite: false, opacity: 0 }));
+    s.userData = { x0: (kit.rnd() - 0.5) * 0.9, z0: (kit.rnd() - 0.5) * 0.5, P: 3.2 + kit.rnd() * 2.4, ph: kit.rnd(), sw: kit.rnd() * 6 };
+    rig.add(s); steam.push(s);
+  }
+
+  // hit volume for hover / click
+  const hit = new Mesh(new THREE.CylinderGeometry(0.95, 0.7, 2.4, 16), new THREE.MeshBasicMaterial());
+  hit.position.y = 1.15; hit.visible = false; body.add(hit);
+
+  /* fit: product height fills `fill` of the view, its foot sits at `bottom` */
+  const PRODUCT_H = 2.35, PRODUCT_W = 2.0;
+  let W = 1, H = 1;
+  function fit() {
+    W = mediaEl.clientWidth; H = mediaEl.clientHeight;
+    renderer.setSize(W, H, false);
+    camera.aspect = W / H;
+    const mobile = innerWidth < 1024;
+    const fillF = mobile ? 0.54 : 0.5, bottom = mobile ? 0.13 : 0.2;
+    let Vh = PRODUCT_H / fillF;
+    if (Vh * camera.aspect < PRODUCT_W / 0.8) Vh = PRODUCT_W / 0.8 / camera.aspect;
+    const dist = Vh / (2 * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)));
+    const lookY = -0.05 - bottom * Vh + Vh / 2;
+    camera.position.set(0, lookY + dist * 0.16, dist);
+    camera.lookAt(0, lookY, 0);
+    camera.updateProjectionMatrix();
+  }
+  fit();
+  new ResizeObserver(fit).observe(mediaEl);
+
+  /* state */
+  const lean = { x: 0, y: 0, tx: 0, ty: 0 };
+  let spin = 0, spinV = 0, dragging = false, downX = 0, downY = 0, lastX = 0, moved = 0, pointerId = null;
+  let hovered = false, intro = RM ? 1 : 0, introDone = RM, sink = 0;
+  const lift = new Spring(0, { tension: 120, friction: 18 });
+  const sq = new Spring(0, { tension: 320, friction: 14 });     // squash (−) / stretch (+)
+  const jump = new Spring(0, { tension: 180, friction: 16 });   // body hop
+  const twirl = new Spring(0, { tension: 50, friction: 13 });   // extra Y spin for bloom
+  const sauceSq = new Spring(0, { tension: 300, friction: 9 });
+  let trick = null, trickIdx = 0, tossPower = 1;
+
+  const ray = new Raycaster(), ndc = new Vector2();
+  const hitTest = (cx, cy) => {
+    const r = renderer.domElement.getBoundingClientRect();
+    ndc.set(((cx - r.left) / r.width) * 2 - 1, -((cy - r.top) / r.height) * 2 + 1);
+    ray.setFromCamera(ndc, camera);
+    return ray.intersectObject(hit, false).length > 0;
+  };
+
+  /* info card + hint */
+  const card = $("#info-card"), hint = $("#hero-hint"), trickLabel = $("#trick-label");
+  const cardSp = new Spring(0, { tension: 210, friction: 26 });
+  cardSp.on((p) => paint(card, { o: p, y: lerp(18, 0, p) }));
+  const hintSp = new Spring(1, { tension: 120, friction: 20 });
+  hintSp.on((p) => { hint.style.opacity = p; hint.style.translate = `-50% ${lerp(10, 0, p)}px`; });
+  const setHover = (h) => {
+    if (h === hovered) return;
+    hovered = h;
+    lift.to(h ? 1 : 0);
+    if (innerWidth >= 1024) cardSp.to(h ? 1 : 0);
+    renderer.domElement.style.cursor = h ? (dragging ? "grabbing" : "grab") : "";
+  };
+
+  addEventListener("pointermove", (e) => {
+    lean.tx = clamp((e.clientX / innerWidth) * 2 - 1, -1, 1);
+    lean.ty = clamp((e.clientY / innerHeight) * 2 - 1, -1, 1);
+  }, { passive: true });
+  const cv = renderer.domElement;
+  cv.addEventListener("pointermove", (e) => {
+    if (dragging) return;
+    if (e.pointerType === "mouse") setHover(hitTest(e.clientX, e.clientY));
+  });
+  cv.addEventListener("pointerleave", () => !dragging && setHover(false));
+  cv.addEventListener("pointerdown", (e) => {
+    if (!hitTest(e.clientX, e.clientY)) return;
+    dragging = true; pointerId = e.pointerId; downX = lastX = e.clientX; downY = e.clientY; moved = 0; spinV = 0;
+    cv.style.cursor = "grabbing";
+  });
+  addEventListener("pointermove", (e) => {
+    if (!dragging || e.pointerId !== pointerId) return;
+    const dx = e.clientX - lastX; lastX = e.clientX;
+    moved = Math.max(moved, Math.hypot(e.clientX - downX, e.clientY - downY));
+    if (moved > 6) { spin += dx * 0.012; spinV = dx * 0.012; }
+  });
+  const up = (e) => {
+    if (!dragging || e.pointerId !== pointerId) return;
+    dragging = false;
+    cv.style.cursor = hovered ? "grab" : "";
+    if (moved <= 6) doTrick(e.clientX, e.clientY);
+    else hideHint();
+  };
+  addEventListener("pointerup", up);
+  addEventListener("pointercancel", (e) => { if (e.pointerId === pointerId) dragging = false; });
+  cv.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); const r = cv.getBoundingClientRect(); doTrick(r.left + r.width / 2, r.top + r.height / 2); } });
+  cv.tabIndex = 0;
+  cv.setAttribute("role", "img");
+  cv.setAttribute("aria-label", "Стаканчик картошки фри HOLLAND с сырным и голландским соусом. Нажмите Enter, чтобы подбросить картошку");
+
+  let hinted = false;
+  function hideHint() { if (hinted) return; hinted = true; hintSp.to(0); }
+
+  /* comic word at the pointer */
+  function burstWord(word, x, y) {
+    const el = document.createElement("div");
+    el.className = "burst"; el.textContent = word; el.setAttribute("aria-hidden", "true");
+    document.body.append(el);
+    const rot = (Math.random() - 0.5) * 24;
+    const sp = new Spring(0, { tension: 260, friction: 14 });
+    const fade = new Spring(1, { tension: 120, friction: 26 });
+    const draw = () => { el.style.transform = `translate(${x}px, ${y - 30 - sp.x * 40}px) translate(-50%, -50%) scale(${0.3 + sp.x * 0.9}) rotate(${rot}deg)`; el.style.opacity = fade.x; };
+    sp.on(draw); fade.on(draw);
+    sp.to(1);
+    fade.to(0, { delay: 520, onRest: () => el.remove() });
+  }
+
+  function doTrick(x, y, opts = {}) {
+    if (trick && performance.now() - trick.t0 < 900) return; // let the fries land
+    const t = TRICKS[trickIdx % TRICKS.length];
+    if (!opts.quiet) { trickIdx++; hideHint(); burstWord(t.word, x, y); trickLabel.innerHTML = `трюк <b>${String(trickIdx).padStart(2, "0")}</b> · ${t.name}`; }
+    tossPower = opts.power ?? 1;
+    trick = { id: opts.id || t.id, t0: performance.now(), landed: false };
+    // anticipation squash, then release
+    sq.to(-0.16, { cfg: { tension: 900, friction: 30 } });
+    setTimeout(() => {
+      sq.to(0, { cfg: { tension: 320, friction: 10 } });
+      sq.kick(0.0025 * tossPower);
+      if (trick.id === "toss") jump.kick(0.0017 * tossPower);
+      if (trick.id === "flip") jump.kick(0.0022);
+      if (trick.id === "bloom") twirl.to(twirl.target + Math.PI * 2);
+    }, 130);
+  }
+
+  /* per-fry trick offsets */
+  const tmpQ = new Quaternion(), tmpQ2 = new Quaternion(), tmpV = new Vector3(), up3 = new Vector3(0, 1, 0), axisX = new Vector3(1, 0, 0), axisZ = new Vector3(0, 0, 1);
+  const outward = new Vector3();
+  function trickPose(f, e, out) {
+    out.off.set(0, 0, 0); out.q.identity(); out.pivot = null;
+    if (!trick) return;
+    const P = tossPower;
+    const land = (amt) => { if (!f.landed) { f.landed = true; f.vx += (f.rnd - 0.5) * amt * P; f.vz += (f.rnd2 - 0.5) * amt * P; } };
+    if (trick.id === "toss") {
+      const d = 0.13 + f.r * 0.12 + f.rnd * 0.08;
+      const T = 0.95 + f.rnd2 * 0.3;
+      const s = (e - d) / T;
+      if (s <= 0) return;
+      if (s >= 1) return land(0.07);
+      f.landed = false;
+      const h = (0.85 + f.rnd * 0.6) * P;
+      const oy = 4 * h * s * (1 - s);
+      outward.set(Math.cos(f.a), 0, Math.sin(f.a));
+      // drift outward only once the fry has cleared the carton
+      out.off.set(0, oy, 0).addScaledVector(outward, clamp((oy - 0.75) / 0.5, 0, 1) * (0.15 + f.r * 0.3) * P);
+      const spins = P > 0.7 ? (f.rnd2 > 0.5 ? 1 : -1) : 0;
+      const k = clamp((s - 0.22) / 0.56, 0, 1);
+      out.q.setFromAxisAngle(f.axis, Math.PI * 2 * spins * E.inOutSine(k));
+    } else if (trick.id === "bloom") {
+      const s = e - (0.13 + f.r * 0.08);
+      if (s <= 0) return;
+      if (s >= 1.5) return land(0.05);
+      f.landed = false;
+      const env = s < 0.45 ? E.outBack(s / 0.45) : s < 0.85 ? 1 : 1 - E.inOutCubic((s - 0.85) / 0.65);
+      outward.set(Math.cos(f.a), 0, Math.sin(f.a));
+      tmpV.crossVectors(up3, outward).normalize();
+      // tilt outward about the point where the fry crosses the rim, so nothing goes through the carton
+      out.q.setFromAxisAngle(tmpV, -env * (0.3 + f.r * 0.55));
+      out.pivot = f.rimPt;
+      out.off.set(0, env * (0.12 + (1 - f.r) * 0.3), 0);
+    } else if (trick.id === "flip") {
+      const s = (e - (0.13 + f.rnd * 0.04)) / 1.12;
+      if (s <= 0) return;
+      if (s >= 1) return land(0.09);
+      f.landed = false;
+      out.off.set(0, 4 * 1.3 * s * (1 - s), 0);
+      out.q.setFromAxisAngle(f.axis, Math.sin(Math.PI * s) * 0.5 * (f.rnd - 0.5));
+    }
+  }
+
+  /* intro: rises up from below when the preloader pours away */
+  const introSp = new Spring(RM ? 1 : 0);
+  introSp.on((p) => (intro = p));
+  whenRevealing(() => {
+    introSp.to(1, { duration: 1400, easing: E.outCubic, onRest: () => { introDone = true; setTimeout(() => doTrick(0, 0, { quiet: true, power: 0.45, id: "toss" }), 120); } });
+  });
+
+  /* frame */
+  let visible = true, prevRotY = 0, prevRotX = 0, prevY = 0;
+  new IntersectionObserver(([e]) => (visible = e.isIntersecting)).observe(mediaEl);
+  const pose = { off: new Vector3(), q: new Quaternion(), pivot: null };
+  const jq = new Quaternion(), je = new Euler();
+  const heroEl = $("#hero");
+
+  onTick((now, dt) => {
+    if (!visible) return;
+    const t = now / 1000, k = dt / 16.667;
+    const ease = (r) => 1 - Math.pow(1 - r, k);
+    const mobile = innerWidth < 1024;
+
+    // lean toward the pointer (off on touch screens)
+    const leanAmt = mobile || RM ? 0 : 1;
+    lean.x += (lean.ty * 0.12 * leanAmt - lean.x) * ease(0.06);
+    lean.y += (lean.tx * 0.55 * leanAmt - lean.y) * ease(0.07);
+
+    // spin inertia
+    if (!dragging) { spinV *= Math.pow(0.94, k); spin += spinV * k; spin += (0 - spin) * ease(introDone && Math.abs(spinV) < 0.002 ? 0.012 : 0); }
+
+    // scroll sink
+    const p = clamp(scrollY / Math.max(1, heroEl.offsetHeight), 0, 1);
+    sink += (-p * 1.4 - sink) * ease(0.14);
+
+    const introY = (1 - intro) * -2.6, introRot = (1 - intro) * -1.3;
+    const idleBob = RM ? 0 : Math.sin(t * 1.3) * 0.03;
+    rig.position.y = introY + sink + lift.x * 0.1;
+    rig.rotation.y = -0.2 + lean.y + spin + introRot + twirl.x + (RM ? 0 : Math.sin(t * 0.4) * 0.08) + lift.x * 0.12;
+    rig.rotation.x = 0.05 + lean.x;
+    rig.rotation.z = (1 - intro) * 0.12 - lift.x * 0.03;
+
+    body.position.y = idleBob + Math.max(0, jump.x) * 1.2;
+    const sqv = clamp(sq.x, -0.3, 0.3);
+    body.scale.set(1 - sqv * 0.55, 1 + sqv, 1 - sqv * 0.55);
+
+    // the flip turns only the carton
+    let flipA = 0;
+    if (trick && trick.id === "flip") {
+      const e = (now - trick.t0) / 1000;
+      const s = clamp((e - 0.3) / 0.75, 0, 1);
+      flipA = -Math.PI * 2 * E.inOutCubic(s);
+    }
+    cupPivot.rotation.x = flipA;
+    cupPivot.position.y = 0.65 + Math.sin(-flipA / 2) * 0.35;
+
+    // the body's own motion drives the fries' inertia
+    const rotY = rig.rotation.y, rotX = rig.rotation.x, wy = rig.position.y + body.position.y;
+    const angVy = (rotY - prevRotY) / k, angVx = (rotX - prevRotX) / k, linVy = (wy - prevY) / k;
+    prevRotY = rotY; prevRotX = rotX; prevY = wy;
+
+    const e = trick ? (now - trick.t0) / 1000 : 0;
+    if (trick && e > 2.2) trick = null;
+    for (const f of fries) {
+      // jiggle springs (radians), excited by acceleration of the body
+      const hf = 0.5 + f.top * 0.4;
+      const tx = clamp(-angVx * 2.2 - linVy * 1.2 * (f.r - 0.5), -0.22, 0.22) * hf;
+      const tz = clamp(angVy * 1.8, -0.22, 0.22) * hf;
+      f.vx += (-(f.jx - tx) * 0.09 - f.vx * 0.16) * k;
+      f.vz += (-(f.jz - tz) * 0.09 - f.vz * 0.16) * k;
+      f.jx += f.vx * k; f.jz += f.vz * k;
+      const breathe = RM ? 0 : Math.sin(t * 1.6 + f.phase) * 0.012;
+      je.set(f.jx + breathe, 0, f.jz - breathe * 0.6);
+      jq.setFromEuler(je);
+      trickPose(f, e, pose);
+      // jiggle pivots about the fry's foot; a trick turns it about its centre or its pivot
+      tmpV.copy(f.home).sub(f.base).applyQuaternion(jq).add(f.base);
+      if (pose.pivot) tmpV.sub(pose.pivot).applyQuaternion(pose.q).add(pose.pivot);
+      tmpV.add(pose.off);
+      f.mesh.position.copy(tmpV);
+      f.mesh.quaternion.copy(pose.q).multiply(jq).multiply(f.homeQ);
+    }
+
+    // sauce rides the fries
+    let sOff = 0, sRot = 0;
+    if (trick) {
+      if (trick.id === "toss") { const s = clamp((e - 0.16) / 1.0, 0, 1); sOff = 4 * 0.5 * tossPower * s * (1 - s); sRot = Math.sin(Math.PI * s) * 0.5 * tossPower; if (s >= 1 && !trick.sl) { trick.sl = true; sauceSq.kick(-0.0012); } }
+      if (trick.id === "flip") { const s = clamp((e - 0.13) / 1.12, 0, 1); sOff = 4 * 1.35 * s * (1 - s); sRot = Math.sin(Math.PI * s) * 0.6; if (s >= 1 && !trick.sl) { trick.sl = true; sauceSq.kick(-0.0015); sq.kick(-0.002); } }
+      if (trick.id === "bloom") { const s = e - 0.13; const env = s < 0.45 ? E.outBack(clamp(s / 0.45, 0, 1)) : s < 0.85 ? 1 : s < 1.5 ? 1 - E.inOutCubic((s - 0.85) / 0.65) : 0; sOff = env * 0.55; sRot = env * 0.2; }
+      if (trick.id === "toss" && e > 1.1 && !trick.land) { trick.land = true; sq.kick(-0.0016 * tossPower); }
+    }
+    sauceG.position.set(sauceHome.x, sauceHome.y + sOff, sauceHome.z);
+    sauceG.rotation.set(0.24 + sRot * 0.6, sRot, sRot * 0.4);
+    const ss = clamp(sauceSq.x, -0.3, 0.3);
+    sauceG.scale.set(1 - ss * 1.5, 1 + ss * 3, 1 - ss * 1.5);
+
+    // shadow follows the hop
+    const air = Math.max(0, body.position.y) + (flipA ? 0.2 : 0);
+    shadow.scale.setScalar(clamp(1 - air * 0.5, 0.55, 1.1));
+    shadow.material.opacity = clamp(1 - air * 0.8, 0.35, 1) * (0.4 + intro * 0.6);
+
+    // steam
+    for (const s of steam) {
+      const u = (t / s.userData.P + s.userData.ph) % 1;
+      s.position.set(s.userData.x0 + Math.sin(u * 3 + s.userData.sw) * 0.18, 2.0 + u * 1.5, s.userData.z0);
+      s.scale.setScalar(0.35 + u * 0.75);
+      s.material.opacity = RM ? 0 : Math.sin(Math.PI * u) * 0.07 * intro;
+    }
+
+    renderer.render(scene, camera);
+  });
+
+  /* the four card pictures, rendered once from the same kit */
+  const renderCards = () => {
+    const imgs = $$(".card-pic img[data-variant]");
+    let r2;
+    try { r2 = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true }); }
+    catch { imgs.forEach((i) => i.classList.remove("is-loading")); return; }
+    r2.setPixelRatio(1); r2.setSize(720, 660, false);
+    r2.outputColorSpace = THREE.SRGBColorSpace; r2.toneMapping = THREE.ACESFilmicToneMapping; r2.toneMappingExposure = 1.05;
+    r2.setClearColor(0, 0);
+    const pm2 = new THREE.PMREMGenerator(r2);
+    const sc = new Scene();
+    sc.environment = pm2.fromScene(new RoomEnvironment(), 0.04).texture; sc.environmentIntensity = 0.85;
+    sc.add(key.clone(), rim.clone(), rim2.clone(), fill.clone());
+    const cam = new PerspectiveCamera(26, 720 / 660, 0.1, 100);
+    for (const img of imgs) {
+      const v = img.dataset.variant;
+      const obj = kit.variant(v);
+      if (v === "classic") obj.rotation.y = 0.6;
+      if (v === "cheese") obj.rotation.y = -0.25;
+      sc.add(obj);
+      const box = new THREE.Box3().setFromObject(obj), size = box.getSize(new Vector3()), c = box.getCenter(new Vector3());
+      const isTray = v === "loaded" || v === "chicken";
+      const dist = (Math.max(size.y * 1.15, size.x / cam.aspect * 1.05) / 2) / Math.tan(THREE.MathUtils.degToRad(13)) * (isTray ? 1.05 : 1.08);
+      const elev = isTray ? 0.75 : 0.18;
+      cam.position.set(c.x, c.y + dist * elev, c.z + dist);
+      cam.lookAt(c.x, c.y - (isTray ? 0.05 : 0), c.z);
+      r2.render(sc, cam);
+      img.src = r2.domElement.toDataURL("image/png");
+      img.onload = () => img.classList.remove("is-loading");
+      sc.remove(obj);
+    }
+    pm2.dispose(); r2.dispose(); r2.forceContextLoss?.();
+  };
+  (window.requestIdleCallback || setTimeout)(renderCards, { timeout: 1500 });
+
+  return true;
+}
+
+/* ═══ preloader ═════════════════════════════════════════════════════════ */
+const pre = $("#preloader");
+const heroReady = initHero3D();
+if (RM) {
+  pre.remove();
+  setReady();
+  revealSubs.splice(0).forEach((f) => f());
+} else {
+  const count = $("#pre-count"), friesEl = $("#pre-fries"), sauceEl = $("#pre-sauce");
+  const level = new Spring(0, { tension: 120, friction: 26 });
+  const pour = new Spring(0, { tension: 90, friction: 18 });
+  const draw = () => {
+    const L = clamp(level.x, 0, 1);
+    count.textContent = String(Math.round(L * 100)).padStart(3, "0");
+    friesEl.setAttribute("transform", `translate(0 ${(1 - L) * 92 + pour.x * 40})`);
+    const s = clamp((L - 0.9) / 0.1, 0, 1);
+    sauceEl.style.transform = `scale(${E.outBack(s)})`;
+    pre.style.clipPath = `inset(${pour.x * 100}% 0 0 0)`;
+  };
+  level.on(draw); pour.on(draw);
+  const t0 = performance.now();
+  let finishing = false;
+  level.to(0.1);
+  document.fonts?.ready.then(() => !finishing && level.to(0.6));
+  const loaded = new Promise((r) => (document.readyState === "complete" ? r() : addEventListener("load", r, { once: true })));
+  const finish = () => {
+    if (finishing) return;
+    finishing = true;
+    level.to(1, {
+      onRest: () => setTimeout(() => {
+        page.revealing = true;
+        revealSubs.splice(0).forEach((f) => f());
+        pour.to(1, { onRest: () => { pre.remove(); setReady(); lenis?.start(); } });
+      }, Math.max(0, 1500 - (performance.now() - t0)) + 180),
+    });
+  };
+  Promise.all([loaded, heroReady]).then(() => { level.to(0.85); finish(); });
+  setTimeout(finish, 4000);
+  setTimeout(() => { if (!page.ready) { pre.remove(); setReady(); lenis?.start(); } }, 6000);
+}
+
+/* ═══ Lenis ═════════════════════════════════════════════════════════════ */
+scrollTo(0, 0);
+import("lenis").then(({ default: Lenis }) => {
+  lenis = new Lenis({ smoothWheel: true });
+  window.lenis = lenis;
+  if (!page.ready) lenis.stop();
+}).catch(() => {});
+</script>
+</body>
+</html>
