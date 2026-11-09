@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>HOLLAND — Fries &amp; Cheese · картошка фри с сыром</title>
 <meta name="description" content="HOLLAND Fries & Cheese — кафе, где всё с картошкой фри: сырные боксы, loaded-фри, наггетсы и фирменные соусы. Закажи заранее и забери без очереди.">
-<meta name="theme-color" content="#0b0d0a">
+<meta name="theme-color" content="#0a1710">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230f4a26'/%3E%3Cg fill='%23f7c21b'%3E%3Crect x='29' y='8' width='6' height='22' rx='2'/%3E%3Crect x='29' y='8' width='6' height='22' rx='2' transform='rotate(-22 32 40)'/%3E%3Crect x='29' y='8' width='6' height='22' rx='2' transform='rotate(22 32 40)'/%3E%3C/g%3E%3Cpath d='M18 30h28L32 56z' fill='%23e3261c'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,10 +21,10 @@
 </script>
 <style>
 :root {
-  --bg: #0b0d0a;
-  --bg-2: #10130e;
-  --card: #141811;
-  --card-2: #1a1f16;
+  --bg: #0a1710;
+  --bg-2: #0e1f15;
+  --card: #11241a;
+  --card-2: #173022;
   --line: rgba(246, 241, 230, .1);
   --line-2: rgba(246, 241, 230, .18);
   --fg: #f6f1e6;
@@ -53,7 +53,10 @@ html.lenis, html.lenis body { height: auto; }
 html.is-locked { overflow: hidden; }
 body {
   margin: 0;
-  background: var(--bg);
+  /* deep cafe green, a warm wash from the top and a faint doodle tile */
+  background: radial-gradient(90% 50% at 50% 0%, rgba(32, 72, 44, .55), transparent 70%) no-repeat,
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260' viewBox='0 0 260 260'%3E%3Cg fill='none' stroke='%23ffc21a' stroke-opacity='.05' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M30 62l5 32h22l5-32zM37 62l-3-18M44 62V40M51 62l2-20M57 62l4-16'/%3E%3Cpath d='M150 70l44-24 16 12v16H150zM170 66a4 4 0 1 0 0 .1M192 62a3 3 0 1 0 0 .1'/%3E%3Cpath d='M64 160h10v8l4 5v32a4 4 0 0 1-4 4H64a4 4 0 0 1-4-4v-32l4-5zM60 186h18'/%3E%3Cpath d='M196 168v22M185 179h22M120 120h.1M230 230h.1M20 220h.1M140 228h.1'/%3E%3Cpath d='M118 200c10-8 22 6 32-2s18 4 26-2'/%3E%3C/g%3E%3C/svg%3E") 0 0 / 260px 260px,
+    linear-gradient(180deg, #0c1c13, var(--bg) 40%);
   color: var(--fg);
   font: 500 16px/1.55 var(--f-sans);
   -webkit-font-smoothing: antialiased;
@@ -122,15 +125,20 @@ h1, h2, h3, p { margin: 0; }
 .play svg { width: 11px; height: 11px; margin-left: 2px; }
 .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--yellow); flex: none; box-shadow: 0 0 12px var(--yellow); }
 
-/* ── preloader ───────────────────────────────────── */
+/* ── intro: the HOLLAND mark draws itself, the wordmark rises, then it all clears ── */
 #preloader {
-  position: fixed; inset: 0; z-index: 100; background: var(--bg); color: var(--fg);
-  padding: var(--pad); overflow: hidden; clip-path: inset(0% 0 0 0);
+  position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; overflow: hidden;
+  background: radial-gradient(60% 55% at 50% 45%, rgba(255, 194, 26, .10), transparent 70%), var(--bg);
 }
-#preloader .count { margin-top: 12px; font: 700 clamp(88px, 16vw, 220px)/.9 var(--f-display); font-variant-numeric: tabular-nums; letter-spacing: -.01em; }
-#preloader .pre-logo { position: absolute; left: var(--pad); bottom: var(--pad); }
-#preloader .pre-cup { position: absolute; right: var(--pad); bottom: var(--pad); height: min(52vh, 480px); width: auto; overflow: visible; }
-@media (max-width: 639px) { #preloader .pre-cup { height: 34vh; } }
+.intro-logo { position: relative; display: flex; flex-direction: column; align-items: center; }
+.intro-glow { position: absolute; left: 50%; top: 22%; width: 340px; height: 340px; margin: -170px 0 0 -170px; border-radius: 50%; background: radial-gradient(closest-side, rgba(255, 194, 26, .28), transparent); opacity: 0; pointer-events: none; }
+.intro-mark { width: clamp(110px, 16vw, 168px); height: auto; overflow: visible; }
+.intro-mark .bar { transform-box: fill-box; transform-origin: 50% 100%; transform: scaleY(0); }
+.intro-mark .tri { transform-box: fill-box; transform-origin: 50% 50%; transform: scale(0); }
+.intro-word { margin-top: 14px; display: flex; overflow: hidden; padding: .06em .02em .02em; font: 700 clamp(64px, 11vw, 148px)/.95 var(--f-display); letter-spacing: .03em; color: var(--fg); }
+.intro-word span { display: inline-block; transform: translateY(110%); }
+.intro-sub { margin-top: 6px; font: 800 clamp(18px, 2.6vw, 34px)/1.1 var(--f-sans); color: var(--yellow); clip-path: inset(0 100% 0 0); white-space: nowrap; }
+.intro-line { margin-top: 18px; width: clamp(120px, 20vw, 220px); height: 2px; background: linear-gradient(90deg, transparent, var(--yellow), transparent); transform: scaleX(0); }
 
 /* ── logo ────────────────────────────────────────── */
 .logo { display: inline-flex; align-items: center; gap: 10px; line-height: 1; }
@@ -141,7 +149,7 @@ h1, h2, h3, p { margin: 0; }
 /* ── header ──────────────────────────────────────── */
 .site-header { position: fixed; inset: 0 0 auto 0; z-index: 50; height: var(--header-h); }
 .site-header::before {
-  content: ""; position: absolute; inset: 0; background: rgba(11, 13, 10, .72);
+  content: ""; position: absolute; inset: 0; background: rgba(10, 23, 16, .72);
   -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--line); opacity: var(--hdr-bg, 0);
 }
@@ -174,8 +182,8 @@ h1, h2, h3, p { margin: 0; }
 /* ── hero ────────────────────────────────────────── */
 .hero { position: relative; min-height: 100svh; min-height: max(100svh, 720px); overflow: hidden; background: var(--bg); }
 #opal { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
-.hero-fallback-bg { position: absolute; inset: 0; z-index: 0; background: url("assets/bg-wave.webp") right center / cover no-repeat, var(--bg); }
-.hero-scrim { position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(90deg, rgba(11, 13, 10, .78) 0%, rgba(11, 13, 10, .38) 36%, rgba(11, 13, 10, 0) 66%), linear-gradient(0deg, rgba(11, 13, 10, .92) 0%, rgba(11, 13, 10, 0) 24%); }
+.hero-fallback-bg { position: absolute; inset: 0; z-index: 0; background: radial-gradient(55% 65% at 72% 55%, rgba(255, 194, 26, .18), transparent 65%), radial-gradient(80% 80% at 75% 50%, #143a22, transparent 70%), var(--bg); }
+.hero-scrim { position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(90deg, rgba(10, 23, 16, .78) 0%, rgba(10, 23, 16, .38) 36%, rgba(10, 23, 16, 0) 66%), linear-gradient(0deg, rgba(10, 23, 16, .92) 0%, rgba(10, 23, 16, 0) 24%); }
 .hero-media { margin: 0; position: absolute; z-index: 5; top: 0; right: 0; bottom: 0; width: 58%; }
 .hero-media canvas { width: 100% !important; height: 100% !important; touch-action: pan-y; }
 .hero-media .photo-fallback { position: absolute; left: 50%; bottom: 12%; width: min(78%, 620px); transform: translateX(-50%); filter: drop-shadow(0 40px 60px rgba(0,0,0,.6)); }
@@ -195,7 +203,7 @@ h1, h2, h3, p { margin: 0; }
 .hero-bar .wrap { display: flex; justify-content: space-between; align-items: flex-end; gap: 20px; padding-bottom: 28px; font: 500 12px/1.5 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
 .hero-bar .k { color: var(--dim); display: block; }
 
-.badge-rot { position: absolute; z-index: 6; width: 128px; height: 128px; left: 14%; bottom: 24%; pointer-events: none; }
+.badge-rot { position: absolute; z-index: 6; width: 128px; height: 128px; right: 9%; bottom: 12%; pointer-events: none; }
 .badge-rot svg { width: 100%; height: 100%; }
 
 @media (max-width: 1023px) {
@@ -205,9 +213,9 @@ h1, h2, h3, p { margin: 0; }
   .hero > .hero-inner { order: 1; }
   .hero-media-wrap { position: relative; z-index: 5; order: 2; }
   .hero-bar { position: relative; order: 3; }
-  .hero-scrim { background: linear-gradient(180deg, rgba(11,13,10,.75) 0%, rgba(11,13,10,0) 45%), linear-gradient(0deg, rgba(11,13,10,.9) 0%, rgba(11,13,10,0) 22%); }
+  .hero-scrim { background: linear-gradient(180deg, rgba(10,23,16,.75) 0%, rgba(10,23,16,0) 45%), linear-gradient(0deg, rgba(10,23,16,.9) 0%, rgba(10,23,16,0) 22%); }
   .hero-feats { margin-top: 30px; }
-  .badge-rot { width: 96px; height: 96px; left: auto; right: 6%; top: 8%; bottom: auto; }
+  .badge-rot { width: 92px; height: 92px; right: 5%; bottom: 9%; }
 }
 @media (max-width: 639px) {
   .hero-media { height: 54vh; min-height: 360px; margin-top: -28px; }
@@ -223,7 +231,7 @@ h1, h2, h3, p { margin: 0; }
 
 /* ── categories ──────────────────────────────────── */
 .cats { position: relative; z-index: 12; margin-top: -10px; }
-.cats-box { display: grid; grid-template-columns: repeat(6, 1fr); border: 1px solid var(--line-2); border-radius: 22px; background: linear-gradient(180deg, rgba(26, 31, 22, .9), rgba(16, 19, 14, .9)); overflow: hidden; }
+.cats-box { display: grid; grid-template-columns: repeat(6, 1fr); border: 1px solid var(--line-2); border-radius: 22px; background: linear-gradient(180deg, rgba(23, 48, 34, .9), rgba(14, 31, 21, .9)); overflow: hidden; }
 .cat { position: relative; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 8px; padding: 26px 14px 24px; transition: background-color .25s var(--ease); }
 .cat + .cat::before { content: ""; position: absolute; left: 0; top: 22%; bottom: 22%; width: 1px; background: var(--line-2); }
 .cat:hover { background: rgba(255, 194, 26, .06); }
@@ -308,7 +316,7 @@ h1, h2, h3, p { margin: 0; }
 .about-pic { position: relative; aspect-ratio: 1; }
 .about-pic .disc { position: absolute; inset: 9%; border-radius: 50%;
   /* dark, warm-lit plate: a green disc swallowed the green carton */
-  background: radial-gradient(circle at 50% 40%, rgba(255, 194, 26, .30), rgba(255, 194, 26, .08) 42%, transparent 68%), radial-gradient(circle at 50% 50%, #1b1f17, #0d0f0b 72%);
+  background: radial-gradient(circle at 50% 40%, rgba(255, 194, 26, .30), rgba(255, 194, 26, .08) 42%, transparent 68%), radial-gradient(circle at 50% 50%, #173022, #0a1710 72%);
   box-shadow: inset 0 0 0 1.5px rgba(255, 194, 26, .32), inset 0 -50px 90px rgba(15, 74, 38, .45), 0 30px 80px rgba(0, 0, 0, .5); }
 .about-pic .disc::after { content: ""; position: absolute; left: 22%; right: 22%; bottom: 3%; height: 9%; border-radius: 50%; background: radial-gradient(closest-side, rgba(0, 0, 0, .75), transparent); }
 .about-pic .ring { position: absolute; inset: 0; }
@@ -325,7 +333,7 @@ h1, h2, h3, p { margin: 0; }
 @media (max-width: 1023px) { .about-grid { grid-template-columns: 1fr; gap: 30px; } .about-pic { max-width: 520px; margin: 0 auto; width: 100%; } }
 
 /* ── order / printer ─────────────────────────────── */
-.order-box { position: relative; border-radius: 28px; overflow: hidden; border: 1px solid var(--line-2); background: radial-gradient(70% 90% at 80% 10%, rgba(255,194,26,.12), transparent 60%), linear-gradient(160deg, #15301d, #0c1a10 60%, #0b0d0a); display: grid; grid-template-columns: 1.05fr 1fr; gap: 40px; padding: 64px 64px 0; min-height: 640px; }
+.order-box { position: relative; border-radius: 28px; overflow: hidden; border: 1px solid var(--line-2); background: radial-gradient(70% 90% at 80% 10%, rgba(255,194,26,.12), transparent 60%), linear-gradient(160deg, #15301d, #0c1a10 60%, #0a1710); display: grid; grid-template-columns: 1.05fr 1fr; gap: 40px; padding: 64px 64px 0; min-height: 640px; }
 .order-copy { padding-bottom: 64px; align-self: center; }
 .order-copy .lede { margin-top: 20px; color: var(--muted); max-width: 460px; }
 .order-copy .btns { margin-top: 30px; display: flex; flex-wrap: wrap; gap: 12px; }
@@ -351,7 +359,7 @@ h1, h2, h3, p { margin: 0; }
 @media (max-width: 1023px) { .order-box { grid-template-columns: 1fr; padding: 44px 28px 0; } .order-copy { padding-bottom: 10px; } }
 
 /* ── footer ──────────────────────────────────────── */
-.site-footer { margin-top: clamp(90px, 10vw, 140px); border-top: 1px solid var(--line); background: #080a07; }
+.site-footer { margin-top: clamp(90px, 10vw, 140px); border-top: 1px solid var(--line); background: #07120c; }
 .foot-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1.3fr 1.2fr; gap: 40px; padding: 64px 0 50px; }
 .foot-grid h5 { margin: 0 0 18px; font: 600 12px/1 var(--f-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--fg); }
 .foot-grid li { margin-bottom: 10px; }
@@ -410,37 +418,24 @@ html.has-visited #preloader { display: none !important; }
   </defs>
 </svg>
 
-<!-- ═══ PRELOADER ═══ -->
+<!-- ═══ INTRO: the logo animates in, then the hero carton fills with fries ═══ -->
 <div id="preloader" aria-hidden="true">
-  <p class="eyebrow"><span class="sl">//</span> жарим картошку</p>
-  <p class="count" id="pre-count">000</p>
-  <span class="logo pre-logo"><svg><use href="#i-logo"/></svg><span><b>HOLLAND</b><i>Fries &amp; Cheese</i></span></span>
-  <svg class="pre-cup" viewBox="0 0 120 170" fill="none">
-    <defs>
-      <clipPath id="pre-fries-clip"><rect x="0" y="-80" width="120" height="160"/></clipPath>
-    </defs>
-    <g clip-path="url(#pre-fries-clip)">
-      <g id="pre-fries" fill="#f5b53f" stroke="#c9792a" stroke-width="1.2">
-        <rect x="24" y="22" width="10" height="70" rx="2" transform="rotate(-14 29 90)"/>
-        <rect x="36" y="10" width="10" height="80" rx="2" transform="rotate(-6 41 90)"/>
-        <rect x="48" y="2" width="10" height="88" rx="2" transform="rotate(-2 53 90)"/>
-        <rect x="60" y="6" width="10" height="84" rx="2" transform="rotate(4 65 90)"/>
-        <rect x="72" y="12" width="10" height="78" rx="2" transform="rotate(9 77 90)"/>
-        <rect x="84" y="24" width="10" height="66" rx="2" transform="rotate(15 89 90)"/>
-        <rect x="42" y="18" width="10" height="72" rx="2" transform="rotate(10 47 90)"/>
-        <rect x="66" y="20" width="10" height="70" rx="2" transform="rotate(-9 71 90)"/>
+  <div class="intro-logo">
+    <span class="intro-glow" id="intro-glow"></span>
+    <svg class="intro-mark" viewBox="0 0 120 120">
+      <g fill="#f7c21b">
+        <g transform="rotate(-40 60 100)"><rect class="bar" x="53" y="8" width="14" height="50" rx="4"/></g>
+        <g transform="rotate(-20 60 100)"><rect class="bar" x="53" y="2" width="14" height="50" rx="4"/></g>
+        <rect class="bar" x="53" y="0" width="14" height="52" rx="4"/>
+        <g transform="rotate(20 60 100)"><rect class="bar" x="53" y="2" width="14" height="50" rx="4"/></g>
+        <g transform="rotate(40 60 100)"><rect class="bar" x="53" y="8" width="14" height="50" rx="4"/></g>
       </g>
-    </g>
-    <g id="pre-sauce" style="transform-origin:60px 40px;transform:scale(0)">
-      <path d="M34 42c4-12 18-16 28-13 10-4 24 0 26 12 2 9-9 12-27 12S31 51 34 42z" fill="#f29a1d"/>
-      <path d="M40 40c6-6 12 2 18-3s12 3 18-2 9 2 10 3" stroke="#fbf0d6" stroke-width="5" stroke-linecap="round"/>
-    </g>
-    <path d="M16 62h88l-10 100a6 6 0 0 1-6 5H32a6 6 0 0 1-6-5z" fill="#0f4a26" stroke="currentColor" stroke-width="2"/>
-    <g transform="translate(60 92) scale(.32) translate(-60 -60)"><use href="#i-logo"/></g>
-    <text x="60" y="140" text-anchor="middle" font-family="Oswald, Arial Narrow, sans-serif" font-weight="700" font-size="17" fill="#fff">HOLLAND</text>
-    <text x="60" y="153" text-anchor="middle" font-family="Manrope, Arial, sans-serif" font-weight="800" font-size="7.5" fill="#f7c21b">Fries &amp; Cheese</text>
-    <path d="M12 62h96" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-  </svg>
+      <path class="tri" d="M22 54h76L60 116z" fill="#e3261c"/>
+    </svg>
+    <div class="intro-word" id="intro-word"><span>H</span><span>O</span><span>L</span><span>L</span><span>A</span><span>N</span><span>D</span></div>
+    <div class="intro-sub" id="intro-sub">Fries &amp; Cheese</div>
+    <div class="intro-line" id="intro-line"></div>
+  </div>
 </div>
 
 <!-- ═══ HEADER ═══ -->
@@ -501,7 +496,7 @@ html.has-visited #preloader { display: none !important; }
     <div class="badge-rot" aria-hidden="true">
       <svg viewBox="0 0 120 120" id="badge-svg">
         <defs><path id="badge-circle" d="M60 60m-46 0a46 46 0 1 1 92 0a46 46 0 1 1-92 0"/></defs>
-        <circle cx="60" cy="60" r="58" fill="#0b0d0a" stroke="#ffc21a" stroke-width="1.5"/>
+        <circle cx="60" cy="60" r="58" fill="#0a1710" stroke="#ffc21a" stroke-width="1.5"/>
         <circle cx="60" cy="60" r="33" fill="none" stroke="rgba(255,194,26,.35)"/>
         <g id="badge-text"><text font-family="JetBrains Mono, monospace" font-size="9.4" font-weight="600" letter-spacing="2.2" fill="#ffc21a"><textPath href="#badge-circle">100% СВЕЖИЙ КАРТОФЕЛЬ · ЖАРИМ ПРИ ТЕБЕ · </textPath></text></g>
         <g transform="translate(60 60) scale(.36) translate(-60 -64)"><use href="#i-logo"/></g>
@@ -1124,245 +1119,94 @@ toggle.addEventListener("click", () => {
   menuOpen ? lenis?.stop() : lenis?.start();
 });
 
-/* ═══ Interactive 3D particle wave background (ref: beaded wave crest) ═══ */
-function initWaveBg() {
+/* ═══ Hero backdrop: a warm cafe at night ══════════════════════════════════
+   Deep green, a golden light behind the carton with slow sunburst rays, soft warm bokeh drifting
+   up like lamps through a window, and a glow that follows the cursor. Smooth maths only, so it
+   stays clean on every GPU. */
+function initCafeBg() {
   const cv = $("#opal");
-  const gl = cv.getContext("webgl2") || cv.getContext("webgl", { premultipliedAlpha: false, antialias: false });
+  const gl = cv.getContext("webgl", { premultipliedAlpha: false, antialias: false });
   if (!gl) { cv.replaceWith(Object.assign(document.createElement("div"), { className: "hero-fallback-bg" })); return; }
-
-  const vs = `
-attribute vec2 aGrid;
-uniform vec2 uRes;
-uniform float uTime;
-uniform vec2 uMouse;
-uniform float uAmt;
-uniform float uAspect;
-uniform float uScroll;
-
-varying float vCrest;
-varying float vSurfLight;
-varying float vDepth;
-varying float vEdgeFade;
-
-void main() {
-  float u = aGrid.x;
-  float v = aGrid.y;
-
-  // World space grid coordinates:
-  float gx = (u - 0.5) * 4.4;
-  float gy = (v - 0.5) * 3.3;
-
-  float t = uTime * 0.28;
-
-  // S-curved vertical wave crest (matching reference photo):
-  float ridgeX = 0.42 + 0.30 * sin(gy * 1.35 + t * 0.8) + 0.12 * cos(gy * 2.8 - t * 0.5);
-  float dx = gx - ridgeX;
-
-  // Asymmetric falloff: steep cliff to the right, sweeping shelf to the left
-  float widthFactor = dx > 0.0 ? 5.2 : 3.6;
-  float ridge = exp(-dx * dx * widthFactor) * 1.65;
-
-  // Secondary harmonic ripples across sheet:
-  float ripples = 0.20 * sin(gx * 2.4 + gy * 1.6 + t * 1.1) + 0.12 * cos(gx * 4.2 - gy * 2.6 + t * 0.7);
-
-  // Interactive mouse ripples & lift:
-  vec2 mPos = uMouse * vec2(2.0 * uAspect, 2.0);
-  vec2 mDiff = vec2(gx, gy) - mPos;
-  float mDist = length(mDiff);
-  float mInfluence = exp(-mDist * mDist * 1.8);
-  float mWave = sin(mDist * 4.2 - uTime * 2.2) * mInfluence * (0.16 + uAmt * 0.24);
-
-  float gz = ridge + ripples + mWave;
-
-  // Perturb x along slope of ridge to cluster dots on crest:
-  float slope = -2.0 * dx * widthFactor * ridge;
-  gx += slope * 0.08;
-
-  // Interactive camera rotation:
-  float rotX = 0.38 - uMouse.y * 0.12 - uScroll * 0.12;
-  float rotY = -0.34 + uMouse.x * 0.14;
-
-  vec3 pos = vec3(gx, gy, gz - 0.4);
-
-  // Rotate around Y:
-  float cy = cos(rotY), sy = sin(rotY);
-  vec3 p1 = vec3(pos.x * cy + pos.z * sy, pos.y, -pos.x * sy + pos.z * cy);
-
-  // Rotate around X:
-  float cx = cos(rotX), sx = sin(rotX);
-  vec3 p2 = vec3(p1.x, p1.y * cx - p1.z * sx, p1.y * sx + p1.z * cx);
-
-  p2.z -= 3.3;
-
-  // Perspective projection:
-  float fov = 1.95;
-  vec2 proj = (p2.xy / -p2.z) * fov;
-  proj.x /= uAspect;
-
-  gl_Position = vec4(proj, (-p2.z - 0.5) / 10.0, 1.0);
-
-  // Point sizing:
-  float depth = clamp(3.3 / (-p2.z), 0.4, 2.2);
-  float crestNorm = clamp(ridge / 1.65, 0.0, 1.0);
-  float baseSize = mix(2.4, 5.8, crestNorm) * depth;
-  gl_PointSize = clamp(baseSize * (uRes.y / 760.0), 1.5, 22.0);
-
-  // Surface normal & directional lighting:
-  vec3 norm = normalize(vec3(-slope * 0.55, -0.22 * cos(gy * 1.35), 1.0));
-  vec3 lightDir = normalize(vec3(0.55, 0.45, 0.75));
-  float surfLight = max(0.0, dot(norm, lightDir));
-
-  vCrest = crestNorm;
-  vSurfLight = surfLight;
-  vDepth = depth;
-  vEdgeFade = smoothstep(0.0, 0.06, u) * smoothstep(1.0, 0.94, u) *
-              smoothstep(0.0, 0.06, v) * smoothstep(1.0, 0.94, v);
-}
-`;
-
-  const fs = `
-precision mediump float;
-uniform float uFade;
-
-varying float vCrest;
-varying float vSurfLight;
-varying float vDepth;
-varying float vEdgeFade;
-
-void main() {
-  vec2 pt = gl_PointCoord * 2.0 - 1.0;
-  float r = length(pt);
-  if (r > 1.0) discard;
-
-  float circleAlpha = smoothstep(1.0, 0.70, r);
-
-  // 3D sphere crescent / micro-pin highlight on each individual dot:
-  vec3 sphereN = vec3(pt.x, -pt.y, sqrt(max(0.0, 1.0 - r * r)));
-  vec3 beadLight = normalize(vec3(0.55, 0.60, 0.70));
-  float diff = max(0.0, dot(sphereN, beadLight));
-  float spec = pow(max(0.0, dot(reflect(-beadLight, sphereN), vec3(0.0, 0.0, 1.0))), 6.0);
-  float beadLit = diff * 0.6 + spec * 0.8;
-
-  // Color palette matching the reference image:
-  // Deep warm shadow:
-  vec3 colShadow = vec3(0.09, 0.07, 0.05);
-  // Warm bronze / amber:
-  vec3 colMid = vec3(0.70, 0.46, 0.20);
-  // Warm golden crest:
-  vec3 colGold = vec3(0.96, 0.74, 0.32);
-  // Specular highlight:
-  vec3 colPeak = vec3(1.0, 0.94, 0.80);
-
-  float litFactor = clamp(vCrest * 0.78 + vSurfLight * 0.45, 0.0, 1.0);
-
-  vec3 col = mix(colShadow, colMid, smoothstep(0.06, 0.48, litFactor));
-  col = mix(col, colGold, smoothstep(0.48, 0.85, litFactor));
-  col = mix(col, colPeak, smoothstep(0.85, 1.0, litFactor) * beadLit);
-  col += colPeak * spec * vCrest * 0.55;
-
-  float alpha = mix(0.24, 0.98, litFactor) * circleAlpha * vEdgeFade * uFade;
-  gl_FragColor = vec4(col, alpha);
-}
-`;
-
-  const sh = (type, src) => {
-    const s = gl.createShader(type);
-    gl.shaderSource(s, src);
-    gl.compileShader(s);
-    if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) {
-      console.warn(gl.getShaderInfoLog(s));
-      return null;
-    }
-    return s;
-  };
-  const vShader = sh(gl.VERTEX_SHADER, vs);
-  const fShader = sh(gl.FRAGMENT_SHADER, fs);
-  if (!vShader || !fShader) return;
-
+  const vs = `attribute vec2 p; void main(){ gl_Position = vec4(p, 0., 1.); }`;
+  const fs = `precision highp float;
+uniform vec2 uRes; uniform float uTime; uniform vec2 uMouse; uniform float uAmt; uniform vec2 uFocus; uniform float uFade;
+float blob(vec2 p, vec2 c, float r){ vec2 d = p - c; return exp(-dot(d, d) / (r * r)); }
+void main(){
+  vec2 p = (gl_FragCoord.xy - .5 * uRes) / uRes.y;
+  float t = uTime;
+  vec3 base = vec3(.039, .090, .063);
+  vec3 col = mix(vec3(.030, .066, .046), vec3(.058, .135, .088), smoothstep(-.6, .5, p.x * .6 - p.y * .3));
+  col += vec3(.04, .12, .06) * blob(p, uFocus + vec2(.25 * cos(t * .07), .18 * sin(t * .09)), .9);
+  // the warm light behind the carton
+  col += vec3(.55, .36, .06) * blob(p, uFocus + vec2(0., .05), .55) * .42;
+  col += vec3(1., .80, .35) * blob(p, uFocus + vec2(0., .12), .22) * .10;
+  vec2 d = p - uFocus;
+  float a = atan(d.y, d.x), r = length(d);
+  float rays = smoothstep(.6, 1., sin(a * 12. + t * .05)) * smoothstep(1.2, .2, r) * smoothstep(.1, .32, r);
+  col += vec3(.95, .70, .2) * rays * .045;
+  // bokeh: soft warm discs drifting slowly upward
+  for (int i = 0; i < 16; i++) {
+    float fi = float(i);
+    float k1 = fract(sin(fi * 12.9898) * 43.5453), k2 = fract(sin(fi * 78.233) * 43.5453), k3 = fract(sin(fi * 39.425) * 43.5453);
+    float x = (k1 * 2. - 1.) * .95 * uRes.x / uRes.y + .05 * sin(t * .2 + fi);
+    float y = fract(k2 + t * (.006 + .01 * k3)) * 1.5 - .75;
+    float rad = .025 + .07 * k3;
+    float disc = smoothstep(rad, rad * .55, length(p - vec2(x, y)));
+    col += mix(vec3(1., .72, .25), vec3(1., .86, .55), k1) * disc * (.035 + .05 * k2);
+  }
+  col += vec3(.7, .5, .15) * blob(p, uMouse, .3) * (.05 + .1 * uAmt);
+  col *= 1. - .45 * smoothstep(.5, 1.5, length(p * vec2(.7, 1.)));
+  float n = fract(52.9829189 * fract(dot(gl_FragCoord.xy, vec2(.06711056, .00583715))));
+  col += (n - .5) / 255.;
+  gl_FragColor = vec4(mix(base, col, uFade), 1.);
+}`;
+  const sh = (type, src) => { const x = gl.createShader(type); gl.shaderSource(x, src); gl.compileShader(x); if (!gl.getShaderParameter(x, gl.COMPILE_STATUS)) { console.warn(gl.getShaderInfoLog(x)); return null; } return x; };
+  const v = sh(gl.VERTEX_SHADER, vs), f = sh(gl.FRAGMENT_SHADER, fs);
+  if (!v || !f) return;
   const pr = gl.createProgram();
-  gl.attachShader(pr, vShader);
-  gl.attachShader(pr, fShader);
+  gl.attachShader(pr, v); gl.attachShader(pr, f);
   gl.linkProgram(pr);
   if (!gl.getProgramParameter(pr, gl.LINK_STATUS)) return;
   gl.useProgram(pr);
-
-  // Generate grid points back to front
-  const NX = 180, NY = 110;
-  const count = NX * NY;
-  const pts = new Float32Array(count * 2);
-  let idx = 0;
-  for (let j = NY - 1; j >= 0; j--) {
-    const v = j / (NY - 1);
-    for (let i = 0; i < NX; i++) {
-      const u = i / (NX - 1);
-      pts[idx++] = u;
-      pts[idx++] = v;
-    }
-  }
-
-  const buf = gl.createBuffer();
-  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
-  gl.bufferData(gl.ARRAY_BUFFER, pts, gl.STATIC_DRAW);
-
-  const loc = gl.getAttribLocation(pr, "aGrid");
-  gl.enableVertexAttribArray(loc);
-  gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
-
-  gl.enable(gl.BLEND);
-  gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
-  gl.clearColor(0, 0, 0, 0);
-
+  gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
+  const loc = gl.getAttribLocation(pr, "p");
+  gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
   const U = (n) => gl.getUniformLocation(pr, n);
-  const uRes = U("uRes"), uTime = U("uTime"), uMouse = U("uMouse"), uAmt = U("uAmt"),
-        uAspect = U("uAspect"), uScroll = U("uScroll"), uFade = U("uFade");
-
-  const hero = $("#hero");
+  const uRes = U("uRes"), uTime = U("uTime"), uMouse = U("uMouse"), uAmt = U("uAmt"), uFocus = U("uFocus"), uFade = U("uFade");
+  const hero = $("#hero"), media = $("#hero-media");
   let W = 0, H = 0, visible = true;
-  const scale = Math.min(window.devicePixelRatio || 1, 1.5);
-  const resize = () => {
-    W = cv.width = Math.max(1, Math.round(cv.clientWidth * scale));
-    H = cv.height = Math.max(1, Math.round(cv.clientHeight * scale));
-    gl.viewport(0, 0, W, H);
-  };
-  resize();
-  addEventListener("resize", resize);
+  const scale = Math.min(devicePixelRatio || 1, 1.5) * 0.7;
+  const resize = () => { W = cv.width = Math.max(1, Math.round(cv.clientWidth * scale)); H = cv.height = Math.max(1, Math.round(cv.clientHeight * scale)); gl.viewport(0, 0, W, H); };
+  resize(); addEventListener("resize", resize);
   new IntersectionObserver(([e]) => (visible = e.isIntersecting)).observe(hero);
-
-  const mouse = { x: 0.15, y: 0.0, tx: 0.15, ty: 0.0, amt: 0 };
+  const mouse = { x: 0.4, y: 0, tx: 0.4, ty: 0, amt: 0 };
   let lastMx = 0, lastMy = 0;
   addEventListener("pointermove", (e) => {
     const r = cv.getBoundingClientRect();
-    mouse.tx = clamp((e.clientX - r.left - r.width / 2) / (r.width / 2), -1, 1);
-    mouse.ty = clamp(-(e.clientY - r.top - r.height / 2) / (r.height / 2), -1, 1);
-    const v = Math.hypot(e.clientX - lastMx, e.clientY - lastMy);
+    mouse.tx = (e.clientX - r.left - r.width / 2) / r.height;
+    mouse.ty = -(e.clientY - r.top - r.height / 2) / r.height;
+    mouse.amt = Math.min(1, mouse.amt + Math.min(Math.hypot(e.clientX - lastMx, e.clientY - lastMy), 30) * 0.004);
     lastMx = e.clientX; lastMy = e.clientY;
-    mouse.amt = Math.min(1.0, mouse.amt + Math.min(v, 30) * 0.003);
   });
-
   const fade = new Spring(0, { tension: 40, friction: 26 });
   whenReady(() => fade.to(1));
   if (RM || alreadyVisited) fade.to(1, { immediate: true });
-
   onTick((now) => {
     if (!visible) return;
-    mouse.x += (mouse.tx - mouse.x) * 0.028;
-    mouse.y += (mouse.ty - mouse.y) * 0.028;
-    mouse.amt *= 0.94;
-
-    gl.useProgram(pr);
+    mouse.x += (mouse.tx - mouse.x) * 0.06; mouse.y += (mouse.ty - mouse.y) * 0.06;
+    mouse.amt *= 0.97;
+    const r = cv.getBoundingClientRect(), m = media.getBoundingClientRect();
     gl.uniform2f(uRes, W, H);
     gl.uniform1f(uTime, RM ? 0 : now / 1000);
     gl.uniform2f(uMouse, mouse.x, mouse.y);
     gl.uniform1f(uAmt, mouse.amt);
-    gl.uniform1f(uAspect, W / H);
-    gl.uniform1f(uScroll, clamp(scrollY / Math.max(1, innerHeight), 0, 1));
-    gl.uniform1f(uFade, 0.25 + 0.75 * fade.x);
-
-    gl.clear(gl.COLOR_BUFFER_BIT);
-    gl.drawArrays(gl.POINTS, 0, count);
+    gl.uniform2f(uFocus, (m.left + m.width / 2 - r.left - r.width / 2) / r.height, -(m.top + m.height * 0.55 - r.top - r.height / 2) / r.height);
+    gl.uniform1f(uFade, 0.35 + 0.65 * fade.x);
+    gl.drawArrays(gl.TRIANGLES, 0, 3);
   }, 16);
 }
-initWaveBg();
+initCafeBg();
 
 /* The fry skin cut from the product photo and its bump map, inlined: WebGL refuses images read from
    neighbouring files when the page is opened straight from disk, so these travel inside the page. */
@@ -1849,6 +1693,12 @@ async function initHero3D() {
   const filling = new Group(); body.add(filling);
   const fries = kit.fillCup(filling, cupG.userData);
   const sauceG = kit.sauce(); filling.add(sauceG);
+  /* The fill: after the intro the carton arrives empty and the fries rain into it one by one, centre
+     first and the leaning outer ring last; then the sauce drops on top. FILL.t0 null = still empty. */
+  const FILL = { t0: RM ? -1e9 : null, drop: 0.5, height: 3.4, gap: 0.024 };
+  [...fries].sort((a, b) => (a.r + a.rnd * 0.35) - (b.r + b.rnd * 0.35)).forEach((f, i) => { f.fillDelay = i * FILL.gap; f.idx = i; f.spin = (f.rnd2 - 0.5) * 5; });
+  FILL.sauceAt = fries.length * FILL.gap + FILL.drop * 0.7;
+  const qDrop = new Quaternion();
   const sauceHome = new Vector3(0, 1.8, 0.08);
   sauceG.position.copy(sauceHome); sauceG.rotation.x = 0.24; sauceG.scale.setScalar(1.0);
   rig.rotation.x = 0.05;
@@ -1960,6 +1810,7 @@ async function initHero3D() {
 
   function doTrick(x, y, opts = {}) {
     if (trick && performance.now() - trick.t0 < 900) return; // let the fries land
+    if (FILL.t0 === null || (performance.now() - FILL.t0) / 1000 < FILL.sauceAt + 0.5) return; // still filling
     const t = TRICKS[trickIdx % TRICKS.length];
     if (!opts.quiet) { trickIdx++; }
     tossPower = opts.power ?? 1;
@@ -2029,9 +1880,11 @@ async function initHero3D() {
     if (alreadyVisited || RM) {
       intro = 1;
       introDone = true;
+      if (FILL.t0 === null) FILL.t0 = performance.now() + 250;
       return;
     }
-    introSp.to(1, { duration: 1400, easing: E.outCubic, onRest: () => { introDone = true; setTimeout(() => doTrick(0, 0, { quiet: true, power: 0.45, id: "toss" }), 120); } });
+    introSp.to(1, { duration: 1000, easing: E.outCubic, onRest: () => { introDone = true; } });
+    FILL.t0 = performance.now() + 700;
   });
 
   /* frame */
@@ -2087,7 +1940,21 @@ async function initHero3D() {
 
     const e = trick ? (now - trick.t0) / 1000 : 0;
     if (trick && e > 2.2) trick = null;
+    const fe = FILL.t0 === null ? -1 : (now - FILL.t0) / 1000;
     for (const f of fries) {
+      const ds = fe - f.fillDelay;
+      if (ds < 0) { f.mesh.visible = false; continue; }
+      f.mesh.visible = true;
+      let dropY = 0, dropA = 0;
+      if (ds < FILL.drop) {
+        const s = ds / FILL.drop;
+        dropY = FILL.height * (1 - s * s);            // falls under gravity
+        dropA = (1 - s) * (1 - s) * f.spin;            // tumbles, lands square
+      } else if (!f.dropped) {
+        f.dropped = true;
+        f.vx += (f.rnd - 0.5) * 0.09; f.vz += (f.rnd2 - 0.5) * 0.09;
+        if (f.idx % 10 === 0) sq.kick(-0.0005);
+      }
       // jiggle springs (radians), excited by acceleration of the body
       const hf = 0.5 + f.top * 0.4;
       const wallK = 1 - 0.75 * f.r * f.r;
@@ -2115,8 +1982,10 @@ async function initHero3D() {
           tmpV.z *= scale;
         }
       }
+      tmpV.y += dropY;
       f.mesh.position.copy(tmpV);
-      f.mesh.quaternion.copy(pose.q).multiply(jq).multiply(f.homeQ);
+      qDrop.setFromAxisAngle(f.axis, dropA);
+      f.mesh.quaternion.copy(qDrop).multiply(pose.q).multiply(jq).multiply(f.homeQ);
     }
 
     // sauce rides the fries
@@ -2127,6 +1996,10 @@ async function initHero3D() {
       if (trick.id === "bloom") { const s = e - 0.13; const env = s < 0.45 ? E.outBack(clamp(s / 0.45, 0, 1)) : s < 0.85 ? 1 : s < 1.5 ? 1 - E.inOutCubic((s - 0.85) / 0.65) : 0; sOff = env * 0.55; sRot = env * 0.2; }
       if (trick.id === "toss" && e > 1.1 && !trick.land) { trick.land = true; sq.kick(-0.0016 * tossPower); }
     }
+    const sd = fe - FILL.sauceAt;
+    sauceG.visible = sd >= 0;
+    if (sd >= 0 && sd < 0.42) { const s = sd / 0.42; sOff += 2.6 * (1 - s * s); }
+    else if (sd >= 0.42 && !FILL.splat) { FILL.splat = true; sauceSq.kick(-0.0016); sq.kick(-0.0018); }
     sauceG.position.set(sauceHome.x, sauceHome.y + sOff, sauceHome.z);
     sauceG.rotation.set(0.24 + sRot * 0.6, sRot, sRot * 0.4);
     const ss = clamp(sauceSq.x, -0.3, 0.3);
@@ -2186,45 +2059,76 @@ async function initHero3D() {
   return true;
 }
 
-/* ═══ preloader ═════════════════════════════════════════════════════════ */
+/* ═══ intro: the HOLLAND logo builds itself, holds, clears — then the carton fills ═════ */
 const pre = $("#preloader");
 const heroReady = initHero3D();
+const startPage = () => {
+  if (!page.revealing) { page.revealing = true; revealSubs.splice(0).forEach((f) => f()); }
+};
+const dropIntro = () => { if (pre && pre.isConnected) pre.parentNode.removeChild(pre); };
 if (RM || alreadyVisited) {
-  pre?.remove();
+  dropIntro();
   setReady();
   revealSubs.splice(0).forEach((f) => f());
 } else {
-  const count = $("#pre-count"), friesEl = $("#pre-fries"), sauceEl = $("#pre-sauce");
-  const level = new Spring(0, { tension: 120, friction: 26 });
-  const pour = new Spring(0, { tension: 90, friction: 18 });
-  const draw = () => {
-    const L = clamp(level.x, 0, 1);
-    count.textContent = String(Math.round(L * 100)).padStart(3, "0");
-    friesEl.setAttribute("transform", `translate(0 ${(1 - L) * 92 + pour.x * 40})`);
-    const s = clamp((L - 0.9) / 0.1, 0, 1);
-    sauceEl.style.transform = `scale(${E.outBack(s)})`;
-    pre.style.clipPath = `inset(${pour.x * 100}% 0 0 0)`;
-  };
-  level.on(draw); pour.on(draw);
+  const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+  const inCubic = (t) => t * t * t;
+  const bars = $$(".intro-mark .bar", pre), tri = $(".intro-mark .tri", pre), mark = $(".intro-mark", pre);
+  const letters = $$("#intro-word span"), sub = $("#intro-sub"), line = $("#intro-line"), glow = $("#intro-glow");
   const t0 = performance.now();
-  let finishing = false;
-  level.to(0.1);
-  document.fonts?.ready.then(() => !finishing && level.to(0.6));
+
+  // 1 · the red cone drops in, the five fries fan up out of it, centre first
+  const triSp = new Spring(0, { tension: 260, friction: 13 });
+  triSp.on((v) => (tri.style.transform = `translateY(${(1 - Math.min(v, 1)) * -40}px) scale(${Math.max(0, v)}) rotate(${(1 - v) * -35}deg)`));
+  triSp.to(1, { delay: 120 });
+  bars.forEach((b, i) => {
+    const sp = new Spring(0, { tension: 230, friction: 13 });
+    sp.on((v) => (b.style.transform = `scaleY(${Math.max(0, v)})`));
+    sp.to(1, { delay: 380 + Math.abs(i - 2) * 90 });
+  });
+  const glowSp = new Spring(0);
+  glowSp.on((v) => { glow.style.opacity = v; glow.style.transform = `scale(${0.6 + v * 0.4})`; });
+  glowSp.to(1, { duration: 1100, easing: E.outCubic, delay: 420 });
+
+  // 2 · HOLLAND rises letter by letter, "Fries & Cheese" is written in, a gold rule draws under it
+  // (each spring runs 0 → 1 to come in and 1 → 2 to leave)
+  const letterSp = letters.map((l, i) => {
+    const sp = new Spring(0);
+    sp.on((v) => (l.style.transform = `translateY(${v <= 1 ? 110 - v * 110 : -(v - 1) * 110}%)`));
+    sp.to(1, { duration: 720, easing: E.outCubic, delay: 820 + i * 60 });
+    return sp;
+  });
+  const subSp = new Spring(0);
+  subSp.on((v) => (sub.style.clipPath = v <= 1 ? `inset(0 ${100 - v * 100}% 0 0)` : `inset(0 0 0 ${(v - 1) * 100}%)`));
+  subSp.to(1, { duration: 820, easing: E.inOutCubic, delay: 1350 });
+  const lineSp = new Spring(0);
+  lineSp.on((v) => (line.style.transform = `scaleX(${v})`));
+  lineSp.to(1, { duration: 700, easing: E.outCubic, delay: 1550 });
+
   const loaded = new Promise((r) => (document.readyState === "complete" ? r() : addEventListener("load", r, { once: true })));
-  const finish = () => {
-    if (finishing) return;
-    finishing = true;
-    level.to(1, {
-      onRest: () => setTimeout(() => {
-        page.revealing = true;
-        revealSubs.splice(0).forEach((f) => f());
-        pour.to(1, { onRest: () => { pre.remove(); setReady(); lenis?.start(); } });
-      }, Math.max(0, 1500 - (performance.now() - t0)) + 180),
-    });
+  let leaving = false;
+  const leave = async () => {
+    if (leaving) return;
+    leaving = true;
+    await wait(Math.max(0, 2900 - (performance.now() - t0)));
+    // 3 · the wordmark lifts away, the writing wipes off, the mark shrinks out
+    letterSp.forEach((sp, i) => sp.to(2, { duration: 420, easing: inCubic, delay: i * 35 }));
+    subSp.to(2, { duration: 460, easing: inCubic, delay: 80 });
+    lineSp.to(0, { duration: 380, easing: inCubic });
+    glowSp.to(0, { duration: 500, easing: inCubic });
+    const markSp = new Spring(1);
+    markSp.on((v) => { mark.style.transform = `scale(${0.5 + v * 0.5})`; mark.style.opacity = v; });
+    markSp.to(0, { duration: 520, easing: inCubic, delay: 220 });
+    await wait(600);
+    // 4 · the page shows through and the 3D carton rises and fills with fries
+    startPage();
+    const fade = new Spring(1);
+    fade.on((v) => (pre.style.opacity = v));
+    fade.to(0, { duration: 600, easing: E.outCubic, onRest: () => { dropIntro(); setReady(); lenis?.start(); } });
   };
-  Promise.all([loaded, heroReady]).then(() => { level.to(0.85); finish(); });
-  setTimeout(finish, 4000);
-  setTimeout(() => { if (!page.ready) { pre.remove(); setReady(); lenis?.start(); } }, 6000);
+  Promise.all([loaded, heroReady]).then(leave);
+  setTimeout(leave, 5000);
+  setTimeout(() => { if (!page.ready) { startPage(); dropIntro(); setReady(); lenis?.start(); } }, 9000);
 }
 
 /* ═══ Lenis ═════════════════════════════════════════════════════════════ */

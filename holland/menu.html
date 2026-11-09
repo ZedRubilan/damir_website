@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Меню — HOLLAND Fries &amp; Cheese · картошка фри с сыром</title>
 <meta name="description" content="Меню HOLLAND Fries & Cheese — классическая фри, сырные боксы, loaded-фри, наггетсы и фирменные соусы. Закажи онлайн.">
-<meta name="theme-color" content="#0b0d0a">
+<meta name="theme-color" content="#0a1710">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230f4a26'/%3E%3Cg fill='%23f7c21b'%3E%3Crect x='29' y='8' width='6' height='22' rx='2'/%3E%3Crect x='29' y='8' width='6' height='22' rx='2' transform='rotate(-22 32 40)'/%3E%3Crect x='29' y='8' width='6' height='22' rx='2' transform='rotate(22 32 40)'/%3E%3C/g%3E%3Cpath d='M18 30h28L32 56z' fill='%23e3261c'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,10 +19,10 @@
 </script>
 <style>
 :root {
-  --bg: #0b0d0a;
-  --bg-2: #10130e;
-  --card: #141811;
-  --card-2: #1a1f16;
+  --bg: #0a1710;
+  --bg-2: #0e1f15;
+  --card: #11241a;
+  --card-2: #173022;
   --line: rgba(246, 241, 230, .1);
   --line-2: rgba(246, 241, 230, .18);
   --fg: #f6f1e6;
@@ -51,7 +51,10 @@ html.lenis, html.lenis body { height: auto; }
 html.is-locked { overflow: hidden; }
 body {
   margin: 0;
-  background: var(--bg);
+  /* deep cafe green, a warm wash from the top and a faint doodle tile */
+  background: radial-gradient(90% 50% at 50% 0%, rgba(32, 72, 44, .55), transparent 70%) no-repeat,
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260' viewBox='0 0 260 260'%3E%3Cg fill='none' stroke='%23ffc21a' stroke-opacity='.05' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M30 62l5 32h22l5-32zM37 62l-3-18M44 62V40M51 62l2-20M57 62l4-16'/%3E%3Cpath d='M150 70l44-24 16 12v16H150zM170 66a4 4 0 1 0 0 .1M192 62a3 3 0 1 0 0 .1'/%3E%3Cpath d='M64 160h10v8l4 5v32a4 4 0 0 1-4 4H64a4 4 0 0 1-4-4v-32l4-5zM60 186h18'/%3E%3Cpath d='M196 168v22M185 179h22M120 120h.1M230 230h.1M20 220h.1M140 228h.1'/%3E%3Cpath d='M118 200c10-8 22 6 32-2s18 4 26-2'/%3E%3C/g%3E%3C/svg%3E") 0 0 / 260px 260px,
+    linear-gradient(180deg, #0c1c13, var(--bg) 40%);
   color: var(--fg);
   font: 500 16px/1.55 var(--f-sans);
   -webkit-font-smoothing: antialiased;
@@ -113,7 +116,7 @@ h1, h2, h3, p { margin: 0; }
 /* ── header ──────────────────────────────────────── */
 .site-header { position: fixed; inset: 0 0 auto 0; z-index: 50; height: var(--header-h); }
 .site-header::before {
-  content: ""; position: absolute; inset: 0; background: rgba(11, 13, 10, .72);
+  content: ""; position: absolute; inset: 0; background: rgba(10, 23, 16, .72);
   -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--line); opacity: var(--hdr-bg, 0);
 }
@@ -203,7 +206,7 @@ h1, h2, h3, p { margin: 0; }
   gap: 14px;
   padding: 12px 14px;
   border-radius: 18px;
-  background: rgba(26, 31, 22, 0.75);
+  background: rgba(23, 48, 34, 0.75);
   border: 1px solid var(--line-2);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
@@ -228,7 +231,7 @@ h1, h2, h3, p { margin: 0; }
   border-radius: 12px;
   overflow: hidden;
   flex: none;
-  background: #141811;
+  background: #11241a;
   border: 1px solid var(--line);
 }
 .hero-hit-img img {
@@ -274,7 +277,7 @@ h1, h2, h3, p { margin: 0; }
   position: sticky;
   top: var(--header-h);
   z-index: 30;
-  background: rgba(11, 13, 10, .94);
+  background: rgba(10, 23, 16, .94);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--line);
@@ -301,7 +304,7 @@ h1, h2, h3, p { margin: 0; }
   padding: 0 16px;
   border-radius: 999px;
   border: 1px solid var(--line-2);
-  background: rgba(20, 24, 17, .65);
+  background: rgba(17, 36, 26, .65);
   font: 700 11px/1 var(--f-mono);
   letter-spacing: .08em;
   text-transform: uppercase;
@@ -355,7 +358,7 @@ h1, h2, h3, p { margin: 0; }
   position: relative;
   aspect-ratio: 4 / 3;
   overflow: hidden;
-  background: #141811;
+  background: #11241a;
   border-bottom: 1px solid var(--line);
 }
 .mcard-pic img {
@@ -374,7 +377,7 @@ h1, h2, h3, p { margin: 0; }
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, transparent 40%, rgba(20,24,17,0.7) 100%);
+  background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, transparent 40%, rgba(17,36,26,0.7) 100%);
   pointer-events: none;
 }
 .mcard-pic .badge {
@@ -432,7 +435,7 @@ h1, h2, h3, p { margin: 0; }
 }
 
 /* ── footer ──────────────────────────────────────── */
-.site-footer { margin-top: 0; border-top: 1px solid var(--line); background: #080a07; }
+.site-footer { margin-top: 0; border-top: 1px solid var(--line); background: #07120c; }
 .foot-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1.3fr 1.2fr; gap: 40px; padding: 64px 0 50px; }
 .foot-grid h5 { margin: 0 0 18px; font: 600 12px/1 var(--f-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--fg); }
 .foot-grid li { margin-bottom: 10px; }
