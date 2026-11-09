@@ -1304,7 +1304,7 @@ initOpal();
 /* ═══ the 3D fries kit ═══════════════════════════════════════════════════ */
 function mulberry32(a) { return () => { a |= 0; a = (a + 0x6d2b79f5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
 
-function makeKit(THREE, RoundedBoxGeometry) {
+function makeKit(THREE, skins) {
   const { Group, Mesh, MeshStandardMaterial: MSM, MeshPhysicalMaterial: MPM, CanvasTexture, SRGBColorSpace, Vector2, Vector3, Quaternion,
     LatheGeometry, CylinderGeometry, SphereGeometry, CircleGeometry, TorusGeometry, TubeGeometry, CatmullRomCurve3, DoubleSide, BackSide, DodecahedronGeometry } = THREE;
   const rnd = mulberry32(11);
@@ -1336,13 +1336,54 @@ function makeKit(THREE, RoundedBoxGeometry) {
     g.fillStyle = "#808080"; g.fillRect(0, 0, w, h);
     for (let i = 0; i < 600; i++) { const v = (r() * 255) | 0; g.fillStyle = `rgba(${v},${v},${v},.35)`; g.beginPath(); g.arc(r() * w, r() * h, 0.5 + r() * 1.8, 0, 7); g.fill(); }
   }, false);
-  const fryMats = [0xffffff, 0xfff1da, 0xffe3bd, 0xfff9ee].map((c) => new MSM({ color: c, map: fryMap, bumpMap: fryBump, bumpScale: 0.7, roughness: 0.55, metalness: 0 }));
-  const fryGeo = new RoundedBoxGeometry(0.13, 1, 0.13, 2, 0.028);
+  /* The skin is cut from the product photo (assets/fry-skin.jpg: six fry-wide strips side by side),
+     with a matching crisp-bubble bump map. Without it, the drawn texture above stands in. */
+  const STRIPS = skins ? 6 : 1;
+  const skinMap = skins?.map || fryMap, skinBump = skins?.bump || fryBump;
+  // tints pull the photo skin toward the deep gold of the real fries once tone mapping has had its say
+  const fryMats = (skins ? [0xf2d2ac, 0xecc69c, 0xf6dab8, 0xe4bb8e] : [0xffffff, 0xfff1da, 0xffe3bd, 0xfff9ee]).map((c) => new MSM({
+    color: c, map: skinMap, bumpMap: skinBump, bumpScale: skins ? 2.4 : 0.7, roughness: 0.42, metalness: 0, envMapIntensity: 0.75,
+  }));
+  /* One fry: a cut potato stick, not a box — chamfered edges, a thickness that wanders along its
+     length, a slight bend and twist, slanted cut ends and a bubbly surface. Every vertex moves as a
+     function of its original position only, so the box's duplicated edge vertices stay together. */
+  const { BoxGeometry } = THREE;
+  const fryGeometry = (L, w, d) => {
+    const g = new BoxGeometry(w, L, d, 2, 18, 2);
+    const p = g.attributes.position, uv = g.attributes.uv;
+    const bend = (rnd() - 0.5) * 0.06, bendZ = (rnd() - 0.5) * 0.04, twist = (rnd() - 0.5) * 0.35;
+    const slantA = (rnd() - 0.5) * 0.9, slantB = (rnd() - 0.5) * 0.9, ph = rnd() * 10;
+    const strip = (rnd() * STRIPS) | 0;
+    for (let i = 0; i < p.count; i++) {
+      const x0 = p.getX(i), y0 = p.getY(i), z0 = p.getZ(i);
+      const t = y0 / L + 0.5;
+      let x = x0, y = y0, z = z0;
+      const edgeX = Math.abs(x0) > w / 2 - 1e-5, edgeZ = Math.abs(z0) > d / 2 - 1e-5;
+      if (edgeX && edgeZ) { x *= 0.84; z *= 0.84; }                       // chamfer
+      const k = 1 + 0.022 * Math.sin(t * 5.1 + ph) + 0.012 * Math.sin(t * 13 + ph * 2.1) - 0.07 * Math.pow(Math.abs(t - 0.5) * 2, 8);
+      x *= k; z *= k;
+      const n = 0.002 * (Math.sin(x0 * 140 + y0 * 41 + ph) + Math.sin(z0 * 131 - y0 * 57 + ph * 1.7) + Math.sin(y0 * 93 + ph * 3));
+      if (edgeX) x += Math.sign(x0) * n;
+      if (edgeZ) z += Math.sign(z0) * n;
+      if (Math.abs(y0) > L / 2 - 1e-5) { x *= 0.9; z *= 0.9; y += (y0 > 0 ? slantA : slantB) * x0 + (y0 > 0 ? -1 : 1) * 0.012; }
+      const a = twist * (t - 0.5), c = Math.cos(a), s = Math.sin(a);
+      const xr = x * c - z * s, zr = x * s + z * c;
+      const bt = (t - 0.5) * 2;
+      p.setXYZ(i, xr + bend * L * bt * bt, y, zr + bendZ * L * bt * bt);
+    }
+    // the side faces read one fry-wide strip of the atlas; the cut ends read its dark browned end
+    const capStart = 2 * 3 * 19, capEnd = capStart + 2 * 9;
+    for (let i = 0; i < uv.count; i++) {
+      const u = uv.getX(i), v = uv.getY(i);
+      if (i >= capStart && i < capEnd) uv.setXY(i, (strip + 0.2 + u * 0.6) / STRIPS, 0.015 + v * 0.02);
+      else uv.setXY(i, (strip + 0.03 + u * 0.94) / STRIPS, v);
+    }
+    g.computeVertexNormals();
+    return g;
+  };
   const fry = (L) => {
-    const m = new Mesh(fryGeo, fryMats[(rnd() * fryMats.length) | 0]);
-    const w = 0.88 + rnd() * 0.24;
-    m.scale.set(w, L, w * (0.9 + rnd() * 0.2));
-    return m;
+    const w = 0.13 * (0.88 + rnd() * 0.24);
+    return new Mesh(fryGeometry(L, w, w * (0.88 + rnd() * 0.22)), fryMats[(rnd() * fryMats.length) | 0]);
   };
 
   /* print: green carton with the HOLLAND mark */
@@ -1411,38 +1452,46 @@ function makeKit(THREE, RoundedBoxGeometry) {
     return g;
   }
 
-  function fillCup(group, { H, rb, rt }, N = 46, opts = {}) {
+  /* Fill a carton the way fries really sit: each one is placed by where it crosses the rim and how
+     far it leans out, then traced back down to a foot inside the carton — often on the far side, so
+     the fries cross each other inside and fan out above the rim like a bouquet. */
+  function fillCup(group, { H, rb, rt }, N = 54) {
     const list = [];
-    // keep every fry's corner (half-diagonal ≈ 0.095) plus its sway clear of the carton wall
-    const rMax = 0.56, wall = (y) => lerp(rb, rt, y / H) - 0.135;
+    // every fry's corner (half-diagonal ≈ 0.095) plus its sway stays clear of the carton wall
+    const wall = (y) => lerp(rb, rt, y / H) - 0.16, rimMax = wall(H);
     for (let k = 0; k < N; k++) {
-      let r = rMax * Math.sqrt((k + 0.5) / N);
+      const u = Math.sqrt((k + 0.5) / N);
+      const rimR = rimMax * Math.min(1, u * (0.96 + rnd() * 0.08));
       const a = k * 2.399963 + rnd() * 0.3;
-      const yb = 0.32 + rnd() * 0.3;
-      const L = (opts.Lmin ?? 1.0) + rnd() * (opts.Lvar ?? 0.5) + (1 - r / rMax) * 0.18;
-      r = Math.min(r, wall(yb));
-      let th = 0.05 + (r / rMax) * 0.42 + rnd() * 0.08;
-      const maxTan = (wall(H) - r) / (H - yb);
-      if (Math.tan(th) > maxTan) th = Math.atan(Math.max(0.03, maxTan));
-      const da = a + (rnd() - 0.5) * 0.45;
+      const da = a + (rnd() - 0.5) * 0.5;
+      const yb = 0.3 + rnd() * 0.28;
+      const rimPt = new Vector3(rimR * Math.cos(a), H, rimR * Math.sin(a));
+      let th = 0.06 + Math.pow(rimR / rimMax, 1.4) * 0.62 + rnd() * 0.1, base;
+      for (let i = 0; i < 12; i++) {
+        const back = (H - yb) * Math.tan(th);
+        base = new Vector3(rimPt.x - back * Math.cos(da), yb, rimPt.z - back * Math.sin(da));
+        if (Math.hypot(base.x, base.z) <= wall(yb)) break;
+        th *= 0.85;
+      }
       const dir = new Vector3(Math.sin(th) * Math.cos(da), Math.cos(th), Math.sin(th) * Math.sin(da));
-      const base = new Vector3(r * Math.cos(a), yb, r * Math.sin(a));
+      const inside = (H - yb) / dir.y;
+      // short in the middle where the sauce sits, longer and leaning out toward the rim
+      const L = inside + 0.26 + rnd() * (0.2 + 0.45 * (rimR / rimMax));
       const center = base.clone().addScaledVector(dir, L / 2);
       const q = new Quaternion().setFromUnitVectors(new Vector3(0, 1, 0), dir).multiply(new Quaternion().setFromAxisAngle(new Vector3(0, 1, 0), rnd() * Math.PI));
       const m = fry(L);
       m.position.copy(center); m.quaternion.copy(q);
       group.add(m);
       const ax = new Vector3(rnd() - 0.5, 0, rnd() - 0.5).normalize();
-      const rimPt = base.clone().addScaledVector(dir, (H - yb) / dir.y);
-      list.push({ mesh: m, home: center.clone(), homeQ: q.clone(), base, dir, L, r: r / rMax, a, rimPt,
-        top: yb + L * Math.cos(th), phase: rnd() * 6.28, rnd: rnd(), rnd2: rnd(), axis: ax,
+      list.push({ mesh: m, home: center.clone(), homeQ: q.clone(), base, dir, L, r: rimR / rimMax, a: da, rimPt,
+        top: yb + L * dir.y, phase: rnd() * 6.28, rnd: rnd(), rnd2: rnd(), axis: ax,
         jx: 0, jz: 0, vx: 0, vz: 0 });
     }
     return list;
   }
 
-  const cheeseMat = new MPM({ color: 0xe57c0c, roughness: 0.2, clearcoat: 1, clearcoatRoughness: 0.12 });
-  const mayoMat = new MPM({ color: 0xfbf0d8, roughness: 0.28, clearcoat: 0.8, clearcoatRoughness: 0.18 });
+  const cheeseMat = new MPM({ color: 0xd8640a, roughness: 0.2, clearcoat: 1, clearcoatRoughness: 0.12 });
+  const mayoMat = new MPM({ color: 0xf6ecd2, roughness: 0.28, clearcoat: 0.8, clearcoatRoughness: 0.18 });
   const blob = (mat, rx, ry, rz, seed) => {
     const geo = new SphereGeometry(1, 56, 28);
     const p = geo.attributes.position, v = new Vector3();
@@ -1470,8 +1519,9 @@ function makeKit(THREE, RoundedBoxGeometry) {
     const c1 = blob(cheeseMat, 0.5, 0.14, 0.42, 1);
     const c2 = blob(cheeseMat, 0.3, 0.12, 0.28, 3); c2.position.set(0.22, 0.03, 0.12);
     const c3 = blob(cheeseMat, 0.26, 0.1, 0.24, 5); c3.position.set(-0.24, 0.02, -0.08);
-    const mayo = tube(mayoMat, [[-0.42, 0.1, -0.06], [-0.24, 0.17, 0.16], [-0.04, 0.17, -0.1], [0.14, 0.18, 0.15], [0.34, 0.15, -0.04], [0.44, 0.08, 0.1]], 0.075);
-    mayo.scale.y = 0.75;
+    // a thick ribbon of mayo folded over the cheese, as in the photo
+    const mayo = tube(mayoMat, [[-0.46, 0.1, 0.02], [-0.3, 0.2, 0.22], [-0.08, 0.22, 0.02], [-0.22, 0.24, -0.2], [0.04, 0.26, -0.24], [0.2, 0.24, 0.0], [0.04, 0.24, 0.2], [0.3, 0.2, 0.24], [0.46, 0.12, 0.06]], 0.105);
+    mayo.scale.y = 0.62;
     const drizzle = tube(cheeseMat, [[-0.3, 0.2, 0.2], [-0.1, 0.24, -0.02], [0.1, 0.23, 0.2], [0.3, 0.2, 0.0]], 0.042);
     g.add(c1, c2, c3, mayo, drizzle);
     return g;
@@ -1495,7 +1545,15 @@ function makeKit(THREE, RoundedBoxGeometry) {
       const m = fry(0.75 + rnd() * 0.45);
       const a = rnd() * Math.PI * 2, r = Math.sqrt(rnd()) * spread;
       m.position.set(Math.cos(a) * r, yMin + rnd() * yVar + (1 - r / spread) * 0.18, Math.sin(a) * r * 0.85);
-      m.rotation.set(Math.PI / 2 + (rnd() - 0.5) * 0.7, rnd() * Math.PI, (rnd() - 0.5) * 0.5);
+      m.rotation.set(Math.PI / 2 + (rnd() - 0.5) * 0.5, rnd() * Math.PI, (rnd() - 0.5) * 0.4);
+      // keep both ends inside the tray (its floor is ±0.55 square) and above its floor
+      const L = m.geometry.parameters.height;
+      const half = new Vector3(0, L / 2, 0).applyEuler(m.rotation);
+      for (const ax of ["x", "z"]) {
+        const room = Math.max(0, 0.46 - Math.abs(half[ax])), off = group.position[ax];
+        m.position[ax] = clamp(m.position[ax], -room - off, room - off);
+      }
+      m.position.y = Math.max(m.position.y, Math.abs(half.y) + 0.08);
       group.add(m);
     }
   }
@@ -1509,7 +1567,7 @@ function makeKit(THREE, RoundedBoxGeometry) {
     if (type === "classic" || type === "cheese") {
       const c = cup(); root.add(c);
       const fill = new Group(); root.add(fill);
-      fillCup(fill, c.userData, 46);
+      fillCup(fill, c.userData);
       if (type === "cheese") { const s = sauce(); s.position.set(0, 1.78, 0.05); s.rotation.x = 0.22; root.add(s); }
       root.rotation.y = 0.0;
     } else {
@@ -1522,7 +1580,7 @@ function makeKit(THREE, RoundedBoxGeometry) {
         for (let i = 0; i < 30; i++) { const o = new Mesh(new CylinderGeometry(0.018, 0.018, 0.05, 8), greenMat); const a = rnd() * 6.28, r = rnd() * 0.6; o.position.set(Math.cos(a) * r, 0.78, Math.sin(a) * r * 0.85); o.rotation.set(rnd() * 3, rnd() * 3, rnd() * 3); root.add(o); }
         root.add(tube(mayoMat, [[-0.5, 0.78, 0.1], [-0.25, 0.82, -0.15], [0, 0.82, 0.15], [0.25, 0.82, -0.12], [0.5, 0.77, 0.08]], 0.045));
       } else {
-        const fr = new Group(); pile(fr, 26, 0.45, 0.12, 0.3); fr.position.set(-0.35, 0, -0.1); root.add(fr);
+        const fr = new Group(); fr.position.set(-0.3, 0, -0.08); pile(fr, 26, 0.4, 0.12, 0.3); root.add(fr);
         for (let i = 0; i < 3; i++) {
           const n = blob(nuggetMat, 0.26, 0.42, 0.2, i * 2 + 1);
           n.position.set(0.38 + (i - 1) * 0.08, 0.36 + i * 0.02, -0.25 + i * 0.27);
@@ -1562,10 +1620,9 @@ const TRICKS = [
 ];
 
 async function initHero3D() {
-  let THREE, RoundedBoxGeometry, RoomEnvironment;
+  let THREE, RoomEnvironment;
   try {
     THREE = await import("three");
-    ({ RoundedBoxGeometry } = await import("three/addons/geometries/RoundedBoxGeometry.js"));
     ({ RoomEnvironment } = await import("three/addons/environments/RoomEnvironment.js"));
   } catch (e) { heroPhotoFallback(); return false; }
 
@@ -1592,7 +1649,12 @@ async function initHero3D() {
   scene.add(key, rim, rim2, fill);
 
   const camera = new PerspectiveCamera(26, 1, 0.1, 100);
-  const kit = makeKit(THREE, RoundedBoxGeometry);
+  // the fry skin cut from the product photo; the drawn one stands in if it fails to load
+  const loader = new THREE.TextureLoader();
+  const skins = await Promise.all([loader.loadAsync("assets/fry-skin.jpg"), loader.loadAsync("assets/fry-bump.jpg")])
+    .then(([map, bump]) => { map.colorSpace = THREE.SRGBColorSpace; map.anisotropy = bump.anisotropy = 8; return { map, bump }; })
+    .catch(() => null);
+  const kit = makeKit(THREE, skins);
 
   /* rig → body → (cupPivot → cup) + filling(fries + sauce) */
   const rig = new Group(); scene.add(rig);
@@ -1600,10 +1662,10 @@ async function initHero3D() {
   const cupPivot = new Group(); cupPivot.position.y = 0.65; body.add(cupPivot);
   const cupG = kit.cup(); cupG.position.y = -0.65; cupPivot.add(cupG);
   const filling = new Group(); body.add(filling);
-  const fries = kit.fillCup(filling, cupG.userData, 48);
+  const fries = kit.fillCup(filling, cupG.userData);
   const sauceG = kit.sauce(); filling.add(sauceG);
-  const sauceHome = new Vector3(0, 1.8, 0.06);
-  sauceG.position.copy(sauceHome); sauceG.rotation.x = 0.24;
+  const sauceHome = new Vector3(0, 1.72, 0.08);
+  sauceG.position.copy(sauceHome); sauceG.rotation.x = 0.24; sauceG.scale.setScalar(1.12);
   rig.rotation.x = 0.05;
 
   // soft ground shadow
@@ -1870,8 +1932,8 @@ async function initHero3D() {
       je.set(f.jx + breathe, 0, f.jz - breathe * 0.6);
       jq.setFromEuler(je);
       trickPose(f, e, pose);
-      // jiggle pivots about the fry's foot; a trick turns it about its centre or its pivot
-      tmpV.copy(f.home).sub(f.base).applyQuaternion(jq).add(f.base);
+      // jiggle pivots where the fry crosses the rim; a trick turns it about its centre or its pivot
+      tmpV.copy(f.home).sub(f.rimPt).applyQuaternion(jq).add(f.rimPt);
       if (pose.pivot) tmpV.sub(pose.pivot).applyQuaternion(pose.q).add(pose.pivot);
       tmpV.add(pose.off);
       f.mesh.position.copy(tmpV);
@@ -1889,7 +1951,7 @@ async function initHero3D() {
     sauceG.position.set(sauceHome.x, sauceHome.y + sOff, sauceHome.z);
     sauceG.rotation.set(0.24 + sRot * 0.6, sRot, sRot * 0.4);
     const ss = clamp(sauceSq.x, -0.3, 0.3);
-    sauceG.scale.set(1 - ss * 1.5, 1 + ss * 3, 1 - ss * 1.5);
+    sauceG.scale.set(1.12 * (1 - ss * 1.5), 1.12 * (1 + ss * 3), 1.12 * (1 - ss * 1.5));
 
     // shadow follows the hop
     const air = Math.max(0, body.position.y) + (flipA ? 0.2 : 0);
